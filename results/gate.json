@@ -1,0 +1,826 @@
+{
+  "meta": {
+    "generated_at": "2026-08-20 09:08",
+    "source_table": "data/processed/trial_table.csv",
+    "source_row_count": 22264
+  },
+  "gate": {
+    "threshold": {
+      "value": 60,
+      "formula": "Hanley-McNeil (1982) SE(AUC) = sqrt[AUC(1-AUC) + (n1-1)(Q1-AUC^2) + (n2-1)(Q2-AUC^2)] / sqrt(n1*n2); Q1=AUC/(2-AUC), Q2=2*AUC^2/(1+AUC)",
+      "assumed_auc": 0.65,
+      "assumed_class_balance": "balanced (n1=n2=m), consistent with the pooled minority fraction ~0.48 observed in this dataset (2d)",
+      "target_ci_half_width": 0.1,
+      "solved_se": 0.05,
+      "solved_half_width": 0.098,
+      "clause_a": "smallest test fold has >= 60 trials in its minority class",
+      "clause_b": "at least 10 of 12 dyads (or the equivalent ~83% fraction at reduced n) individually satisfy Clause A",
+      "rejected_lower_threshold_reason": "The plan's a-priori expected landing zone (m~25-30) yields a half-width of ~0.14-0.15 at AUC=0.65-0.70 -- more than 40% wider than the +/-0.10 target, wide enough that a demoted 'exploratory' experiment's CI would look no worse than a genuinely underpowered one. m=60 was used instead because it is what the Hanley-McNeil arithmetic actually solves to at the stated assumptions; rounding down to the expected figure would have fitted the threshold to a prior guess rather than to the target CI precision."
+    },
+    "counts": {
+      "trials_per_participant": {
+        "sub01": 484,
+        "sub02": 484,
+        "sub03": 968,
+        "sub04": 968,
+        "sub05": 968,
+        "sub06": 968,
+        "sub07": 968,
+        "sub08": 968,
+        "sub09": 968,
+        "sub10": 968,
+        "sub11": 968,
+        "sub12": 968,
+        "sub13": 968,
+        "sub14": 968,
+        "sub15": 968,
+        "sub16": 968,
+        "sub17": 968,
+        "sub18": 968,
+        "sub19": 968,
+        "sub20": 968,
+        "sub21": 968,
+        "sub22": 968,
+        "sub23": 968,
+        "sub24": 968
+      },
+      "trials_per_dyad": {
+        "sub01_sub02": 484,
+        "sub03_sub06": 968,
+        "sub04_sub05": 968,
+        "sub07_sub08": 968,
+        "sub09_sub10": 968,
+        "sub11_sub12": 968,
+        "sub13_sub14": 968,
+        "sub15_sub16": 968,
+        "sub17_sub18": 968,
+        "sub19_sub22": 968,
+        "sub20_sub21": 968,
+        "sub23_sub24": 968
+      },
+      "sessions_per_dyad": {
+        "sub01_sub02": 1,
+        "sub03_sub06": 2,
+        "sub04_sub05": 2,
+        "sub07_sub08": 2,
+        "sub09_sub10": 2,
+        "sub11_sub12": 2,
+        "sub13_sub14": 2,
+        "sub15_sub16": 2,
+        "sub17_sub18": 2,
+        "sub19_sub22": 2,
+        "sub20_sub21": 2,
+        "sub23_sub24": 2
+      },
+      "seq_range_per_dyad": {
+        "sub01_sub02": {
+          "min": 1,
+          "max": 484
+        },
+        "sub03_sub06": {
+          "min": 1,
+          "max": 968
+        },
+        "sub04_sub05": {
+          "min": 1,
+          "max": 968
+        },
+        "sub07_sub08": {
+          "min": 1,
+          "max": 968
+        },
+        "sub09_sub10": {
+          "min": 1,
+          "max": 968
+        },
+        "sub11_sub12": {
+          "min": 1,
+          "max": 968
+        },
+        "sub13_sub14": {
+          "min": 1,
+          "max": 968
+        },
+        "sub15_sub16": {
+          "min": 1,
+          "max": 968
+        },
+        "sub17_sub18": {
+          "min": 1,
+          "max": 968
+        },
+        "sub19_sub22": {
+          "min": 1,
+          "max": 968
+        },
+        "sub20_sub21": {
+          "min": 1,
+          "max": 968
+        },
+        "sub23_sub24": {
+          "min": 1,
+          "max": 968
+        }
+      },
+      "trials_per_role_per_participant": {
+        "sub01": {
+          "deceiver": 484,
+          "observer": 0
+        },
+        "sub02": {
+          "deceiver": 0,
+          "observer": 484
+        },
+        "sub03": {
+          "deceiver": 484,
+          "observer": 484
+        },
+        "sub04": {
+          "deceiver": 484,
+          "observer": 484
+        },
+        "sub05": {
+          "deceiver": 484,
+          "observer": 484
+        },
+        "sub06": {
+          "deceiver": 484,
+          "observer": 484
+        },
+        "sub07": {
+          "deceiver": 484,
+          "observer": 484
+        },
+        "sub08": {
+          "deceiver": 484,
+          "observer": 484
+        },
+        "sub09": {
+          "deceiver": 484,
+          "observer": 484
+        },
+        "sub10": {
+          "deceiver": 484,
+          "observer": 484
+        },
+        "sub11": {
+          "deceiver": 484,
+          "observer": 484
+        },
+        "sub12": {
+          "deceiver": 484,
+          "observer": 484
+        },
+        "sub13": {
+          "deceiver": 484,
+          "observer": 484
+        },
+        "sub14": {
+          "deceiver": 484,
+          "observer": 484
+        },
+        "sub15": {
+          "deceiver": 484,
+          "observer": 484
+        },
+        "sub16": {
+          "deceiver": 484,
+          "observer": 484
+        },
+        "sub17": {
+          "deceiver": 484,
+          "observer": 484
+        },
+        "sub18": {
+          "deceiver": 484,
+          "observer": 484
+        },
+        "sub19": {
+          "deceiver": 484,
+          "observer": 484
+        },
+        "sub20": {
+          "deceiver": 484,
+          "observer": 484
+        },
+        "sub21": {
+          "deceiver": 484,
+          "observer": 484
+        },
+        "sub22": {
+          "deceiver": 484,
+          "observer": 484
+        },
+        "sub23": {
+          "deceiver": 484,
+          "observer": 484
+        },
+        "sub24": {
+          "deceiver": 484,
+          "observer": 484
+        }
+      },
+      "condition_balance_per_dyad": {
+        "sub01_sub02": {
+          "lie": 264,
+          "truth": 220,
+          "n_total": 484,
+          "minority_class_fraction": 0.45454545454545453
+        },
+        "sub03_sub06": {
+          "lie": 460,
+          "truth": 508,
+          "n_total": 968,
+          "minority_class_fraction": 0.47520661157024796
+        },
+        "sub04_sub05": {
+          "lie": 442,
+          "truth": 526,
+          "n_total": 968,
+          "minority_class_fraction": 0.45661157024793386
+        },
+        "sub07_sub08": {
+          "lie": 447,
+          "truth": 521,
+          "n_total": 968,
+          "minority_class_fraction": 0.4617768595041322
+        },
+        "sub09_sub10": {
+          "lie": 471,
+          "truth": 497,
+          "n_total": 968,
+          "minority_class_fraction": 0.4865702479338843
+        },
+        "sub11_sub12": {
+          "lie": 424,
+          "truth": 544,
+          "n_total": 968,
+          "minority_class_fraction": 0.4380165289256198
+        },
+        "sub13_sub14": {
+          "lie": 459,
+          "truth": 509,
+          "n_total": 968,
+          "minority_class_fraction": 0.47417355371900827
+        },
+        "sub15_sub16": {
+          "lie": 457,
+          "truth": 511,
+          "n_total": 968,
+          "minority_class_fraction": 0.47210743801652894
+        },
+        "sub17_sub18": {
+          "lie": 399,
+          "truth": 569,
+          "n_total": 968,
+          "minority_class_fraction": 0.4121900826446281
+        },
+        "sub19_sub22": {
+          "lie": 526,
+          "truth": 442,
+          "n_total": 968,
+          "minority_class_fraction": 0.45661157024793386
+        },
+        "sub20_sub21": {
+          "lie": 489,
+          "truth": 479,
+          "n_total": 968,
+          "minority_class_fraction": 0.49483471074380164
+        },
+        "sub23_sub24": {
+          "lie": 500,
+          "truth": 468,
+          "n_total": 968,
+          "minority_class_fraction": 0.4834710743801653
+        }
+      },
+      "pooled_condition_balance": {
+        "n_lie": 5338,
+        "n_truth": 5794,
+        "n_total": 11132,
+        "minority_class_fraction": 0.47951850521020484
+      },
+      "tercile_rows": [
+        {
+          "pair_id": "sub01_sub02",
+          "n_dyad": 484,
+          "bin": "early",
+          "n_trials": 162,
+          "n_lie": 79,
+          "n_truth": 83,
+          "minority": 79
+        },
+        {
+          "pair_id": "sub01_sub02",
+          "n_dyad": 484,
+          "bin": "middle",
+          "n_trials": 161,
+          "n_lie": 94,
+          "n_truth": 67,
+          "minority": 67
+        },
+        {
+          "pair_id": "sub01_sub02",
+          "n_dyad": 484,
+          "bin": "late",
+          "n_trials": 161,
+          "n_lie": 91,
+          "n_truth": 70,
+          "minority": 70
+        },
+        {
+          "pair_id": "sub03_sub06",
+          "n_dyad": 968,
+          "bin": "early",
+          "n_trials": 323,
+          "n_lie": 148,
+          "n_truth": 175,
+          "minority": 148
+        },
+        {
+          "pair_id": "sub03_sub06",
+          "n_dyad": 968,
+          "bin": "middle",
+          "n_trials": 323,
+          "n_lie": 148,
+          "n_truth": 175,
+          "minority": 148
+        },
+        {
+          "pair_id": "sub03_sub06",
+          "n_dyad": 968,
+          "bin": "late",
+          "n_trials": 322,
+          "n_lie": 164,
+          "n_truth": 158,
+          "minority": 158
+        },
+        {
+          "pair_id": "sub04_sub05",
+          "n_dyad": 968,
+          "bin": "early",
+          "n_trials": 323,
+          "n_lie": 156,
+          "n_truth": 167,
+          "minority": 156
+        },
+        {
+          "pair_id": "sub04_sub05",
+          "n_dyad": 968,
+          "bin": "middle",
+          "n_trials": 323,
+          "n_lie": 145,
+          "n_truth": 178,
+          "minority": 145
+        },
+        {
+          "pair_id": "sub04_sub05",
+          "n_dyad": 968,
+          "bin": "late",
+          "n_trials": 322,
+          "n_lie": 141,
+          "n_truth": 181,
+          "minority": 141
+        },
+        {
+          "pair_id": "sub07_sub08",
+          "n_dyad": 968,
+          "bin": "early",
+          "n_trials": 323,
+          "n_lie": 146,
+          "n_truth": 177,
+          "minority": 146
+        },
+        {
+          "pair_id": "sub07_sub08",
+          "n_dyad": 968,
+          "bin": "middle",
+          "n_trials": 323,
+          "n_lie": 139,
+          "n_truth": 184,
+          "minority": 139
+        },
+        {
+          "pair_id": "sub07_sub08",
+          "n_dyad": 968,
+          "bin": "late",
+          "n_trials": 322,
+          "n_lie": 162,
+          "n_truth": 160,
+          "minority": 160
+        },
+        {
+          "pair_id": "sub09_sub10",
+          "n_dyad": 968,
+          "bin": "early",
+          "n_trials": 323,
+          "n_lie": 162,
+          "n_truth": 161,
+          "minority": 161
+        },
+        {
+          "pair_id": "sub09_sub10",
+          "n_dyad": 968,
+          "bin": "middle",
+          "n_trials": 323,
+          "n_lie": 173,
+          "n_truth": 150,
+          "minority": 150
+        },
+        {
+          "pair_id": "sub09_sub10",
+          "n_dyad": 968,
+          "bin": "late",
+          "n_trials": 322,
+          "n_lie": 136,
+          "n_truth": 186,
+          "minority": 136
+        },
+        {
+          "pair_id": "sub11_sub12",
+          "n_dyad": 968,
+          "bin": "early",
+          "n_trials": 323,
+          "n_lie": 147,
+          "n_truth": 176,
+          "minority": 147
+        },
+        {
+          "pair_id": "sub11_sub12",
+          "n_dyad": 968,
+          "bin": "middle",
+          "n_trials": 323,
+          "n_lie": 136,
+          "n_truth": 187,
+          "minority": 136
+        },
+        {
+          "pair_id": "sub11_sub12",
+          "n_dyad": 968,
+          "bin": "late",
+          "n_trials": 322,
+          "n_lie": 141,
+          "n_truth": 181,
+          "minority": 141
+        },
+        {
+          "pair_id": "sub13_sub14",
+          "n_dyad": 968,
+          "bin": "early",
+          "n_trials": 323,
+          "n_lie": 154,
+          "n_truth": 169,
+          "minority": 154
+        },
+        {
+          "pair_id": "sub13_sub14",
+          "n_dyad": 968,
+          "bin": "middle",
+          "n_trials": 323,
+          "n_lie": 155,
+          "n_truth": 168,
+          "minority": 155
+        },
+        {
+          "pair_id": "sub13_sub14",
+          "n_dyad": 968,
+          "bin": "late",
+          "n_trials": 322,
+          "n_lie": 150,
+          "n_truth": 172,
+          "minority": 150
+        },
+        {
+          "pair_id": "sub15_sub16",
+          "n_dyad": 968,
+          "bin": "early",
+          "n_trials": 323,
+          "n_lie": 140,
+          "n_truth": 183,
+          "minority": 140
+        },
+        {
+          "pair_id": "sub15_sub16",
+          "n_dyad": 968,
+          "bin": "middle",
+          "n_trials": 323,
+          "n_lie": 147,
+          "n_truth": 176,
+          "minority": 147
+        },
+        {
+          "pair_id": "sub15_sub16",
+          "n_dyad": 968,
+          "bin": "late",
+          "n_trials": 322,
+          "n_lie": 170,
+          "n_truth": 152,
+          "minority": 152
+        },
+        {
+          "pair_id": "sub17_sub18",
+          "n_dyad": 968,
+          "bin": "early",
+          "n_trials": 323,
+          "n_lie": 130,
+          "n_truth": 193,
+          "minority": 130
+        },
+        {
+          "pair_id": "sub17_sub18",
+          "n_dyad": 968,
+          "bin": "middle",
+          "n_trials": 323,
+          "n_lie": 135,
+          "n_truth": 188,
+          "minority": 135
+        },
+        {
+          "pair_id": "sub17_sub18",
+          "n_dyad": 968,
+          "bin": "late",
+          "n_trials": 322,
+          "n_lie": 134,
+          "n_truth": 188,
+          "minority": 134
+        },
+        {
+          "pair_id": "sub19_sub22",
+          "n_dyad": 968,
+          "bin": "early",
+          "n_trials": 323,
+          "n_lie": 167,
+          "n_truth": 156,
+          "minority": 156
+        },
+        {
+          "pair_id": "sub19_sub22",
+          "n_dyad": 968,
+          "bin": "middle",
+          "n_trials": 323,
+          "n_lie": 190,
+          "n_truth": 133,
+          "minority": 133
+        },
+        {
+          "pair_id": "sub19_sub22",
+          "n_dyad": 968,
+          "bin": "late",
+          "n_trials": 322,
+          "n_lie": 169,
+          "n_truth": 153,
+          "minority": 153
+        },
+        {
+          "pair_id": "sub20_sub21",
+          "n_dyad": 968,
+          "bin": "early",
+          "n_trials": 323,
+          "n_lie": 161,
+          "n_truth": 162,
+          "minority": 161
+        },
+        {
+          "pair_id": "sub20_sub21",
+          "n_dyad": 968,
+          "bin": "middle",
+          "n_trials": 323,
+          "n_lie": 178,
+          "n_truth": 145,
+          "minority": 145
+        },
+        {
+          "pair_id": "sub20_sub21",
+          "n_dyad": 968,
+          "bin": "late",
+          "n_trials": 322,
+          "n_lie": 150,
+          "n_truth": 172,
+          "minority": 150
+        },
+        {
+          "pair_id": "sub23_sub24",
+          "n_dyad": 968,
+          "bin": "early",
+          "n_trials": 323,
+          "n_lie": 150,
+          "n_truth": 173,
+          "minority": 150
+        },
+        {
+          "pair_id": "sub23_sub24",
+          "n_dyad": 968,
+          "bin": "middle",
+          "n_trials": 323,
+          "n_lie": 181,
+          "n_truth": 142,
+          "minority": 142
+        },
+        {
+          "pair_id": "sub23_sub24",
+          "n_dyad": 968,
+          "bin": "late",
+          "n_trials": 322,
+          "n_lie": 169,
+          "n_truth": 153,
+          "minority": 153
+        }
+      ]
+    },
+    "split_definition": {
+      "method": "per-dyad tercile of dyad_trial_seq",
+      "remainder_assignment": "earliest bins",
+      "justification": [
+        "round resets per session; a global round split would misalign dyads with two sessions against sub01_sub02's single session",
+        "per-dyad terciles keep the split proportional so a short dyad still contributes all three bins",
+        "equal-count terciles rather than equal-time terciles, because the gate is about trial counts"
+      ]
+    },
+    "experiments": {
+      "exp1": {
+        "smallest_fold_total": 11132,
+        "smallest_fold_minority": 5338,
+        "clause_a": null,
+        "clause_b": null,
+        "n_dyads_passing_clause_a": null,
+        "n_dyads_considered": null,
+        "verdict": "N/A (not gated)",
+        "reason": "Pooled baseline / sanity check, explicitly excluded from the \u00a77 gate's scope (Experiments 2-8 only).",
+        "smallest_fold_dyad": null,
+        "assumption": "Pooled across all trials; not subject to the go/no-go gate (\u00a77 explicitly scopes the gate to Experiments 2-8). Reported for completeness only."
+      },
+      "exp2": {
+        "smallest_fold_total": 484,
+        "smallest_fold_minority": 220,
+        "clause_a": true,
+        "clause_b": true,
+        "n_dyads_passing_clause_a": 12,
+        "n_dyads_considered": 12,
+        "verdict": "CONFIRMATORY",
+        "reason": "Smallest fold minority (220) clears threshold (60); 12/12 included dyads individually clear it (needed >= 10).",
+        "smallest_fold_dyad": "sub01_sub02",
+        "assumption": "No assumption needed; fold structure is fully specified by the LODO design in \u00a712."
+      },
+      "exp3": {
+        "smallest_fold_total": 161,
+        "smallest_fold_minority": 70,
+        "clause_a": true,
+        "clause_b": true,
+        "n_dyads_passing_clause_a": 11,
+        "n_dyads_considered": 11,
+        "verdict": "CONFIRMATORY",
+        "reason": "Smallest fold minority (70) clears threshold (60); 11/11 included dyads individually clear it (needed >= 10).",
+        "smallest_fold_dyad": "sub01_sub02",
+        "assumption": "The spec's own example ('train rounds 1-30, test rounds 31-40') does not map onto this dataset's 'round' field, which only spans 1-11 per session (44 trials/round) -- not the 30+ rounds the example implies. Standing in for the held-out block: the late tercile of the dyad's own dyad_trial_seq (2e), i.e. train = early+middle, test = late. This is stated as an assumption, not a fact pinned down by the spec."
+      },
+      "exp4": {
+        "smallest_fold_total": 161,
+        "smallest_fold_minority": 70,
+        "clause_a": true,
+        "clause_b": true,
+        "n_dyads_passing_clause_a": 11,
+        "n_dyads_considered": 11,
+        "verdict": "CONFIRMATORY",
+        "reason": "Smallest fold minority (70) clears threshold (60); 11/11 included dyads individually clear it (needed >= 10).",
+        "smallest_fold_dyad": "sub01_sub02",
+        "assumption": "Same late-tercile stand-in as Exp3, at dyad grain rather than participant grain."
+      },
+      "exp5": {
+        "smallest_fold_total": 161,
+        "smallest_fold_minority": 70,
+        "clause_a": true,
+        "clause_b": true,
+        "n_dyads_passing_clause_a": 11,
+        "n_dyads_considered": 11,
+        "verdict": "CONFIRMATORY",
+        "reason": "Smallest fold minority (70) clears threshold (60); 11/11 included dyads individually clear it (needed >= 10).",
+        "smallest_fold_dyad": "sub01_sub02",
+        "assumption": "The spec's example prefix ladder (rounds 1-5/1-10/1-20/1-30) assumes a 'round' granularity this dataset does not have (see Exp3's assumption). Translated onto dyad_trial_seq: the ladder is collapsed to the tercile split already defined in 2e -- train on the early tercile only, then early+middle, always testing on the late tercile. This yields a 2-point learning curve per dyad (early-only vs early+middle training) rather than the spec's literal 4-point ladder, and its smallest test fold is the same late tercile used by Exp3/Exp4."
+      },
+      "exp6": {
+        "smallest_fold_total": 161,
+        "smallest_fold_minority": 70,
+        "clause_a": true,
+        "clause_b": true,
+        "n_dyads_passing_clause_a": 11,
+        "n_dyads_considered": 11,
+        "verdict": "CONFIRMATORY",
+        "reason": "Smallest fold minority (70) clears threshold (60); 11/11 included dyads individually clear it (needed >= 10).",
+        "smallest_fold_dyad": "sub01_sub02",
+        "assumption": "Uses the same tercile split as 2e; smallest tercile is the binding constraint (late tercile is smallest or tied-smallest for every dyad here)."
+      },
+      "exp7": {
+        "smallest_fold_total": 161,
+        "smallest_fold_minority": 70,
+        "clause_a": true,
+        "clause_b": true,
+        "n_dyads_passing_clause_a": 11,
+        "n_dyads_considered": 11,
+        "verdict": "CONFIRMATORY",
+        "reason": "Smallest fold minority (70) clears threshold (60); 11/11 included dyads individually clear it (needed >= 10).",
+        "smallest_fold_dyad": "sub01_sub02",
+        "assumption": "Exp7 does not define its own fold structure; it evaluates 5 input sets (deceiver/observer/both/inter-brain/EEG+behavioral) on identical folds inherited from Exp2 (LODO) or Exp4 (within-dyad), depending on which comparison is being made. Both inherited fold sizes are reported; the smaller of the two is the binding one."
+      },
+      "exp8": {
+        "smallest_fold_total": 484,
+        "smallest_fold_minority": 220,
+        "clause_a": true,
+        "clause_b": true,
+        "n_dyads_passing_clause_a": 11,
+        "n_dyads_considered": 11,
+        "verdict": "CONFIRMATORY",
+        "reason": "Smallest fold minority (220) clears threshold (60); 11/11 included dyads individually clear it (needed >= 10).",
+        "smallest_fold_dyad": "sub01_sub02",
+        "assumption": "Assumes an LODO-style fold (same as Exp2) per window per role, since \u00a718 does not itself specify a within-dyad chronological split -- window position, not train/test boundary, is what varies. Fold size is therefore the same as Exp2's; the risk in Exp8 is the multiple-comparison burden (12 tests per claim family), not fold size, and is called out separately in the gate table -- a correction (Bonferroni or Benjamini-Hochberg) is required regardless of the Clause A/B verdict."
+      }
+    },
+    "dyad_exclusions": {
+      "sub01_sub02": {
+        "chosen_option": "b",
+        "reasoning": "sub01_sub02's 484-trial LODO fold clears the go/no-go threshold on its own (minority class 220 >= 60), so dropping it from Exp2 would cost population-level sample size for no power benefit. But Experiments 3-8 either require deceiver-role history for sub02 (which does not exist -- sub02 was never recorded as deceiver, because the reverse-role session is missing from the archive, not because of anything about the participant) or compare the two roles against each other within the same dyad (Exp6, Exp7, Exp8's T_deceiver vs T_observer), which is undefined when one role has zero trials. Even where a one-directional computation is technically possible (e.g. Exp4's Person-Specific level for sub01-as-deceiver), including it would make this dyad's paired difference structurally asymmetric relative to the other 11 dyads, which all have bidirectional (role-swapped) history -- muddying the interpretation of a 'per-dyad' comparison that assumes each dyad contributed a comparable measurement. Excluding it from Exp3-8 keeps those 11 dyads homogeneous.",
+        "experiments_at_n12": [
+          "exp1",
+          "exp2"
+        ],
+        "experiments_at_n11": [
+          "exp3",
+          "exp4",
+          "exp5",
+          "exp6",
+          "exp7",
+          "exp8"
+        ],
+        "min_sign_test_p_at_n12": 0.00048828125,
+        "min_sign_test_p_at_n11": 0.0009765625,
+        "exp2_demoted_by_inclusion": false,
+        "limitations_note": "sub02 is missing a deceiver session because of an archive gap (the reverse-role session for this dyad was not present in the downloaded behavioral log archive), not because of anything about the participant. This is a data-availability exclusion and belongs in the limitations (\u00a742), not the results narrative."
+      }
+    },
+    "assumptions": {
+      "exp3": "The spec's own example ('train rounds 1-30, test rounds 31-40') does not map onto this dataset's 'round' field, which only spans 1-11 per session (44 trials/round) -- not the 30+ rounds the example implies. Standing in for the held-out block: the late tercile of the dyad's own dyad_trial_seq (2e), i.e. train = early+middle, test = late. This is stated as an assumption, not a fact pinned down by the spec.",
+      "exp4": "Same late-tercile stand-in as Exp3, at dyad grain rather than participant grain.",
+      "exp5": "The spec's example prefix ladder (rounds 1-5/1-10/1-20/1-30) assumes a 'round' granularity this dataset does not have (see Exp3's assumption). Translated onto dyad_trial_seq: the ladder is collapsed to the tercile split already defined in 2e -- train on the early tercile only, then early+middle, always testing on the late tercile. This yields a 2-point learning curve per dyad (early-only vs early+middle training) rather than the spec's literal 4-point ladder, and its smallest test fold is the same late tercile used by Exp3/Exp4.",
+      "exp6": "Uses the same tercile split as 2e; smallest tercile is the binding constraint (late tercile is smallest or tied-smallest for every dyad here).",
+      "exp7": "Exp7 does not define its own fold structure; it evaluates 5 input sets (deceiver/observer/both/inter-brain/EEG+behavioral) on identical folds inherited from Exp2 (LODO) or Exp4 (within-dyad), depending on which comparison is being made. Both inherited fold sizes are reported; the smaller of the two is the binding one.",
+      "exp8": "Assumes an LODO-style fold (same as Exp2) per window per role, since \u00a718 does not itself specify a within-dyad chronological split -- window position, not train/test boundary, is what varies. Fold size is therefore the same as Exp2's; the risk in Exp8 is the multiple-comparison burden (12 tests per claim family), not fold size, and is called out separately in the gate table -- a correction (Bonferroni or Benjamini-Hochberg) is required regardless of the Clause A/B verdict."
+    }
+  },
+  "frozen": {
+    "hypotheses": {
+      "H1": "Universal Deception Signature. Neural patterns associated with deception generalize across participants. If true, a model trained on most participants should predict deception in completely unseen participants.",
+      "H2": "Person-Specific Deception Signature. Different people have different deception-related neural patterns. If true, models trained on prior data from the same person should outperform universal population models.",
+      "H3": "Relationship-Specific Deception Signature (the project's main hypothesis). Repeated interaction causes neural responses to become specific to a particular pair. If true, models using prior interactions from the same dyad should outperform models trained only on population-level data."
+    },
+    "primary_metric": {
+      "unit_of_analysis": "dyad",
+      "n": {
+        "default": 12,
+        "reduced": 11,
+        "reduced_applies_to": [
+          "exp3",
+          "exp4",
+          "exp5",
+          "exp6",
+          "exp7",
+          "exp8"
+        ]
+      },
+      "procedure": [
+        "Compute the metric under both conditions for dyad d, on the same held-out trials.",
+        "Take the difference Delta_d.",
+        "Repeat for all included dyads (12, or 11 where sub01_sub02 is excluded).",
+        "Test the resulting differences with a sign test and a paired permutation test (sign-flipping).",
+        "Report the median Delta, the full distribution, the count of positive Delta, and the p-value."
+      ],
+      "pooled_aggregate_note": "Reported as a descriptive summary only; it is not the test.",
+      "nfi_definition": "NFI_d = Dyad-Specific_d - Population_d, reported as a distribution across dyads (median, spread, count above zero, paired-test p-value)."
+    },
+    "threshold": {
+      "value": 60,
+      "formula": "Hanley-McNeil (1982) SE(AUC) = sqrt[AUC(1-AUC) + (n1-1)(Q1-AUC^2) + (n2-1)(Q2-AUC^2)] / sqrt(n1*n2); Q1=AUC/(2-AUC), Q2=2*AUC^2/(1+AUC)",
+      "assumed_auc": 0.65
+    },
+    "classification": {
+      "exp1": "N/A (not gated)",
+      "exp2": "CONFIRMATORY",
+      "exp3": "CONFIRMATORY",
+      "exp4": "CONFIRMATORY",
+      "exp5": "CONFIRMATORY",
+      "exp6": "CONFIRMATORY",
+      "exp7": "CONFIRMATORY",
+      "exp8": "CONFIRMATORY"
+    },
+    "null_result_reporting_plan": {
+      "if_supported": "Deception-related neural patterns generalized poorly across strangers but became more predictive when models incorporated information specific to the individual and dyad. The improvement was consistent across dyads, with [N] of 12 pairs showing positive dyad-specific gain. Neural responses in observers also became more informative across repeated interaction, suggesting that deception-related neural dynamics may partly depend on relationship history rather than representing a fully universal neural signature.",
+      "if_not_supported": "Despite repeated interaction, dyad-specific history did not significantly improve prediction beyond participant-specific or population-level models. Across 12 dyads the paired differences were centered near zero, and the effect was not consistent in direction. This suggests that deception-related EEG patterns in this dataset are more strongly driven by individual or general neural characteristics than by relationship-specific adaptation.",
+      "reporting_rules": [
+        "Whichever conclusion obtains is reported as written above.",
+        "Exploratory experiments are reported with their confidence intervals and explicitly labeled underpowered (\u00a77, \u00a722).",
+        "Anything decided after seeing results is labeled post-hoc (\u00a78).",
+        "Non-claims list carried by reference from \u00a742."
+      ]
+    },
+    "frozen_at": "2026-08-20 09:08",
+    "amendments": []
+  }
+}
