@@ -1,0 +1,90 @@
+@import "tailwindcss";
+@import "@fontsource-variable/geist";
+@import "@fontsource/source-serif-4/400.css";
+@import "@fontsource/source-serif-4/400-italic.css";
+@import "@fontsource/source-serif-4/600.css";
+@import "@fontsource/jetbrains-mono/400.css";
+@import "@fontsource/jetbrains-mono/500.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+  Design direction (design-taste-frontend pass, plans/web-app-scaffold.md Task 2):
+  editorial science report, not a dashboard, not a SaaS marketing page. Serif body
+  for long-form argument, sans for UI chrome/nav/labels, mono for every number so
+  statistics read as data. One accent, used only for interactive affordances --
+  never as a good/bad signal, because the headline finding is a null result and
+  the per-dyad dot plot must read the same whether a dyad lands above or below
+  zero. Sharp, minimal radius; hairline borders instead of shadows; near-static
+  motion (this is a serious negative finding, not something to animate into
+  looking exciting).
+*/
+@theme {
+  --font-serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --font-sans: "Geist Variable", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
+
+  /* Paper / ink -- warm, not pure white/black */
+  --color-paper: #f7f5f0;
+  --color-paper-raised: #efece3;
+  --color-ink: #17140f;
+  --color-ink-soft: #4a463d;
+  --color-ink-faint: #857f70;
+  --color-hairline: #d9d4c6;
+  --color-hairline-strong: #b8b19d;
+
+  /* Single accent: deep desaturated slate-blue, interactive affordances only */
+  --color-signal: #2d4356;
+  --color-signal-soft: #cdd8de;
+
+  /* Dark mode counterparts */
+  --color-paper-dark: #161512;
+  --color-paper-raised-dark: #201f1a;
+  --color-ink-dark: #ede9de;
+  --color-ink-soft-dark: #b8b3a4;
+  --color-ink-faint-dark: #7d786a;
+  --color-hairline-dark: #322f28;
+  --color-hairline-strong-dark: #48453a;
+  --color-signal-dark: #8fa9bb;
+  --color-signal-soft-dark: #263743;
+
+  --radius-editorial: 2px;
+}
+
+:root {
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-paper: var(--color-paper-dark);
+    --color-paper-raised: var(--color-paper-raised-dark);
+    --color-ink: var(--color-ink-dark);
+    --color-ink-soft: var(--color-ink-soft-dark);
+    --color-ink-faint: var(--color-ink-faint-dark);
+    --color-hairline: var(--color-hairline-dark);
+    --color-hairline-strong: var(--color-hairline-strong-dark);
+    --color-signal: var(--color-signal-dark);
+    --color-signal-soft: var(--color-signal-soft-dark);
+  }
+}
+
+@layer base {
+  * {
+    border-color: var(--color-hairline);
+  }
+  html {
+    font-family: var(--font-serif);
+  }
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-synthesis: none;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background: var(--color-signal-soft);
+    color: var(--color-ink);
+  }
+}
