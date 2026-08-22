@@ -1,0 +1,431 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://reveriehacks26.local/results.v1.schema.json",
+  "title": "results.v1",
+  "type": "object",
+  "$defs": {
+    "ProvenanceEnum": { "enum": ["real", "placeholder", "mixed"] },
+    "CI95": {
+      "type": "object",
+      "properties": {
+        "mean": { "type": "number" },
+        "lower": { "type": "number" },
+        "upper": { "type": "number" },
+        "sd": { "type": "number" }
+      },
+      "additionalProperties": false
+    },
+    "MetricBlock": {
+      "type": "object",
+      "properties": {
+        "auroc": { "type": "number", "minimum": 0, "maximum": 1 },
+        "balanced_accuracy": { "type": "number" },
+        "f1": { "type": "number" },
+        "precision": { "type": "number" },
+        "recall": { "type": "number" }
+      },
+      "required": ["auroc"],
+      "additionalProperties": true
+    },
+    "PairedTest": {
+      "type": "object",
+      "properties": {
+        "n": { "type": "integer", "minimum": 0 },
+        "dyad_ids": { "type": "array", "items": { "type": "string" } },
+        "deltas": { "type": "array", "items": { "type": "number" } },
+        "median_delta": { "type": "number" },
+        "n_positive": { "type": "integer" },
+        "n_negative": { "type": "integer" },
+        "n_ties_excluded": { "type": "integer" },
+        "sign_test_p": { "type": "number", "minimum": 0, "maximum": 1 },
+        "permutation_p": { "type": "number", "minimum": 0, "maximum": 1 },
+        "n_signflip": { "type": "integer" },
+        "ci95": { "$ref": "#/$defs/CI95" }
+      },
+      "required": [
+        "n", "dyad_ids", "deltas", "median_delta", "n_positive", "n_negative",
+        "n_ties_excluded", "sign_test_p", "permutation_p", "n_signflip", "ci95"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "properties": {
+    "meta": {
+      "type": "object",
+      "properties": {
+        "schema_version": { "const": "results.v1" },
+        "generated_at": { "type": "string" },
+        "pipeline_git_describe": { "type": ["string", "null"] },
+        "dataset_checksum": { "type": ["string", "null"] },
+        "is_fixture": { "type": "boolean" },
+        "provenance": {
+          "type": "object",
+          "properties": {
+            "gate": { "$ref": "#/$defs/ProvenanceEnum" },
+            "frozen": { "$ref": "#/$defs/ProvenanceEnum" },
+            "dyads": { "$ref": "#/$defs/ProvenanceEnum" },
+            "exp1": { "$ref": "#/$defs/ProvenanceEnum" },
+            "exp2": { "$ref": "#/$defs/ProvenanceEnum" },
+            "exp3": { "$ref": "#/$defs/ProvenanceEnum" },
+            "exp4": { "$ref": "#/$defs/ProvenanceEnum" },
+            "exp5": { "$ref": "#/$defs/ProvenanceEnum" },
+            "exp6": { "$ref": "#/$defs/ProvenanceEnum" },
+            "exp7": { "$ref": "#/$defs/ProvenanceEnum" },
+            "exp8": { "$ref": "#/$defs/ProvenanceEnum" },
+            "tests": { "$ref": "#/$defs/ProvenanceEnum" },
+            "interpretability": { "$ref": "#/$defs/ProvenanceEnum" },
+            "interbrain": { "$ref": "#/$defs/ProvenanceEnum" },
+            "trials": { "$ref": "#/$defs/ProvenanceEnum" },
+            "failures": { "$ref": "#/$defs/ProvenanceEnum" }
+          },
+          "required": ["gate", "frozen", "dyads", "exp1", "exp2", "exp3", "exp4", "exp5", "exp6", "exp7", "exp8", "tests", "interpretability", "interbrain", "trials", "failures"],
+          "additionalProperties": false
+        },
+        "sources": { "type": "object", "additionalProperties": true }
+      },
+      "required": ["schema_version", "generated_at", "is_fixture", "provenance"],
+      "additionalProperties": false
+    },
+    "gate": { "type": "object", "additionalProperties": true },
+    "frozen": {
+      "type": "object",
+      "properties": {
+        "hypotheses": { "type": "object" },
+        "primary_metric": { "type": "object" },
+        "threshold": {},
+        "classification": { "type": "object" },
+        "null_result_reporting_plan": { "type": "object" },
+        "frozen_at": {},
+        "amendments": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "date": { "type": "string" },
+              "applies_to": { "type": "string" },
+              "change": { "type": "string" },
+              "excluded_unit": { "type": "string" },
+              "rationale": { "type": "string" },
+              "post_hoc": { "type": "boolean" }
+            },
+            "required": ["id", "date", "applies_to", "change", "rationale", "post_hoc"],
+            "additionalProperties": true
+          }
+        }
+      },
+      "required": ["hypotheses", "primary_metric", "threshold", "classification", "null_result_reporting_plan", "amendments"],
+      "additionalProperties": true
+    },
+    "dyads": {
+      "type": "array",
+      "minItems": 12,
+      "maxItems": 12,
+      "items": {
+        "type": "object",
+        "properties": {
+          "pair_id": { "type": "string" },
+          "participants": { "type": "array", "items": { "type": "string" }, "minItems": 2, "maxItems": 2 },
+          "n_sessions": { "type": "integer" },
+          "n_trials": { "type": "integer" },
+          "seq_range": {
+            "type": "object",
+            "properties": { "min": { "type": "integer" }, "max": { "type": "integer" } },
+            "required": ["min", "max"],
+            "additionalProperties": false
+          },
+          "class_balance": {
+            "type": "object",
+            "properties": {
+              "lie": { "type": "integer" },
+              "truth": { "type": "integer" },
+              "minority_fraction": { "type": "number" }
+            },
+            "required": ["lie", "truth", "minority_fraction"],
+            "additionalProperties": false
+          },
+          "included_in": { "type": "array", "items": { "type": "string" } },
+          "exclusion_note": { "type": ["string", "null"] },
+          "fingerprint": {
+            "type": "object",
+            "properties": {
+              "frontal_coupling": { "type": "number" },
+              "temporal_lag_ms": { "type": "number" },
+              "alpha_synchrony": { "type": "number" },
+              "observer_response": { "type": "number" },
+              "personalization_gain": { "type": "number" }
+            },
+            "required": ["frontal_coupling", "temporal_lag_ms", "alpha_synchrony", "observer_response", "personalization_gain"],
+            "additionalProperties": false
+          }
+        },
+        "required": ["pair_id", "participants", "n_sessions", "n_trials", "seq_range", "class_balance", "included_in", "exclusion_note", "fingerprint"],
+        "additionalProperties": false
+      }
+    },
+    "experiments": {
+      "type": "object",
+      "properties": {
+        "exp1": {
+          "type": "object",
+          "properties": {
+            "status": { "type": "string" },
+            "provenance": { "$ref": "#/$defs/ProvenanceEnum" },
+            "gate_verdict": { "type": "string" },
+            "design": { "type": "object", "additionalProperties": true },
+            "headline": {
+              "type": "object",
+              "properties": {
+                "metric": { "type": "string" },
+                "model": { "type": "string" },
+                "value": { "type": "number", "minimum": 0, "maximum": 1 },
+                "ci95": { "$ref": "#/$defs/CI95" }
+              },
+              "required": ["metric", "model", "value", "ci95"],
+              "additionalProperties": false
+            },
+            "models": { "type": "object", "additionalProperties": true },
+            "permutation_null": { "type": "object", "additionalProperties": true },
+            "cnn_sanity_check": { "type": "object", "additionalProperties": true }
+          },
+          "required": ["status", "provenance", "gate_verdict", "design", "headline", "models"],
+          "additionalProperties": false
+        },
+        "exp2": {
+          "type": "object",
+          "properties": {
+            "status": { "type": "string" },
+            "provenance": { "$ref": "#/$defs/ProvenanceEnum" },
+            "gate_verdict": { "type": "string" },
+            "design": { "type": "object", "additionalProperties": true },
+            "headline": { "type": "object", "additionalProperties": true },
+            "models": { "type": "object", "additionalProperties": true },
+            "per_dyad": {
+              "type": "array",
+              "minItems": 12,
+              "maxItems": 12,
+              "items": { "type": "object", "additionalProperties": true }
+            },
+            "per_dyad_scores": { "type": "object", "additionalProperties": true },
+            "permutation_null": { "type": "object", "additionalProperties": true },
+            "comparison_to_exp1": { "type": "object", "additionalProperties": true }
+          },
+          "required": ["status", "provenance", "gate_verdict", "design", "headline", "per_dyad"],
+          "additionalProperties": false
+        },
+        "exp3": {
+          "type": "object",
+          "properties": {
+            "status": { "type": "string" },
+            "provenance": { "$ref": "#/$defs/ProvenanceEnum" },
+            "gate_verdict": { "type": "string" },
+            "design": { "type": "object", "additionalProperties": true },
+            "unit_of_analysis": { "type": "object", "additionalProperties": true },
+            "per_participant": { "type": "array", "items": { "type": "object", "additionalProperties": true } },
+            "per_dyad": { "type": "array", "items": { "type": "object", "additionalProperties": true } },
+            "test": { "$ref": "#/$defs/PairedTest" },
+            "confidence_intervals": { "type": "object", "additionalProperties": true },
+            "verdict": { "type": "string" },
+            "exclusions": { "type": "object", "additionalProperties": true }
+          },
+          "required": ["status", "provenance", "gate_verdict", "design", "per_participant", "per_dyad", "test", "verdict"],
+          "additionalProperties": false
+        },
+        "exp4": {
+          "type": "object",
+          "properties": {
+            "status": { "type": "string" },
+            "provenance": { "$ref": "#/$defs/ProvenanceEnum" },
+            "gate_verdict": { "type": "string" },
+            "design": { "type": "object", "additionalProperties": true },
+            "per_dyad": {
+              "type": "array",
+              "minItems": 10,
+              "maxItems": 10,
+              "items": { "type": "object", "additionalProperties": true }
+            },
+            "gains": { "type": "object", "additionalProperties": true },
+            "tests": {
+              "type": "object",
+              "properties": {
+                "person_gain": { "$ref": "#/$defs/PairedTest" },
+                "dyad_gain": { "$ref": "#/$defs/PairedTest" },
+                "nfi": {},
+                "dyad_gain_volume_controlled": { "$ref": "#/$defs/PairedTest" },
+                "dyad_gain_matched": { "$ref": "#/$defs/PairedTest" },
+                "primary": { "type": "string" },
+                "secondary": { "type": "array", "items": { "type": "string" } },
+                "tertiary": { "type": "array", "items": { "type": "string" } },
+                "multiple_comparisons_note": { "type": "string" }
+              },
+              "required": ["person_gain", "dyad_gain", "primary", "secondary", "tertiary", "multiple_comparisons_note"],
+              "additionalProperties": false
+            },
+            "nfi": { "type": "object", "additionalProperties": true },
+            "verdict": { "type": "string" },
+            "cross_experiment": { "type": "object", "additionalProperties": true }
+          },
+          "required": ["status", "provenance", "gate_verdict", "design", "per_dyad", "gains", "tests", "nfi", "verdict"],
+          "additionalProperties": false
+        },
+        "exp5": { "type": "object", "additionalProperties": true, "required": ["status", "provenance", "test"] },
+        "exp6": { "type": "object", "additionalProperties": true, "required": ["status", "provenance", "test"] },
+        "exp7": {
+          "type": "object",
+          "additionalProperties": true,
+          "required": ["status", "provenance", "input_sets", "input_set_labels", "tests"],
+          "properties": {
+            "input_sets": {
+              "type": "array",
+              "items": { "enum": ["deceiver_eeg", "observer_eeg", "both_brains", "interbrain", "eeg_plus_behavioral"] },
+              "minItems": 5,
+              "maxItems": 5
+            }
+          }
+        },
+        "exp8": {
+          "type": "object",
+          "additionalProperties": true,
+          "required": ["status", "provenance", "windows", "onset"],
+          "properties": {
+            "windows": { "type": "array", "minItems": 6, "maxItems": 6 }
+          }
+        }
+      },
+      "required": ["exp1", "exp2", "exp3", "exp4", "exp5", "exp6", "exp7", "exp8"],
+      "additionalProperties": false
+    },
+    "tests": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "claim": { "type": "string" },
+          "hypothesis": { "type": "string" },
+          "experiment": { "type": "string" },
+          "metric": { "type": "string" },
+          "kind": { "enum": ["paired_per_dyad", "permutation"] },
+          "designation": { "enum": ["confirmatory", "exploratory"] },
+          "primary": { "type": "boolean" },
+          "supported": { "type": ["boolean", "null"] },
+          "result": {},
+          "plain_language": { "type": "string" },
+          "technical": { "type": "string" }
+        },
+        "required": ["claim", "hypothesis", "experiment", "metric", "kind", "designation", "primary", "supported", "result", "plain_language", "technical"],
+        "additionalProperties": false
+      }
+    },
+    "interpretability": {
+      "type": "object",
+      "properties": {
+        "provenance": { "$ref": "#/$defs/ProvenanceEnum" },
+        "method": { "type": "string" },
+        "conditions": { "type": "array", "items": { "type": "string" } },
+        "electrodes": {
+          "type": "array",
+          "minItems": 30,
+          "maxItems": 30,
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "x": { "type": "number", "minimum": 0, "maximum": 1 },
+              "y": { "type": "number", "minimum": 0, "maximum": 1 }
+            },
+            "required": ["name", "x", "y"],
+            "additionalProperties": false
+          }
+        },
+        "scalp_maps": { "type": "object", "additionalProperties": true },
+        "top_features": { "type": "object", "additionalProperties": true }
+      },
+      "required": ["provenance", "method", "conditions", "electrodes", "scalp_maps", "top_features"],
+      "additionalProperties": false
+    },
+    "interbrain": {
+      "type": "object",
+      "properties": {
+        "provenance": { "$ref": "#/$defs/ProvenanceEnum" },
+        "caveat": { "type": "string", "minLength": 1 },
+        "gate_note": { "type": "string" },
+        "metric": { "type": "string" },
+        "nodes": { "type": "array", "items": { "type": "object", "additionalProperties": true } },
+        "states": {
+          "type": "object",
+          "properties": {
+            "early_truth": { "type": "object", "additionalProperties": true },
+            "early_deception": { "type": "object", "additionalProperties": true },
+            "late_truth": { "type": "object", "additionalProperties": true },
+            "late_deception": { "type": "object", "additionalProperties": true }
+          },
+          "required": ["early_truth", "early_deception", "late_truth", "late_deception"],
+          "additionalProperties": false
+        }
+      },
+      "required": ["provenance", "caveat", "metric", "nodes", "states"],
+      "additionalProperties": false
+    },
+    "trials": {
+      "type": "array",
+      "minItems": 576,
+      "maxItems": 576,
+      "items": {
+        "type": "object",
+        "properties": {
+          "trial_uid": { "type": "string" },
+          "pair_id": { "type": "string" },
+          "participant_id": { "type": "string" },
+          "partner_id": { "type": "string" },
+          "role": { "enum": ["deceiver", "observer"] },
+          "slider_pos": { "type": "integer", "minimum": 0, "maximum": 23 },
+          "session_order": { "type": "integer" },
+          "round": { "type": "integer" },
+          "dyad_trial_seq": { "type": "integer" },
+          "condition": { "enum": ["lie", "truth"] },
+          "outcome": { "type": "string" },
+          "observer_guess": { "type": "string" },
+          "reaction_time_sec": { "type": "number" },
+          "prediction": {
+            "type": "object",
+            "properties": {
+              "model_level": { "type": "string" },
+              "p_lie": { "type": "number", "minimum": 0, "maximum": 1 },
+              "predicted": { "enum": ["lie", "truth"] },
+              "correct": { "type": "boolean" }
+            },
+            "required": ["model_level", "p_lie", "predicted", "correct"],
+            "additionalProperties": false
+          },
+          "top_features": { "type": "array", "items": { "type": "object", "additionalProperties": true } },
+          "interbrain_state_ref": { "enum": ["early_truth", "early_deception", "late_truth", "late_deception"] }
+        },
+        "required": ["trial_uid", "pair_id", "participant_id", "partner_id", "role", "slider_pos", "session_order", "round", "dyad_trial_seq", "condition", "outcome", "observer_guess", "reaction_time_sec", "prediction", "top_features", "interbrain_state_ref"],
+        "additionalProperties": false
+      }
+    },
+    "failures": {
+      "type": "array",
+      "minItems": 6,
+      "maxItems": 6,
+      "items": {
+        "type": "object",
+        "properties": {
+          "trial_uid": { "type": "string" },
+          "pair_id": { "type": "string" },
+          "actual": { "enum": ["lie", "truth"] },
+          "predicted": { "enum": ["lie", "truth"] },
+          "p_lie": { "type": "number", "minimum": 0, "maximum": 1 },
+          "kind": { "enum": ["false_positive", "false_negative"] },
+          "attribution": { "type": "array", "items": { "type": "object", "additionalProperties": true } },
+          "note": { "type": "string" }
+        },
+        "required": ["trial_uid", "pair_id", "actual", "predicted", "p_lie", "kind", "attribution", "note"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "$comment": "ProvenanceEnum is referenced via $ref below but defined inline here since $defs must be flat-referenced.",
+  "required": ["meta", "gate", "frozen", "dyads", "experiments", "tests", "interpretability", "interbrain", "trials", "failures"],
+  "additionalProperties": false
+}
