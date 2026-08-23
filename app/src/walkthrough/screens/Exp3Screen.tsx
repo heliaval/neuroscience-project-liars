@@ -13,12 +13,12 @@ export function Exp3Screen({ revealStep }: { revealStep: number }) {
       eyebrow="Experiment 3 · H2, person-specific signature"
       claim={claim.plain_language}
       revealStep={revealStep}
-      evidence={<PairedDotPlot test={test} reveal={revealStep >= 1} maxHeight="min(52vh,490px)" />}
+      evidence={<PairedDotPlot test={test} reveal={revealStep >= 1} maxHeight="min(47vh,440px)" />}
       caveat={
         <>
           <Caveat>
-            The 95% CI is [{test.ci95.lower?.toFixed(4)}, {test.ci95.upper?.toFixed(4)}] — it crosses zero, so
-            a true effect of zero is not ruled out by this data. The comparison also runs on {test.n} pairs, not
+            The 95% CI is [{test.ci95.lower?.toFixed(4)}, {test.ci95.upper?.toFixed(4)}], and it crosses zero,
+            so a true effect of zero is not ruled out by this data. The comparison also runs on {test.n} pairs, not
             all twelve: {exclusions.sub01 && <span>{exclusions.sub01}</span>}{" "}
             {exclusions.sub02 && <span>{exclusions.sub02}</span>} That is a gap in the archive, not a property
             of those participants.

@@ -42,13 +42,13 @@ export function WalkthroughFooter({
   advanceLabel: string;
 }) {
   return (
-    <footer className="flex w-full items-center justify-between gap-4 px-4 py-2 sm:px-6">
-      <div className="flex items-center gap-3">
+    <footer className="flex w-full items-center justify-between gap-4 px-4 py-1 leading-none sm:px-6">
+      <div className="flex items-center gap-2.5">
         <button
           type="button"
           onClick={onBack}
           disabled={!canBack}
-          className="font-sans text-[12px] text-signal underline decoration-signal-soft decoration-2 underline-offset-4 hover:decoration-signal disabled:cursor-default disabled:text-ink-faint disabled:no-underline"
+          className="font-sans text-[10px] leading-none text-signal underline decoration-signal-soft decoration-2 underline-offset-2 hover:decoration-signal disabled:cursor-default disabled:text-ink-faint disabled:no-underline"
         >
           Back
         </button>
@@ -57,7 +57,7 @@ export function WalkthroughFooter({
           {Array.from({ length: screenCount }, (_, i) => (
             <span
               key={i}
-              className="h-[3px] w-3"
+              className="h-[2px] w-2.5"
               style={{
                 // ink-faint (not hairline) so the un-reached ticks clear 3:1 contrast
                 // against paper -- a progress indicator is a graphical object, not decoration.
@@ -69,7 +69,7 @@ export function WalkthroughFooter({
         </div>
 
         <span
-          className="font-mono text-[11px] text-ink-faint"
+          className="font-mono text-[10px] leading-none text-ink-faint"
           aria-label={evidenceIndex === null ? undefined : `Evidence screen ${evidenceIndex} of ${evidenceCount}`}
         >
           {evidenceIndex === null ? "" : `${evidenceIndex}/${evidenceCount}`}
@@ -80,7 +80,7 @@ export function WalkthroughFooter({
         type="button"
         onClick={onAdvance}
         disabled={!canAdvance}
-        className="rounded-[var(--radius-editorial)] border border-hairline px-2.5 py-1 font-mono text-[11px] lowercase tracking-wide text-ink-faint hover:border-hairline-strong hover:text-ink-soft disabled:cursor-default disabled:opacity-0"
+        className="font-mono text-[10px] leading-none lowercase tracking-wide text-ink-faint hover:text-ink-soft disabled:cursor-default disabled:opacity-0"
       >
         {pillLabel(advanceLabel)}
       </button>

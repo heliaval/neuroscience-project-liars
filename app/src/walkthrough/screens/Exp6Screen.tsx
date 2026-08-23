@@ -26,7 +26,7 @@ export function Exp6Screen({ revealStep }: { revealStep: number }) {
           <Caveat>
             <span className="block text-[0.9em] leading-[1.45]">
               Each line is one pair, from its early block to its late block. Six of the ten rise, four fall, and
-              the median change is {test.median_delta.toFixed(4)} — sign p {test.sign_test_p.toFixed(4)},
+              the median change is {test.median_delta.toFixed(4)}, sign p {test.sign_test_p.toFixed(4)},
               permutation p {test.permutation_p.toFixed(4)}. One structural point the chart makes easy to
               misread: the observing participant is not the same person in both blocks. Roles switch between
               the halves, so each line runs from one participant's early block to their partner's late block,

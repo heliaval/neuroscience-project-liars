@@ -47,9 +47,9 @@ export function Exp2Screen({ revealStep }: { revealStep: number }) {
             Each dot is one pair the model had never seen. {dyads.above} of {dyads.total} land above chance,
             which sounds like a signal until you notice how little separates them: the whole spread is roughly
             six points of AUROC around 0.50. Against the pooled Experiment 1 model, this loses{" "}
-            {delta.toFixed(4)}. The permutation p is {nullSummary.pValue.toFixed(4)} — just past 0.05, not just
-            under it. This was a pre-registered confirmatory test, so that is where it lands and stays: no
-            re-run with a different model family, no dropped fold, no one-sided reframing.
+            {delta.toFixed(4)}. The permutation p is {nullSummary.pValue.toFixed(4)}, just past 0.05 rather than
+            under it. This was a pre-registered confirmatory test, so the result stands as it fell: it was not
+            re-run with a different model family, given a dropped fold, or reframed to favor one side.
           </Caveat>
           <TechnicalDetails text={claim.technical} />
         </>

@@ -38,7 +38,7 @@ export function CoverScreen({ revealStep }: { revealStep: number }) {
         transition={itemTransition}
         className="mt-3 max-w-[26ch] font-serif text-[2rem] font-normal leading-[1.12] text-ink sm:text-[2.6rem]"
       >
-        We tested whether deception has a universal EEG signature — or whether repeated interaction
+        We tested whether deception has a universal EEG signature, or whether repeated interaction
         makes it specific to one opponent.
       </motion.h1>
 

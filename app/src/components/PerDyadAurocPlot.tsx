@@ -44,7 +44,7 @@ export function PerDyadAurocPlot({
         role="img"
         aria-label={`AUROC for each of ${scores.length} held-out dyads against a 0.50 chance line, with the pooled value ${reference.toFixed(4)} marked.`}
         className="block max-w-full min-w-[440px] font-mono text-[11px]"
-        style={{ aspectRatio: `${width} / ${height}`, maxHeight: "min(49vh,450px)" }}
+        style={{ aspectRatio: `${width} / ${height}`, maxHeight: "min(47vh,440px)" }}
       >
         <line
           x1={chanceX}

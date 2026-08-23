@@ -17,10 +17,39 @@ import type { EarlyLatePair } from "@/data/selectors";
  * Hollow vs filled endpoint marks distinguish below- from above-chance, exactly as
  * PairedDotPlot does. No color encodes direction.
  */
+/** Greedy label decluttering: pushes vertically-sorted labels apart until each
+ * clears minGap from its neighbor, then re-centers the whole stack within
+ * [top, bottom] if the push-down ran past the bottom. Dots/lines stay at each
+ * pair's true value; only the text label position is adjusted, so a reader
+ * comparing two nearby values still reads the true positions off the marks,
+ * not the (sometimes slightly offset) label. */
+function declutterY(
+  items: { id: string; y: number }[],
+  minGap: number,
+  top: number,
+  bottom: number,
+): Map<string, number> {
+  const sorted = [...items].sort((a, b) => a.y - b.y);
+  for (let i = 1; i < sorted.length; i++) {
+    if (sorted[i].y - sorted[i - 1].y < minGap) sorted[i].y = sorted[i - 1].y + minGap;
+  }
+  const overflow = sorted[sorted.length - 1].y - bottom;
+  if (overflow > 0) {
+    for (const s of sorted) s.y -= overflow;
+    if (sorted[0].y < top) {
+      sorted[0].y = top;
+      for (let i = 1; i < sorted.length; i++) {
+        if (sorted[i].y - sorted[i - 1].y < minGap) sorted[i].y = sorted[i - 1].y + minGap;
+      }
+    }
+  }
+  return new Map(sorted.map((s) => [s.id, s.y]));
+}
+
 export function EarlyLateSlope({ pairs, reveal }: { pairs: EarlyLatePair[]; reveal: boolean }) {
   const reduced = useReducedMotion();
   const width = 640;
-  const height = 340;
+  const height = 460;
   const marginLeft = 116;
   const marginRight = 116;
   const marginTop = 44;
@@ -34,6 +63,16 @@ export function EarlyLateSlope({ pairs, reveal }: { pairs: EarlyLatePair[]; reve
   const y = (v: number) => marginTop + plotHeight - ((v - DOMAIN_MIN) / (DOMAIN_MAX - DOMAIN_MIN)) * plotHeight;
   const chanceY = y(0.5);
 
+  const LABEL_MIN_GAP = 15;
+  const earlyLabelY = declutterY(
+    pairs.map((p) => ({ id: p.pairId, y: y(p.early) })),
+    LABEL_MIN_GAP, marginTop, height - marginBottom,
+  );
+  const lateLabelY = declutterY(
+    pairs.map((p) => ({ id: p.pairId, y: y(p.late) })),
+    LABEL_MIN_GAP, marginTop, height - marginBottom,
+  );
+
   const dur = reduced ? 0 : WT.base;
   const spring = reduced ? { duration: 0 } : WT.spring;
 
@@ -46,7 +85,7 @@ export function EarlyLateSlope({ pairs, reveal }: { pairs: EarlyLatePair[]; reve
           .map((p) => `${p.pairId} early ${p.early.toFixed(4)} late ${p.late.toFixed(4)}`)
           .join("; ")}`}
         className="block max-w-full min-w-[460px] font-mono text-[11px]"
-        style={{ aspectRatio: `${width} / ${height}`, maxHeight: "min(48vh,460px)" }}
+        style={{ aspectRatio: `${width} / ${height}`, maxHeight: "min(47vh,480px)" }}
       >
         {/* both axes present before the reveal -- the slopes draw between them */}
         <line x1={earlyX} y1={marginTop - 10} x2={earlyX} y2={height - marginBottom + 10} stroke="var(--color-hairline)" />
@@ -110,9 +149,20 @@ export function EarlyLateSlope({ pairs, reveal }: { pairs: EarlyLatePair[]; reve
                 transition={{ ...spring, delay: delay + (reduced ? 0 : WT.base) }}
                 style={{ transformOrigin: `${lateX}px ${y1}px` }}
               />
+              {(() => {
+                const labelY0 = earlyLabelY.get(p.pairId)!;
+                return labelY0 !== y0 ? (
+                  <motion.line
+                    x1={earlyX - 6} y1={y0} x2={earlyX - 6} y2={labelY0}
+                    stroke="var(--color-hairline)" strokeWidth={1}
+                    initial={{ opacity: 0 }} animate={{ opacity: reveal ? 1 : 0 }}
+                    transition={{ duration: dur, ease: WT.ease, delay }}
+                  />
+                ) : null;
+              })()}
               <motion.text
                 x={earlyX - 10}
-                y={y0 + 4}
+                y={earlyLabelY.get(p.pairId)! + 4}
                 textAnchor="end"
                 fill="var(--color-ink-soft)"
                 initial={{ opacity: 0 }}
@@ -121,9 +171,20 @@ export function EarlyLateSlope({ pairs, reveal }: { pairs: EarlyLatePair[]; reve
               >
                 {p.earlyObserver}
               </motion.text>
+              {(() => {
+                const labelY1 = lateLabelY.get(p.pairId)!;
+                return labelY1 !== y1 ? (
+                  <motion.line
+                    x1={lateX + 6} y1={y1} x2={lateX + 6} y2={labelY1}
+                    stroke="var(--color-hairline)" strokeWidth={1}
+                    initial={{ opacity: 0 }} animate={{ opacity: reveal ? 1 : 0 }}
+                    transition={{ duration: dur, ease: WT.ease, delay: delay + (reduced ? 0 : WT.base) }}
+                  />
+                ) : null;
+              })()}
               <motion.text
                 x={lateX + 10}
-                y={y1 + 4}
+                y={lateLabelY.get(p.pairId)! + 4}
                 textAnchor="start"
                 fill="var(--color-ink-soft)"
                 initial={{ opacity: 0 }}
