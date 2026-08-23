@@ -1,0 +1,1730 @@
+{
+  "status": "complete",
+  "provenance": "real",
+  "gate_verdict": "CONFIRMATORY",
+  "design": {
+    "research_question": "S17: does adding the observer's brain, or inter-brain features, improve prediction over the deceiver's brain alone?",
+    "n_dyads": 11,
+    "fold_structure": "leave_one_dyad_out",
+    "grain": "trial",
+    "n_trials": 10158,
+    "canonical_index_sha256": "4006a919f2bb9d12dcb1e40fbbeb7f95ce5f10333ec8c3882ec1d4db85be10bd",
+    "delta_convention": "AUROC(named_first) - AUROC(named_second) in every test id",
+    "claim_hierarchy": {
+      "primary": "both_brains_vs_deceiver_eeg",
+      "secondary": [
+        "observer_eeg_vs_deceiver_eeg",
+        "interbrain_vs_deceiver_eeg",
+        "eeg_plus_behavioral_vs_deceiver_eeg"
+      ],
+      "exploratory": [
+        "observer_eeg_vs_both_brains",
+        "observer_eeg_vs_interbrain",
+        "observer_eeg_vs_eeg_plus_behavioral",
+        "both_brains_vs_interbrain",
+        "both_brains_vs_eeg_plus_behavioral",
+        "interbrain_vs_eeg_plus_behavioral"
+      ]
+    },
+    "behavioral_exclusions": {
+      "pinfo_bart_score": "per-participant constant; identity proxy (S19)",
+      "trials_so_far": "r=1.000 with dyad_trial_seq; positional, not behavioural",
+      "round": "same reason as trials_so_far",
+      "outcome": "post-hoc w.r.t. label (M.LEAKAGE_COLUMNS)"
+    },
+    "amendment": "Amendment 4 (2026-08-22, pre-results)"
+  },
+  "input_sets": [
+    "deceiver_eeg",
+    "observer_eeg",
+    "both_brains",
+    "interbrain",
+    "eeg_plus_behavioral"
+  ],
+  "input_set_labels": {
+    "deceiver_eeg": "Deceiver's EEG only",
+    "observer_eeg": "Observer's EEG only",
+    "both_brains": "Both participants' EEG",
+    "interbrain": "Inter-brain / dyadic features",
+    "eeg_plus_behavioral": "Deceiver's EEG + behavioral history"
+  },
+  "input_set_widths": {
+    "deceiver_eeg": 1770,
+    "observer_eeg": 1770,
+    "both_brains": 3540,
+    "interbrain": 1560,
+    "eeg_plus_behavioral": 1776
+  },
+  "per_dyad": [
+    {
+      "pair_id": "sub03_sub06",
+      "n_test": 968,
+      "n_train": 9190,
+      "class_balance": {
+        "n_lie": 460,
+        "n_truth": 508,
+        "n_minority": 460
+      },
+      "scores": {
+        "deceiver_eeg": {
+          "auroc": 0.5161460116398493,
+          "balanced_accuracy": 0.5217134542964739,
+          "f1": 0.4894795127353267,
+          "precision": 0.49887133182844245,
+          "recall": 0.48043478260869565,
+          "n_test": 968,
+          "class_balance_pos": 0.47520661157024796
+        },
+        "observer_eeg": {
+          "auroc": 0.5127695994522424,
+          "balanced_accuracy": 0.5108610065046217,
+          "f1": 0.25204582651391166,
+          "precision": 0.5099337748344371,
+          "recall": 0.1673913043478261,
+          "n_test": 968,
+          "class_balance_pos": 0.47520661157024796
+        },
+        "both_brains": {
+          "auroc": 0.5224709003765833,
+          "balanced_accuracy": 0.5029527559055118,
+          "f1": 0.3290414878397711,
+          "precision": 0.4811715481171548,
+          "recall": 0.25,
+          "n_test": 968,
+          "class_balance_pos": 0.47520661157024796
+        },
+        "interbrain": {
+          "auroc": 0.4809910989387196,
+          "balanced_accuracy": 0.4843889079082506,
+          "f1": 0.4376417233560091,
+          "precision": 0.45734597156398105,
+          "recall": 0.41956521739130437,
+          "n_test": 968,
+          "class_balance_pos": 0.47520661157024796
+        },
+        "eeg_plus_behavioral": {
+          "auroc": 0.5142031838411503,
+          "balanced_accuracy": 0.5169548099965765,
+          "f1": 0.4781144781144781,
+          "precision": 0.494199535962877,
+          "recall": 0.46304347826086956,
+          "n_test": 968,
+          "class_balance_pos": 0.47520661157024796
+        },
+        "majority": {
+          "auroc": 0.5,
+          "balanced_accuracy": 0.5,
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "n_test": 968,
+          "class_balance_pos": 0.47520661157024796
+        }
+      }
+    },
+    {
+      "pair_id": "sub04_sub05",
+      "n_test": 968,
+      "n_train": 9190,
+      "class_balance": {
+        "n_lie": 442,
+        "n_truth": 526,
+        "n_minority": 442
+      },
+      "scores": {
+        "deceiver_eeg": {
+          "auroc": 0.5089852554066376,
+          "balanced_accuracy": 0.5168349878705504,
+          "f1": 0.49568965517241376,
+          "precision": 0.4732510288065844,
+          "recall": 0.5203619909502263,
+          "n_test": 968,
+          "class_balance_pos": 0.45661157024793386
+        },
+        "observer_eeg": {
+          "auroc": 0.5233126301120039,
+          "balanced_accuracy": 0.5328011286409855,
+          "f1": 0.4076086956521739,
+          "precision": 0.5102040816326531,
+          "recall": 0.3393665158371041,
+          "n_test": 968,
+          "class_balance_pos": 0.45661157024793386
+        },
+        "both_brains": {
+          "auroc": 0.5273944909932384,
+          "balanced_accuracy": 0.5210157768869467,
+          "f1": 0.4545454545454546,
+          "precision": 0.48223350253807107,
+          "recall": 0.4298642533936652,
+          "n_test": 968,
+          "class_balance_pos": 0.45661157024793386
+        },
+        "interbrain": {
+          "auroc": 0.48753075374636545,
+          "balanced_accuracy": 0.48874369870791257,
+          "f1": 0.4307334109429569,
+          "precision": 0.44364508393285373,
+          "recall": 0.41855203619909503,
+          "n_test": 968,
+          "class_balance_pos": 0.45661157024793386
+        },
+        "eeg_plus_behavioral": {
+          "auroc": 0.5063012920874697,
+          "balanced_accuracy": 0.5134886361681262,
+          "f1": 0.48577680525164113,
+          "precision": 0.4703389830508475,
+          "recall": 0.502262443438914,
+          "n_test": 968,
+          "class_balance_pos": 0.45661157024793386
+        },
+        "majority": {
+          "auroc": 0.5,
+          "balanced_accuracy": 0.5,
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "n_test": 968,
+          "class_balance_pos": 0.45661157024793386
+        }
+      }
+    },
+    {
+      "pair_id": "sub07_sub08",
+      "n_test": 968,
+      "n_train": 9190,
+      "class_balance": {
+        "n_lie": 447,
+        "n_truth": 521,
+        "n_minority": 447
+      },
+      "scores": {
+        "deceiver_eeg": {
+          "auroc": 0.5497601841236307,
+          "balanced_accuracy": 0.5323976864316171,
+          "f1": 0.49035187287173665,
+          "precision": 0.4976958525345622,
+          "recall": 0.48322147651006714,
+          "n_test": 968,
+          "class_balance_pos": 0.4617768595041322
+        },
+        "observer_eeg": {
+          "auroc": 0.516572414948022,
+          "balanced_accuracy": 0.51028610441974,
+          "f1": 0.5132382892057027,
+          "precision": 0.47102803738317756,
+          "recall": 0.5637583892617449,
+          "n_test": 968,
+          "class_balance_pos": 0.4617768595041322
+        },
+        "both_brains": {
+          "auroc": 0.5462992781907106,
+          "balanced_accuracy": 0.5307445241683735,
+          "f1": 0.5368314833501513,
+          "precision": 0.4889705882352941,
+          "recall": 0.5950782997762863,
+          "n_test": 968,
+          "class_balance_pos": 0.4617768595041322
+        },
+        "interbrain": {
+          "auroc": 0.5137684799924427,
+          "balanced_accuracy": 0.5140110869219836,
+          "f1": 0.47231638418079097,
+          "precision": 0.4771689497716895,
+          "recall": 0.46756152125279643,
+          "n_test": 968,
+          "class_balance_pos": 0.4617768595041322
+        },
+        "eeg_plus_behavioral": {
+          "auroc": 0.5426580272836183,
+          "balanced_accuracy": 0.5326896735326574,
+          "f1": 0.5165421558164354,
+          "precision": 0.49387755102040815,
+          "recall": 0.5413870246085011,
+          "n_test": 968,
+          "class_balance_pos": 0.4617768595041322
+        },
+        "majority": {
+          "auroc": 0.5,
+          "balanced_accuracy": 0.5,
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "n_test": 968,
+          "class_balance_pos": 0.4617768595041322
+        }
+      }
+    },
+    {
+      "pair_id": "sub09_sub10",
+      "n_test": 968,
+      "n_train": 9190,
+      "class_balance": {
+        "n_lie": 471,
+        "n_truth": 497,
+        "n_minority": 471
+      },
+      "scores": {
+        "deceiver_eeg": {
+          "auroc": 0.500151653017895,
+          "balanced_accuracy": 0.4999978640420014,
+          "f1": 0.4044665012406948,
+          "precision": 0.48656716417910445,
+          "recall": 0.346072186836518,
+          "n_test": 968,
+          "class_balance_pos": 0.4865702479338843
+        },
+        "observer_eeg": {
+          "auroc": 0.5409057316296932,
+          "balanced_accuracy": 0.5376953867579148,
+          "f1": 0.5219251336898396,
+          "precision": 0.5258620689655172,
+          "recall": 0.5180467091295117,
+          "n_test": 968,
+          "class_balance_pos": 0.4865702479338843
+        },
+        "both_brains": {
+          "auroc": 0.5345619363740831,
+          "balanced_accuracy": 0.5419737106289542,
+          "f1": 0.4190981432360743,
+          "precision": 0.558303886925795,
+          "recall": 0.3354564755838641,
+          "n_test": 968,
+          "class_balance_pos": 0.4865702479338843
+        },
+        "interbrain": {
+          "auroc": 0.5067688508973159,
+          "balanced_accuracy": 0.5000469910759675,
+          "f1": 0.4307692307692308,
+          "precision": 0.48663101604278075,
+          "recall": 0.386411889596603,
+          "n_test": 968,
+          "class_balance_pos": 0.4865702479338843
+        },
+        "eeg_plus_behavioral": {
+          "auroc": 0.49657605932836935,
+          "balanced_accuracy": 0.5046948356807511,
+          "f1": 0.3979721166032953,
+          "precision": 0.4937106918238994,
+          "recall": 0.3333333333333333,
+          "n_test": 968,
+          "class_balance_pos": 0.4865702479338843
+        },
+        "majority": {
+          "auroc": 0.5,
+          "balanced_accuracy": 0.5,
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "n_test": 968,
+          "class_balance_pos": 0.4865702479338843
+        }
+      }
+    },
+    {
+      "pair_id": "sub11_sub12",
+      "n_test": 968,
+      "n_train": 9190,
+      "class_balance": {
+        "n_lie": 424,
+        "n_truth": 544,
+        "n_minority": 424
+      },
+      "scores": {
+        "deceiver_eeg": {
+          "auroc": 0.5500138734739178,
+          "balanced_accuracy": 0.5302615149833518,
+          "f1": 0.511182108626198,
+          "precision": 0.46601941747572817,
+          "recall": 0.5660377358490566,
+          "n_test": 968,
+          "class_balance_pos": 0.4380165289256198
+        },
+        "observer_eeg": {
+          "auroc": 0.504205396781354,
+          "balanced_accuracy": 0.5142896781354052,
+          "f1": 0.5662337662337663,
+          "precision": 0.4473324213406293,
+          "recall": 0.7712264150943396,
+          "n_test": 968,
+          "class_balance_pos": 0.4380165289256198
+        },
+        "both_brains": {
+          "auroc": 0.5290909406215316,
+          "balanced_accuracy": 0.5182783018867925,
+          "f1": 0.5556561085972851,
+          "precision": 0.45080763582966227,
+          "recall": 0.7240566037735849,
+          "n_test": 968,
+          "class_balance_pos": 0.4380165289256198
+        },
+        "interbrain": {
+          "auroc": 0.5290649278579356,
+          "balanced_accuracy": 0.5220935072142064,
+          "f1": 0.4647887323943662,
+          "precision": 0.46261682242990654,
+          "recall": 0.4669811320754717,
+          "n_test": 968,
+          "class_balance_pos": 0.4380165289256198
+        },
+        "eeg_plus_behavioral": {
+          "auroc": 0.5540068326859047,
+          "balanced_accuracy": 0.5358802719200888,
+          "f1": 0.5240083507306889,
+          "precision": 0.4700374531835206,
+          "recall": 0.5919811320754716,
+          "n_test": 968,
+          "class_balance_pos": 0.4380165289256198
+        },
+        "majority": {
+          "auroc": 0.5,
+          "balanced_accuracy": 0.5,
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "n_test": 968,
+          "class_balance_pos": 0.4380165289256198
+        }
+      }
+    },
+    {
+      "pair_id": "sub13_sub14",
+      "n_test": 968,
+      "n_train": 9190,
+      "class_balance": {
+        "n_lie": 459,
+        "n_truth": 509,
+        "n_minority": 459
+      },
+      "scores": {
+        "deceiver_eeg": {
+          "auroc": 0.49449345335165285,
+          "balanced_accuracy": 0.49623123643694544,
+          "f1": 0.48631578947368415,
+          "precision": 0.47046843177189407,
+          "recall": 0.5032679738562091,
+          "n_test": 968,
+          "class_balance_pos": 0.47417355371900827
+        },
+        "observer_eeg": {
+          "auroc": 0.4953323831169665,
+          "balanced_accuracy": 0.48903184936930455,
+          "f1": 0.3441734417344174,
+          "precision": 0.4551971326164875,
+          "recall": 0.2766884531590414,
+          "n_test": 968,
+          "class_balance_pos": 0.47417355371900827
+        },
+        "both_brains": {
+          "auroc": 0.5017613244817684,
+          "balanced_accuracy": 0.49744682854586936,
+          "f1": 0.4796573875802998,
+          "precision": 0.47157894736842104,
+          "recall": 0.4880174291938998,
+          "n_test": 968,
+          "class_balance_pos": 0.47417355371900827
+        },
+        "interbrain": {
+          "auroc": 0.4861597989992766,
+          "balanced_accuracy": 0.49073539042335995,
+          "f1": 0.44695259593679454,
+          "precision": 0.4637002341920375,
+          "recall": 0.43137254901960786,
+          "n_test": 968,
+          "class_balance_pos": 0.47417355371900827
+        },
+        "eeg_plus_behavioral": {
+          "auroc": 0.49355179749262723,
+          "balanced_accuracy": 0.4870886140965882,
+          "f1": 0.46895074946466814,
+          "precision": 0.4610526315789474,
+          "recall": 0.477124183006536,
+          "n_test": 968,
+          "class_balance_pos": 0.47417355371900827
+        },
+        "majority": {
+          "auroc": 0.5,
+          "balanced_accuracy": 0.5,
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "n_test": 968,
+          "class_balance_pos": 0.47417355371900827
+        }
+      }
+    },
+    {
+      "pair_id": "sub15_sub16",
+      "n_test": 968,
+      "n_train": 9190,
+      "class_balance": {
+        "n_lie": 457,
+        "n_truth": 511,
+        "n_minority": 457
+      },
+      "scores": {
+        "deceiver_eeg": {
+          "auroc": 0.5186509482843525,
+          "balanced_accuracy": 0.5204387501231121,
+          "f1": 0.35846372688477945,
+          "precision": 0.5121951219512195,
+          "recall": 0.27571115973741794,
+          "n_test": 968,
+          "class_balance_pos": 0.47210743801652894
+        },
+        "observer_eeg": {
+          "auroc": 0.5013338928689188,
+          "balanced_accuracy": 0.4904700527133907,
+          "f1": 0.4014778325123153,
+          "precision": 0.4591549295774648,
+          "recall": 0.35667396061269147,
+          "n_test": 968,
+          "class_balance_pos": 0.47210743801652894
+        },
+        "both_brains": {
+          "auroc": 0.5115468446903356,
+          "balanced_accuracy": 0.49358318310088345,
+          "f1": 0.4168674698795181,
+          "precision": 0.46380697050938335,
+          "recall": 0.3785557986870897,
+          "n_test": 968,
+          "class_balance_pos": 0.47210743801652894
+        },
+        "interbrain": {
+          "auroc": 0.474283487562466,
+          "balanced_accuracy": 0.4721102913153511,
+          "f1": 0.39520958083832336,
+          "precision": 0.4365079365079365,
+          "recall": 0.3610503282275711,
+          "n_test": 968,
+          "class_balance_pos": 0.47210743801652894
+        },
+        "eeg_plus_behavioral": {
+          "auroc": 0.5188222346880661,
+          "balanced_accuracy": 0.5199762768330857,
+          "f1": 0.3510791366906475,
+          "precision": 0.5126050420168067,
+          "recall": 0.26695842450765866,
+          "n_test": 968,
+          "class_balance_pos": 0.47210743801652894
+        },
+        "majority": {
+          "auroc": 0.5,
+          "balanced_accuracy": 0.5,
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "n_test": 968,
+          "class_balance_pos": 0.47210743801652894
+        }
+      }
+    },
+    {
+      "pair_id": "sub17_sub18",
+      "n_test": 968,
+      "n_train": 9190,
+      "class_balance": {
+        "n_lie": 399,
+        "n_truth": 569,
+        "n_minority": 399
+      },
+      "scores": {
+        "deceiver_eeg": {
+          "auroc": 0.4838502230972862,
+          "balanced_accuracy": 0.48892442001312597,
+          "f1": 0.42890442890442887,
+          "precision": 0.4008714596949891,
+          "recall": 0.46115288220551376,
+          "n_test": 968,
+          "class_balance_pos": 0.4121900826446281
+        },
+        "observer_eeg": {
+          "auroc": 0.5186119957186464,
+          "balanced_accuracy": 0.5196647153912901,
+          "f1": 0.45476190476190476,
+          "precision": 0.4331065759637188,
+          "recall": 0.47869674185463656,
+          "n_test": 968,
+          "class_balance_pos": 0.4121900826446281
+        },
+        "both_brains": {
+          "auroc": 0.503177980099634,
+          "balanced_accuracy": 0.5126040056203778,
+          "f1": 0.46485260770975056,
+          "precision": 0.4244306418219462,
+          "recall": 0.5137844611528822,
+          "n_test": 968,
+          "class_balance_pos": 0.4121900826446281
+        },
+        "interbrain": {
+          "auroc": 0.4879862221458744,
+          "balanced_accuracy": 0.4833084468640846,
+          "f1": 0.4082125603864734,
+          "precision": 0.3939393939393939,
+          "recall": 0.42355889724310775,
+          "n_test": 968,
+          "class_balance_pos": 0.4121900826446281
+        },
+        "eeg_plus_behavioral": {
+          "auroc": 0.4844448555483612,
+          "balanced_accuracy": 0.4902920746505984,
+          "f1": 0.4362801377726751,
+          "precision": 0.4025423728813559,
+          "recall": 0.47619047619047616,
+          "n_test": 968,
+          "class_balance_pos": 0.4121900826446281
+        },
+        "majority": {
+          "auroc": 0.5,
+          "balanced_accuracy": 0.5,
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "n_test": 968,
+          "class_balance_pos": 0.4121900826446281
+        }
+      }
+    },
+    {
+      "pair_id": "sub19_sub22",
+      "n_test": 484,
+      "n_train": 9674,
+      "class_balance": {
+        "n_lie": 248,
+        "n_truth": 236,
+        "n_minority": 236
+      },
+      "scores": {
+        "deceiver_eeg": {
+          "auroc": 0.5145229633679607,
+          "balanced_accuracy": 0.5295243302351011,
+          "f1": 0.5626204238921003,
+          "precision": 0.5387453874538746,
+          "recall": 0.5887096774193549,
+          "n_test": 484,
+          "class_balance_pos": 0.512396694214876
+        },
+        "observer_eeg": {
+          "auroc": 0.5210497539639147,
+          "balanced_accuracy": 0.4995215965008202,
+          "f1": 0.47058823529411764,
+          "precision": 0.5118483412322274,
+          "recall": 0.43548387096774194,
+          "n_test": 484,
+          "class_balance_pos": 0.512396694214876
+        },
+        "both_brains": {
+          "auroc": 0.542851284855112,
+          "balanced_accuracy": 0.5289092400218699,
+          "f1": 0.5725047080979284,
+          "precision": 0.5371024734982333,
+          "recall": 0.6129032258064516,
+          "n_test": 484,
+          "class_balance_pos": 0.512396694214876
+        },
+        "interbrain": {
+          "auroc": 0.5004100601421543,
+          "balanced_accuracy": 0.5041689447785676,
+          "f1": 0.46325167037861914,
+          "precision": 0.5174129353233831,
+          "recall": 0.41935483870967744,
+          "n_test": 484,
+          "class_balance_pos": 0.512396694214876
+        },
+        "eeg_plus_behavioral": {
+          "auroc": 0.5214598141060689,
+          "balanced_accuracy": 0.5444231820667031,
+          "f1": 0.4837209302325581,
+          "precision": 0.5714285714285714,
+          "recall": 0.41935483870967744,
+          "n_test": 484,
+          "class_balance_pos": 0.512396694214876
+        },
+        "majority": {
+          "auroc": 0.5,
+          "balanced_accuracy": 0.5,
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "n_test": 484,
+          "class_balance_pos": 0.512396694214876
+        }
+      }
+    },
+    {
+      "pair_id": "sub20_sub21",
+      "n_test": 966,
+      "n_train": 9192,
+      "class_balance": {
+        "n_lie": 489,
+        "n_truth": 477,
+        "n_minority": 477
+      },
+      "scores": {
+        "deceiver_eeg": {
+          "auroc": 0.5087480118154964,
+          "balanced_accuracy": 0.5121027382284472,
+          "f1": 0.5275827482447342,
+          "precision": 0.5177165354330708,
+          "recall": 0.5378323108384458,
+          "n_test": 966,
+          "class_balance_pos": 0.5062111801242236
+        },
+        "observer_eeg": {
+          "auroc": 0.537463612472294,
+          "balanced_accuracy": 0.5079098661110468,
+          "f1": 0.29455081001472755,
+          "precision": 0.5263157894736842,
+          "recall": 0.20449897750511248,
+          "n_test": 966,
+          "class_balance_pos": 0.5062111801242236
+        },
+        "both_brains": {
+          "auroc": 0.5362846351386692,
+          "balanced_accuracy": 0.5306234003421177,
+          "f1": 0.46153846153846156,
+          "precision": 0.547752808988764,
+          "recall": 0.3987730061349693,
+          "n_test": 966,
+          "class_balance_pos": 0.5062111801242236
+        },
+        "interbrain": {
+          "auroc": 0.4874878350975122,
+          "balanced_accuracy": 0.48864323288446454,
+          "f1": 0.4431946006749156,
+          "precision": 0.4925,
+          "recall": 0.40286298568507156,
+          "n_test": 966,
+          "class_balance_pos": 0.5062111801242236
+        },
+        "eeg_plus_behavioral": {
+          "auroc": 0.5082378361693097,
+          "balanced_accuracy": 0.519723218993968,
+          "f1": 0.5206611570247934,
+          "precision": 0.5260960334029228,
+          "recall": 0.5153374233128835,
+          "n_test": 966,
+          "class_balance_pos": 0.5062111801242236
+        },
+        "majority": {
+          "auroc": 0.5,
+          "balanced_accuracy": 0.5,
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "n_test": 966,
+          "class_balance_pos": 0.5062111801242236
+        }
+      }
+    },
+    {
+      "pair_id": "sub23_sub24",
+      "n_test": 964,
+      "n_train": 9194,
+      "class_balance": {
+        "n_lie": 500,
+        "n_truth": 464,
+        "n_minority": 464
+      },
+      "scores": {
+        "deceiver_eeg": {
+          "auroc": 0.5432844827586207,
+          "balanced_accuracy": 0.5199913793103448,
+          "f1": 0.5519922254616133,
+          "precision": 0.5368620037807184,
+          "recall": 0.568,
+          "n_test": 964,
+          "class_balance_pos": 0.5186721991701245
+        },
+        "observer_eeg": {
+          "auroc": 0.48267672413793106,
+          "balanced_accuracy": 0.4972586206896552,
+          "f1": 0.45291479820627806,
+          "precision": 0.5153061224489796,
+          "recall": 0.404,
+          "n_test": 964,
+          "class_balance_pos": 0.5186721991701245
+        },
+        "both_brains": {
+          "auroc": 0.503301724137931,
+          "balanced_accuracy": 0.49499137931034487,
+          "f1": 0.5159362549800797,
+          "precision": 0.5138888888888888,
+          "recall": 0.518,
+          "n_test": 964,
+          "class_balance_pos": 0.5186721991701245
+        },
+        "interbrain": {
+          "auroc": 0.489875,
+          "balanced_accuracy": 0.493198275862069,
+          "f1": 0.40909090909090906,
+          "precision": 0.5089285714285714,
+          "recall": 0.342,
+          "n_test": 964,
+          "class_balance_pos": 0.5186721991701245
+        },
+        "eeg_plus_behavioral": {
+          "auroc": 0.5445818965517242,
+          "balanced_accuracy": 0.5223793103448277,
+          "f1": 0.5504407443682664,
+          "precision": 0.5393474088291746,
+          "recall": 0.562,
+          "n_test": 964,
+          "class_balance_pos": 0.5186721991701245
+        },
+        "majority": {
+          "auroc": 0.5,
+          "balanced_accuracy": 0.5,
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "n_test": 964,
+          "class_balance_pos": 0.5186721991701245
+        }
+      }
+    }
+  ],
+  "per_input_set": {
+    "deceiver_eeg": {
+      "median_auroc": 0.5145229633679607,
+      "ci95": {
+        "mean": 0.5171460963943001,
+        "lower": 0.5022977070205915,
+        "upper": 0.5319944857680087,
+        "sd": 0.022102094871808555
+      },
+      "n_dyads_above_chance": 9,
+      "per_fold_auroc": [
+        0.5161460116398493,
+        0.5089852554066376,
+        0.5497601841236307,
+        0.500151653017895,
+        0.5500138734739178,
+        0.49449345335165285,
+        0.5186509482843525,
+        0.4838502230972862,
+        0.5145229633679607,
+        0.5087480118154964,
+        0.5432844827586207
+      ]
+    },
+    "observer_eeg": {
+      "median_auroc": 0.516572414948022,
+      "ci95": {
+        "mean": 0.5140212850183624,
+        "lower": 0.502334369169303,
+        "upper": 0.5257082008674219,
+        "sd": 0.01739618462000502
+      },
+      "n_dyads_above_chance": 9,
+      "per_fold_auroc": [
+        0.5127695994522424,
+        0.5233126301120039,
+        0.516572414948022,
+        0.5409057316296932,
+        0.504205396781354,
+        0.4953323831169665,
+        0.5013338928689188,
+        0.5186119957186464,
+        0.5210497539639147,
+        0.537463612472294,
+        0.48267672413793106
+      ]
+    },
+    "both_brains": {
+      "median_auroc": 0.5273944909932384,
+      "ci95": {
+        "mean": 0.523521939996327,
+        "lower": 0.5125568810955371,
+        "upper": 0.5344869988971169,
+        "sd": 0.016321687558203925
+      },
+      "n_dyads_above_chance": 11,
+      "per_fold_auroc": [
+        0.5224709003765833,
+        0.5273944909932384,
+        0.5462992781907106,
+        0.5345619363740831,
+        0.5290909406215316,
+        0.5017613244817684,
+        0.5115468446903356,
+        0.503177980099634,
+        0.542851284855112,
+        0.5362846351386692,
+        0.503301724137931
+      ]
+    },
+    "interbrain": {
+      "median_auroc": 0.4879862221458744,
+      "ci95": {
+        "mean": 0.4949387741254601,
+        "lower": 0.4841653727882396,
+        "upper": 0.5057121754626805,
+        "sd": 0.016036401824761914
+      },
+      "n_dyads_above_chance": 4,
+      "per_fold_auroc": [
+        0.4809910989387196,
+        0.48753075374636545,
+        0.5137684799924427,
+        0.5067688508973159,
+        0.5290649278579356,
+        0.4861597989992766,
+        0.474283487562466,
+        0.4879862221458744,
+        0.5004100601421543,
+        0.4874878350975122,
+        0.489875
+      ]
+    },
+    "eeg_plus_behavioral": {
+      "median_auroc": 0.5142031838411503,
+      "ci95": {
+        "mean": 0.5168039845256973,
+        "lower": 0.501726034027624,
+        "upper": 0.5318819350237707,
+        "sd": 0.02244380073780449
+      },
+      "n_dyads_above_chance": 8,
+      "per_fold_auroc": [
+        0.5142031838411503,
+        0.5063012920874697,
+        0.5426580272836183,
+        0.49657605932836935,
+        0.5540068326859047,
+        0.49355179749262723,
+        0.5188222346880661,
+        0.4844448555483612,
+        0.5214598141060689,
+        0.5082378361693097,
+        0.5445818965517242
+      ]
+    }
+  },
+  "folds": [
+    {
+      "pair_id": "sub03_sub06",
+      "test_key_sha256": "351887866418f59c2867d21022082dc94a4ba8ca2a6d5f1d47cca9919d576947",
+      "n_test": 968
+    },
+    {
+      "pair_id": "sub04_sub05",
+      "test_key_sha256": "455dd469827bdc4c97d07ef2089a2f16fd8bac96596d64278cb0a55f580ebab8",
+      "n_test": 968
+    },
+    {
+      "pair_id": "sub07_sub08",
+      "test_key_sha256": "4dd49aae60a7e43a48d0d2fb01c3b99bb9392094d53f935030f84adc52c43087",
+      "n_test": 968
+    },
+    {
+      "pair_id": "sub09_sub10",
+      "test_key_sha256": "ec8bcc7ee3df930585f46c9863d54227d74a6b48c0f6db04d9a65dce3b34100d",
+      "n_test": 968
+    },
+    {
+      "pair_id": "sub11_sub12",
+      "test_key_sha256": "e9018d220a6f61d705f9a23b713525b09007d05807aff5d6b25672c51f4b07f0",
+      "n_test": 968
+    },
+    {
+      "pair_id": "sub13_sub14",
+      "test_key_sha256": "98be29314f5d381557b0441a2e2982c05120df49dcc8262d2afa61a4f2be0bbc",
+      "n_test": 968
+    },
+    {
+      "pair_id": "sub15_sub16",
+      "test_key_sha256": "644b8a6c0757a880f828fcb6f0d6a80068531b8d0aa4667f3de60a9e598033e3",
+      "n_test": 968
+    },
+    {
+      "pair_id": "sub17_sub18",
+      "test_key_sha256": "c942549e24a4f6aa651a4020d3b63680a4b69932d0363bb2dadf60728864e6f7",
+      "n_test": 968
+    },
+    {
+      "pair_id": "sub19_sub22",
+      "test_key_sha256": "e490553d0c2ae256f61790f640e3f4be1ff018761dce49cf90ceebeb46167de9",
+      "n_test": 484
+    },
+    {
+      "pair_id": "sub20_sub21",
+      "test_key_sha256": "13bdab64a202e474711a09cfb73971b639f0e4340b5c59cecb83ccc5b441b4cc",
+      "n_test": 966
+    },
+    {
+      "pair_id": "sub23_sub24",
+      "test_key_sha256": "7ce7e350138d54b6b756acaba15ce5081b0e11f61bb940afc7904c089f5cf818",
+      "n_test": 964
+    }
+  ],
+  "tests": {
+    "both_brains_vs_deceiver_eeg": {
+      "result": {
+        "n": 11,
+        "dyad_ids": [
+          "sub03_sub06",
+          "sub04_sub05",
+          "sub07_sub08",
+          "sub09_sub10",
+          "sub11_sub12",
+          "sub13_sub14",
+          "sub15_sub16",
+          "sub17_sub18",
+          "sub19_sub22",
+          "sub20_sub21",
+          "sub23_sub24"
+        ],
+        "deltas": [
+          0.00632488873673398,
+          0.01840923558660079,
+          -0.003460905932920144,
+          0.03441028335618812,
+          -0.020922932852386222,
+          0.007267871130115511,
+          -0.0071041035940169195,
+          0.01932775700234779,
+          0.028328321487151364,
+          0.02753662332317275,
+          -0.039982758620689784
+        ],
+        "median_delta": 0.007267871130115511,
+        "n_positive": 7,
+        "n_negative": 4,
+        "n_ties_excluded": 0,
+        "sign_test_p": 0.548828125,
+        "permutation_p": 0.2886711328867113,
+        "n_signflip": 10000,
+        "ci95": {
+          "mean": 0.006375843602027021,
+          "lower": -0.008946393075029377,
+          "upper": 0.021698080279083418,
+          "sd": 0.02280742511266872
+        }
+      },
+      "designation": "confirmatory",
+      "primary": true,
+      "tier": "primary",
+      "supported": false
+    },
+    "observer_eeg_vs_deceiver_eeg": {
+      "result": {
+        "n": 11,
+        "dyad_ids": [
+          "sub03_sub06",
+          "sub04_sub05",
+          "sub07_sub08",
+          "sub09_sub10",
+          "sub11_sub12",
+          "sub13_sub14",
+          "sub15_sub16",
+          "sub17_sub18",
+          "sub19_sub22",
+          "sub20_sub21",
+          "sub23_sub24"
+        ],
+        "deltas": [
+          -0.00337641218760687,
+          0.01432737470536627,
+          -0.03318776917560873,
+          0.04075407861179825,
+          -0.045808476692563826,
+          0.0008389297653136341,
+          -0.017317055415433713,
+          0.034761772621360154,
+          0.006526790595954068,
+          0.02871560065679757,
+          -0.06060775862068968
+        ],
+        "median_delta": 0.0008389297653136341,
+        "n_positive": 6,
+        "n_negative": 5,
+        "n_ties_excluded": 0,
+        "sign_test_p": 1.0,
+        "permutation_p": 1.0,
+        "n_signflip": 10000,
+        "ci95": {
+          "mean": -0.0031248113759375336,
+          "lower": -0.025425894592662087,
+          "upper": 0.01917627184078702,
+          "sd": 0.033195563814678856
+        }
+      },
+      "designation": "confirmatory",
+      "primary": false,
+      "tier": "secondary",
+      "supported": null
+    },
+    "interbrain_vs_deceiver_eeg": {
+      "result": {
+        "n": 11,
+        "dyad_ids": [
+          "sub03_sub06",
+          "sub04_sub05",
+          "sub07_sub08",
+          "sub09_sub10",
+          "sub11_sub12",
+          "sub13_sub14",
+          "sub15_sub16",
+          "sub17_sub18",
+          "sub19_sub22",
+          "sub20_sub21",
+          "sub23_sub24"
+        ],
+        "deltas": [
+          -0.03515491270112969,
+          -0.021454501660272185,
+          -0.03599170413118802,
+          0.006617197879420944,
+          -0.020948945615982262,
+          -0.008333654352376263,
+          -0.04436746072188652,
+          0.00413599904858819,
+          -0.014112903225806384,
+          -0.021260176717984247,
+          -0.05340948275862073
+        ],
+        "median_delta": -0.021260176717984247,
+        "n_positive": 2,
+        "n_negative": 9,
+        "n_ties_excluded": 0,
+        "sign_test_p": 0.0654296875,
+        "permutation_p": 0.030896910308969103,
+        "n_signflip": 10000,
+        "ci95": {
+          "mean": -0.022207322268839744,
+          "lower": -0.03496845139535559,
+          "upper": -0.009446193142323896,
+          "sd": 0.01899517042064253
+        }
+      },
+      "designation": "confirmatory",
+      "primary": false,
+      "tier": "secondary",
+      "supported": null
+    },
+    "eeg_plus_behavioral_vs_deceiver_eeg": {
+      "result": {
+        "n": 11,
+        "dyad_ids": [
+          "sub03_sub06",
+          "sub04_sub05",
+          "sub07_sub08",
+          "sub09_sub10",
+          "sub11_sub12",
+          "sub13_sub14",
+          "sub15_sub16",
+          "sub17_sub18",
+          "sub19_sub22",
+          "sub20_sub21",
+          "sub23_sub24"
+        ],
+        "deltas": [
+          -0.0019428277986990317,
+          -0.0026839633191679813,
+          -0.007102156840012364,
+          -0.003575593689525647,
+          0.003992959211986835,
+          -0.0009416558590256141,
+          0.0001712864037135553,
+          0.0005946324510749945,
+          0.006936850738108236,
+          -0.0005101756461867168,
+          0.0012974137931034413
+        ],
+        "median_delta": -0.0005101756461867168,
+        "n_positive": 5,
+        "n_negative": 6,
+        "n_ties_excluded": 0,
+        "sign_test_p": 1.0,
+        "permutation_p": 0.7551244875512448,
+        "n_signflip": 10000,
+        "ci95": {
+          "mean": -0.0003421118686027539,
+          "lower": -0.0028575246349712355,
+          "upper": 0.0021733008977657276,
+          "sd": 0.00374423718322445
+        }
+      },
+      "designation": "confirmatory",
+      "primary": false,
+      "tier": "secondary",
+      "supported": null
+    },
+    "observer_eeg_vs_both_brains": {
+      "result": {
+        "n": 11,
+        "dyad_ids": [
+          "sub03_sub06",
+          "sub04_sub05",
+          "sub07_sub08",
+          "sub09_sub10",
+          "sub11_sub12",
+          "sub13_sub14",
+          "sub15_sub16",
+          "sub17_sub18",
+          "sub19_sub22",
+          "sub20_sub21",
+          "sub23_sub24"
+        ],
+        "deltas": [
+          -0.00970130092434085,
+          -0.0040818608812345225,
+          -0.029726863242688584,
+          0.00634379525561013,
+          -0.024885543840177604,
+          -0.006428941364801877,
+          -0.010212951821416794,
+          0.015434015619012365,
+          -0.021801530891197296,
+          0.00117897733362482,
+          -0.020624999999999893
+        ],
+        "median_delta": -0.00970130092434085,
+        "n_positive": 3,
+        "n_negative": 8,
+        "n_ties_excluded": 0,
+        "sign_test_p": 0.2265625,
+        "permutation_p": 0.13238676132386762,
+        "n_signflip": 10000,
+        "ci95": {
+          "mean": -0.009500654977964556,
+          "lower": -0.018874841591705452,
+          "upper": -0.00012646836422365755,
+          "sd": 0.013953645521298075
+        }
+      },
+      "designation": "exploratory",
+      "primary": false,
+      "tier": "exploratory",
+      "supported": null
+    },
+    "observer_eeg_vs_interbrain": {
+      "result": {
+        "n": 11,
+        "dyad_ids": [
+          "sub03_sub06",
+          "sub04_sub05",
+          "sub07_sub08",
+          "sub09_sub10",
+          "sub11_sub12",
+          "sub13_sub14",
+          "sub15_sub16",
+          "sub17_sub18",
+          "sub19_sub22",
+          "sub20_sub21",
+          "sub23_sub24"
+        ],
+        "deltas": [
+          0.03177850051352282,
+          0.035781876365638454,
+          0.0028039349555792903,
+          0.034136880732377306,
+          -0.024859531076581565,
+          0.009172584117689897,
+          0.027050405306452807,
+          0.030625773572771964,
+          0.020639693821760452,
+          0.049975777374781816,
+          -0.007198275862068948
+        ],
+        "median_delta": 0.027050405306452807,
+        "n_positive": 9,
+        "n_negative": 2,
+        "n_ties_excluded": 0,
+        "sign_test_p": 0.0654296875,
+        "permutation_p": 0.0292970702929707,
+        "n_signflip": 10000,
+        "ci95": {
+          "mean": 0.019082510892902207,
+          "lower": 0.004356207057234255,
+          "upper": 0.03380881472857016,
+          "sd": 0.021920368350747066
+        }
+      },
+      "designation": "exploratory",
+      "primary": false,
+      "tier": "exploratory",
+      "supported": null
+    },
+    "observer_eeg_vs_eeg_plus_behavioral": {
+      "result": {
+        "n": 11,
+        "dyad_ids": [
+          "sub03_sub06",
+          "sub04_sub05",
+          "sub07_sub08",
+          "sub09_sub10",
+          "sub11_sub12",
+          "sub13_sub14",
+          "sub15_sub16",
+          "sub17_sub18",
+          "sub19_sub22",
+          "sub20_sub21",
+          "sub23_sub24"
+        ],
+        "deltas": [
+          -0.0014335843889078381,
+          0.01701133802453425,
+          -0.026085612335596364,
+          0.0443296723013239,
+          -0.04980143590455066,
+          0.0017805856243392482,
+          -0.01748834181914727,
+          0.03416714017028516,
+          -0.0004100601421541672,
+          0.029225776302984285,
+          -0.06190517241379312
+        ],
+        "median_delta": -0.0004100601421541672,
+        "n_positive": 5,
+        "n_negative": 6,
+        "n_ties_excluded": 0,
+        "sign_test_p": 1.0,
+        "permutation_p": 1.0,
+        "n_signflip": 10000,
+        "ci95": {
+          "mean": -0.0027826995073347797,
+          "lower": -0.025559898582704285,
+          "upper": 0.01999449956803473,
+          "sd": 0.033904270840935606
+        }
+      },
+      "designation": "exploratory",
+      "primary": false,
+      "tier": "exploratory",
+      "supported": null
+    },
+    "both_brains_vs_interbrain": {
+      "result": {
+        "n": 11,
+        "dyad_ids": [
+          "sub03_sub06",
+          "sub04_sub05",
+          "sub07_sub08",
+          "sub09_sub10",
+          "sub11_sub12",
+          "sub13_sub14",
+          "sub15_sub16",
+          "sub17_sub18",
+          "sub19_sub22",
+          "sub20_sub21",
+          "sub23_sub24"
+        ],
+        "deltas": [
+          0.04147980143786367,
+          0.03986373724687298,
+          0.032530798198267874,
+          0.027793085476767176,
+          2.6012763596039434e-05,
+          0.015601525482491774,
+          0.0372633571278696,
+          0.0151917579537596,
+          0.04244122471295775,
+          0.048796800041156996,
+          0.013426724137930945
+        ],
+        "median_delta": 0.032530798198267874,
+        "n_positive": 11,
+        "n_negative": 0,
+        "n_ties_excluded": 0,
+        "sign_test_p": 0.0009765625,
+        "permutation_p": 0.029397060293970604,
+        "n_signflip": 10000,
+        "ci95": {
+          "mean": 0.028583165870866765,
+          "lower": 0.018221510962922037,
+          "upper": 0.03894482077881149,
+          "sd": 0.01542350985284913
+        }
+      },
+      "designation": "exploratory",
+      "primary": false,
+      "tier": "exploratory",
+      "supported": null
+    },
+    "both_brains_vs_eeg_plus_behavioral": {
+      "result": {
+        "n": 11,
+        "dyad_ids": [
+          "sub03_sub06",
+          "sub04_sub05",
+          "sub07_sub08",
+          "sub09_sub10",
+          "sub11_sub12",
+          "sub13_sub14",
+          "sub15_sub16",
+          "sub17_sub18",
+          "sub19_sub22",
+          "sub20_sub21",
+          "sub23_sub24"
+        ],
+        "deltas": [
+          0.008267716535433012,
+          0.021093198905768773,
+          0.0036412509070922194,
+          0.03798587704571377,
+          -0.024915892064373057,
+          0.008209526989141125,
+          -0.007275389997730475,
+          0.018733124551272795,
+          0.02139147074904313,
+          0.028046798969359465,
+          -0.041280172413793226
+        ],
+        "median_delta": 0.008267716535433012,
+        "n_positive": 8,
+        "n_negative": 3,
+        "n_ties_excluded": 0,
+        "sign_test_p": 0.2265625,
+        "permutation_p": 0.2853714628537146,
+        "n_signflip": 10000,
+        "ci95": {
+          "mean": 0.006717955470629775,
+          "lower": -0.009056479966433526,
+          "upper": 0.022492390907693078,
+          "sd": 0.02348053110706591
+        }
+      },
+      "designation": "exploratory",
+      "primary": false,
+      "tier": "exploratory",
+      "supported": null
+    },
+    "interbrain_vs_eeg_plus_behavioral": {
+      "result": {
+        "n": 11,
+        "dyad_ids": [
+          "sub03_sub06",
+          "sub04_sub05",
+          "sub07_sub08",
+          "sub09_sub10",
+          "sub11_sub12",
+          "sub13_sub14",
+          "sub15_sub16",
+          "sub17_sub18",
+          "sub19_sub22",
+          "sub20_sub21",
+          "sub23_sub24"
+        ],
+        "deltas": [
+          -0.03321208490243066,
+          -0.018770538341104204,
+          -0.028889547291175655,
+          0.010192791568946591,
+          -0.024941904827969097,
+          -0.007391998493350649,
+          -0.044538747125600076,
+          0.003541366597513196,
+          -0.02104975396391462,
+          -0.02075000107179753,
+          -0.05470689655172417
+        ],
+        "median_delta": -0.02104975396391462,
+        "n_positive": 2,
+        "n_negative": 9,
+        "n_ties_excluded": 0,
+        "sign_test_p": 0.0654296875,
+        "permutation_p": 0.0336966303369663,
+        "n_signflip": 10000,
+        "ci95": {
+          "mean": -0.02186521040023699,
+          "lower": -0.034742923721010704,
+          "upper": -0.008987497079463275,
+          "sd": 0.019168708092452462
+        }
+      },
+      "designation": "exploratory",
+      "primary": false,
+      "tier": "exploratory",
+      "supported": null
+    }
+  },
+  "tests_exploratory_bh": {
+    "observer_eeg_vs_both_brains": {
+      "sign_test_p_bh": 0.271875,
+      "permutation_p_bh": 0.19858014198580143
+    },
+    "observer_eeg_vs_interbrain": {
+      "sign_test_p_bh": 0.130859375,
+      "permutation_p_bh": 0.0673932606739326
+    },
+    "observer_eeg_vs_eeg_plus_behavioral": {
+      "sign_test_p_bh": 1.0,
+      "permutation_p_bh": 1.0
+    },
+    "both_brains_vs_interbrain": {
+      "sign_test_p_bh": 0.005859375,
+      "permutation_p_bh": 0.0673932606739326
+    },
+    "both_brains_vs_eeg_plus_behavioral": {
+      "sign_test_p_bh": 0.271875,
+      "permutation_p_bh": 0.34244575542445754
+    },
+    "interbrain_vs_eeg_plus_behavioral": {
+      "sign_test_p_bh": 0.130859375,
+      "permutation_p_bh": 0.0673932606739326
+    }
+  },
+  "validations": {
+    "V1_row_count_and_grain": {
+      "passed": true,
+      "evidence": {
+        "n_rows": 10158,
+        "n_dyads": 11,
+        "per_dyad_counts": {
+          "sub03_sub06": 968,
+          "sub04_sub05": 968,
+          "sub07_sub08": 968,
+          "sub09_sub10": 968,
+          "sub11_sub12": 968,
+          "sub13_sub14": 968,
+          "sub15_sub16": 968,
+          "sub17_sub18": 968,
+          "sub19_sub22": 484,
+          "sub20_sub21": 966,
+          "sub23_sub24": 964
+        }
+      }
+    },
+    "V2_target_consistency": {
+      "passed": true,
+      "evidence": {
+        "n_disagreements": 0
+      }
+    },
+    "V3_matrix_alignment": {
+      "passed": true,
+      "evidence": "each build_matrix call asserts len(sub)==len(row_keys) and zero post-alignment NaNs (see _align)"
+    },
+    "V4_identical_folds": {
+      "passed": true,
+      "evidence": {
+        "hashes_x5_identical": [
+          "351887866418f59c2867d21022082dc94a4ba8ca2a6d5f1d47cca9919d576947",
+          "455dd469827bdc4c97d07ef2089a2f16fd8bac96596d64278cb0a55f580ebab8",
+          "4dd49aae60a7e43a48d0d2fb01c3b99bb9392094d53f935030f84adc52c43087",
+          "ec8bcc7ee3df930585f46c9863d54227d74a6b48c0f6db04d9a65dce3b34100d",
+          "e9018d220a6f61d705f9a23b713525b09007d05807aff5d6b25672c51f4b07f0",
+          "98be29314f5d381557b0441a2e2982c05120df49dcc8262d2afa61a4f2be0bbc",
+          "644b8a6c0757a880f828fcb6f0d6a80068531b8d0aa4667f3de60a9e598033e3",
+          "c942549e24a4f6aa651a4020d3b63680a4b69932d0363bb2dadf60728864e6f7",
+          "e490553d0c2ae256f61790f640e3f4be1ff018761dce49cf90ceebeb46167de9",
+          "13bdab64a202e474711a09cfb73971b639f0e4340b5c59cecb83ccc5b441b4cc",
+          "7ce7e350138d54b6b756acaba15ce5081b0e11f61bb940afc7904c089f5cf818"
+        ]
+      }
+    },
+    "V5_lodo_leakage": {
+      "passed": true,
+      "evidence": {
+        "sub03_sub06": {
+          "n_train_dyads": 10,
+          "clean": true
+        },
+        "sub04_sub05": {
+          "n_train_dyads": 10,
+          "clean": true
+        },
+        "sub07_sub08": {
+          "n_train_dyads": 10,
+          "clean": true
+        },
+        "sub09_sub10": {
+          "n_train_dyads": 10,
+          "clean": true
+        },
+        "sub11_sub12": {
+          "n_train_dyads": 10,
+          "clean": true
+        },
+        "sub13_sub14": {
+          "n_train_dyads": 10,
+          "clean": true
+        },
+        "sub15_sub16": {
+          "n_train_dyads": 10,
+          "clean": true
+        },
+        "sub17_sub18": {
+          "n_train_dyads": 10,
+          "clean": true
+        },
+        "sub19_sub22": {
+          "n_train_dyads": 10,
+          "clean": true
+        },
+        "sub20_sub21": {
+          "n_train_dyads": 10,
+          "clean": true
+        },
+        "sub23_sub24": {
+          "n_train_dyads": 10,
+          "clean": true
+        }
+      }
+    },
+    "V6_inner_cv_grouping": {
+      "passed": true,
+      "evidence": {
+        "splitter_counts": {
+          "StratifiedGroupKFold": 55
+        },
+        "n_fallback": 0
+      }
+    },
+    "V7_gate_recheck": {
+      "passed": true,
+      "evidence": {
+        "smallest_fold": 484,
+        "smallest_minority": 236,
+        "clause_a": true,
+        "clause_b_count": 11,
+        "minority_by_dyad": {
+          "sub03_sub06": 460,
+          "sub04_sub05": 442,
+          "sub07_sub08": 447,
+          "sub09_sub10": 471,
+          "sub11_sub12": 424,
+          "sub13_sub14": 459,
+          "sub15_sub16": 457,
+          "sub17_sub18": 399,
+          "sub19_sub22": 236,
+          "sub20_sub21": 477,
+          "sub23_sub24": 464
+        }
+      }
+    },
+    "V8_feature_set_integrity": {
+      "passed": true,
+      "evidence": {
+        "widths": {
+          "deceiver_eeg": 1770,
+          "observer_eeg": 1770,
+          "both_brains": 3540,
+          "interbrain": 1560,
+          "eeg_plus_behavioral": 1776
+        },
+        "both_brains_ok": true,
+        "excluded_names_absent": true
+      }
+    },
+    "V9_grid_n_jobs_invariance": {
+      "passed": true,
+      "evidence": {
+        "auroc_n_jobs_1": 0.5161460116398493,
+        "auroc_n_jobs_chosen": 0.5161460116398493,
+        "diff": 0.0
+      }
+    },
+    "V10_reproducibility": {
+      "passed": true,
+      "evidence": {
+        "max_abs_diff": 0.0,
+        "detail": {
+          "deceiver_eeg_sub03_sub06": 0.0,
+          "observer_eeg_sub03_sub06": 0.0,
+          "interbrain_sub03_sub06": 0.0
+        }
+      }
+    },
+    "V11_metric_cross_check": {
+      "passed": true,
+      "evidence": {
+        "sklearn_auroc": 0.5161460116398493,
+        "hand_auroc": 0.5161460116398494,
+        "diff": 1.1102230246251565e-16
+      }
+    },
+    "V12_majority_class_sanity": {
+      "passed": true,
+      "evidence": {
+        "sub03_sub06": 0.5,
+        "sub04_sub05": 0.5,
+        "sub07_sub08": 0.5,
+        "sub09_sub10": 0.5,
+        "sub11_sub12": 0.5,
+        "sub13_sub14": 0.5,
+        "sub15_sub16": 0.5,
+        "sub17_sub18": 0.5,
+        "sub19_sub22": 0.5,
+        "sub20_sub21": 0.5,
+        "sub23_sub24": 0.5
+      }
+    },
+    "V13_plausibility": {
+      "passed": true,
+      "evidence": {
+        "max_auroc": 0.5540068326859047,
+        "unit": "unit_eeg_plus_behavioral_sub11_sub12"
+      }
+    },
+    "V14_upstream_file_integrity": {
+      "passed": true,
+      "evidence": {
+        "frozen_hyp_sha256": "01dad5eb9bf9cbf913f2871e19464b0accb55a19c43a65341331405ee25da369",
+        "expected": "01dad5eb9bf9cbf913f2871e19464b0accb55a19c43a65341331405ee25da369",
+        "frozen_ok": true,
+        "models_py_sha256_local": "117ad942f6500edc839774f7f4d07cf4d68a179f18cc25b4de157bb45e43820e",
+        "remote_models_sha_seen": null,
+        "models_ok": true
+      }
+    },
+    "V15_cross_experiment_consistency": {
+      "passed": true,
+      "evidence": {
+        "exp7_deceiver_eeg_median": 0.5145229633679607,
+        "exp2_note": "exp2_universal.json not found -- skipped",
+        "exp7_observer_eeg_median": 0.516572414948022,
+        "exp6_note": "exp6_observer.json not found -- skipped"
+      }
+    },
+    "V16_interpretation_string_scan": {
+      "passed": true,
+      "evidence": {
+        "banned_hits": [],
+        "has_noncommunication_guard": true,
+        "has_upward_bias_note": true
+      }
+    }
+  },
+  "environment": {
+    "remote": {
+      "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.29"
+    },
+    "laptop": {
+      "python_version": "3.13.14",
+      "sklearn_version": "1.8.0",
+      "numpy_version": "2.3.2",
+      "scipy_version": "1.17.1",
+      "pandas_version": "2.3.2",
+      "pyarrow_version": "25.0.1"
+    },
+    "data_source": {
+      "deceiver": "shards",
+      "observer": "shards",
+      "dyadic": "shards"
+    }
+  },
+  "runtime": {
+    "per_input_set_seconds": {
+      "deceiver_eeg": 0.16533994674682617,
+      "observer_eeg": 0.16633152961730957,
+      "both_brains": 0.14171814918518066,
+      "interbrain": 0.18959760665893555,
+      "eeg_plus_behavioral": 0.18884515762329102
+    },
+    "grid_n_jobs_per_input_set": {
+      "deceiver_eeg": 6,
+      "observer_eeg": 6,
+      "both_brains": 6,
+      "interbrain": 6,
+      "eeg_plus_behavioral": 6
+    },
+    "preflight_probe": {
+      "seconds": 293.79740691185,
+      "peak_rss_gb": 1.2512550354003906,
+      "n_jobs_chosen": 6
+    },
+    "total_seconds": 618.3498978614807
+  }
+}

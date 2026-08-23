@@ -824,9 +824,37 @@ def build_markdown(result: dict) -> str:
     return "\n".join(lines) + "\n"
 
 
+def _json_default(o):
+    """json.dumps fallback for numpy scalar types (bool_, int64, float64, ...)
+    that don't natively serialize. Real bug found during Task 7's remote run:
+    numpy comparisons scattered across the validation/assembly code (widths_ok,
+    both_brains_ok, clause_a, etc.) produce numpy.bool_/np.int64/np.float64
+    rather than native Python types, and json.dumps rejects those outright.
+    `.item()` converts any numpy scalar to its native Python equivalent. See
+    PROGRESS.md."""
+    if isinstance(o, np.generic):
+        return o.item()
+    raise TypeError(f"Object of type {type(o).__name__} is not JSON serializable")
+
+
+def _sanitize_numpy(obj):
+    """Recursively walk a dict/list structure and cast numpy scalars to native
+    Python types in place (belt-and-suspenders alongside _json_default, since
+    this experiment assembles results from many numpy-heavy comparisons
+    across 5 input sets and 55+ units)."""
+    if isinstance(obj, dict):
+        return {k: _sanitize_numpy(v) for k, v in obj.items()}
+    if isinstance(obj, list):
+        return [_sanitize_numpy(v) for v in obj]
+    if isinstance(obj, np.generic):
+        return obj.item()
+    return obj
+
+
 def write_outputs(result: dict):
     OUT_DIR.mkdir(parents=True, exist_ok=True)
-    json_bytes = json.dumps(result, indent=2, sort_keys=False).encode("utf-8")
+    result = _sanitize_numpy(result)
+    json_bytes = json.dumps(result, indent=2, sort_keys=False, default=_json_default).encode("utf-8")
     EXP7_JSON.write_bytes(json_bytes)
     md_text = build_markdown(result)
     EXP7_MD.write_text(md_text, encoding="utf-8")
@@ -937,7 +965,15 @@ def run_validations(row_keys, folds, index_sha, dec, obs, dy, sb_cols, dy_cols,
     both_brains_ok = set(cb) == (set(cd) | set(co)) and len(set(cd) & set(co)) == 0
     eeg_beh_ok = set(cd).issubset(set(ce)) and all(f"beh_{n}" in ce or n.startswith("beh_") for n in
                                                     [c for c in ce if c not in cd])
-    absent_ok = all(name not in " ".join(cd + co + cb + ci + ce) for name in EXCLUDED_BEHAVIORAL_NAMES)
+    # Exact column-name membership, NOT substring search -- a substring check
+    # here would false-positive on "outcome" matching inside the legitimate
+    # derived column "beh_prior_outcome_correct" (a one-hot encoding of
+    # prior_outcome, required by the plan's behavioral block), which is not
+    # the same thing as the raw leakage column `outcome` this check exists
+    # to keep out. Bug found and fixed during Task 7's remote run -- see
+    # PROGRESS.md.
+    all_cols_exact = set(cd) | set(co) | set(cb) | set(ci) | set(ce)
+    absent_ok = all(name not in all_cols_exact for name in EXCLUDED_BEHAVIORAL_NAMES)
     ok8 = widths_ok and both_brains_ok and absent_ok
     v["V8_feature_set_integrity"] = {"passed": ok8, "evidence": {
         "widths": {"deceiver_eeg": Xd.shape[1], "observer_eeg": Xo.shape[1], "both_brains": Xb.shape[1],
@@ -1074,8 +1110,12 @@ def run_validations(row_keys, folds, index_sha, dec, obs, dy, sb_cols, dy_cols,
         "validations": {},
     })
     hits = [p for p in BANNED_INTERBRAIN_PHRASES if p.lower() in md_preview.lower()]
-    has_guard = "not evidence of communication between brains" in md_preview
-    has_bias_note = "upward bias" in md_preview
+    # Case-insensitive: build_markdown's actual guard sentence reads "NOT
+    # evidence of communication between brains" (capitalized for emphasis).
+    # Bug found and fixed during Task 7's remote run (V16 crashed on this
+    # exact case mismatch) -- see PROGRESS.md.
+    has_guard = "not evidence of communication between brains" in md_preview.lower()
+    has_bias_note = "upward bias" in md_preview.lower()
     ok16 = (len(hits) == 0) and has_guard and has_bias_note
     v["V16_interpretation_string_scan"] = {"passed": ok16, "evidence": {
         "banned_hits": hits, "has_noncommunication_guard": has_guard, "has_upward_bias_note": has_bias_note}}

@@ -1,4 +1,6 @@
 import type { PairedTest } from "@/types/results.v1";
+import { motion, useReducedMotion } from "motion/react";
+import { WT } from "@/walkthrough/motion";
 
 /**
  * General renderer for the project's one inferential procedure (§20): a
@@ -10,7 +12,21 @@ import type { PairedTest } from "@/types/results.v1";
  * the real dyad-gain data has 8 of 10 below it, so "above" carries no
  * built-in positive framing here.
  */
-export function PairedDotPlot({ test, unit = "Δ AUROC" }: { test: PairedTest; unit?: string }) {
+/** `reveal` is opt-in and exists for the walkthrough only. When it is omitted -- which is
+ * every dashboard call site -- rendering is exactly what it always was: rows drawn at rest,
+ * no motion. */
+export function PairedDotPlot({
+  test,
+  unit = "Δ AUROC",
+  reveal,
+}: {
+  test: PairedTest;
+  unit?: string;
+  reveal?: boolean;
+}) {
+  const reduced = useReducedMotion();
+  const animated = reveal !== undefined;
+  const shown = !animated || reveal === true;
   const width = 640;
   const height = 96 + test.n * 30;
   const marginLeft = 96;
@@ -48,19 +64,38 @@ export function PairedDotPlot({ test, unit = "Δ AUROC" }: { test: PairedTest; u
           strokeDasharray="3 3"
         />
 
-        {rows.map((r) => (
+        {rows.map((r, i) => (
           <g key={r.id}>
             <text x={marginLeft - 10} y={r.y + 4} textAnchor="end" fill="var(--color-ink-soft)">
               {r.id.replace(/_/g, " / ")}
             </text>
-            <line x1={zeroX} y1={r.y} x2={xScale(r.delta)} y2={r.y} stroke="var(--color-hairline)" strokeWidth={1} />
-            <circle
-              cx={xScale(r.delta)}
+            <motion.line
+              y1={r.y}
+              y2={r.y}
+              x1={zeroX}
+              stroke="var(--color-hairline)"
+              strokeWidth={1}
+              initial={animated ? { x2: zeroX } : false}
+              animate={{ x2: shown ? xScale(r.delta) : zeroX }}
+              transition={{
+                duration: reduced || !animated ? 0 : WT.base,
+                ease: WT.ease,
+                delay: reduced || !animated ? 0 : i * WT.stagger,
+              }}
+            />
+            <motion.circle
               cy={r.y}
               r={5}
               fill={r.delta >= 0 ? "var(--color-ink)" : "var(--color-paper)"}
               stroke="var(--color-ink)"
               strokeWidth={1.5}
+              initial={animated ? { cx: zeroX, opacity: 0 } : false}
+              animate={{ cx: shown ? xScale(r.delta) : zeroX, opacity: shown ? 1 : 0 }}
+              transition={{
+                duration: reduced || !animated ? 0 : WT.base,
+                ease: WT.ease,
+                delay: reduced || !animated ? 0 : i * WT.stagger,
+              }}
             />
           </g>
         ))}

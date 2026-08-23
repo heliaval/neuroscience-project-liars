@@ -1,8 +1,9 @@
-// app/src/data/source.ts -- swapping to real results is a one-line change to this file.
-// Today: reads the frozen fixture. Later: point this import at
-// `../../../results/results.v1.json` once src/emit.py exists (plans/results-v1-fixture.md
-// §51 step 10) and nothing else in the app changes.
-import fixture from "../../../results/fixtures/results.v1.fixture.json";
+// app/src/data/source.ts -- the app's one point of contact with the results file.
+// Reads the real emitted file, results/results.v1.json, which scripts/emit_results.py
+// regenerates from the pipeline's real output. The fixture at
+// results/fixtures/results.v1.fixture.json remains for reference and for the
+// still-invented sections it is an input to, but the app no longer reads it directly.
+import results from "../../../results/results.v1.json";
 import type { ResultsV1 } from "../types/results.v1";
 
-export const RESULTS = fixture as unknown as ResultsV1;
+export const RESULTS = results as unknown as ResultsV1;

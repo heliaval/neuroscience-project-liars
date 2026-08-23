@@ -1,4 +1,4 @@
-import { isFixture, getPlaceholderSections, getRealSections, getProvenance, type SectionId } from "@/data/selectors";
+import { getPlaceholderSections, getRealSections, getMixedSections, getProvenance, type SectionId } from "@/data/selectors";
 
 const SECTION_LABELS: Record<SectionId, string> = {
   gate: "power gate",
@@ -11,7 +11,6 @@ const SECTION_LABELS: Record<SectionId, string> = {
   exp5: "Experiment 5 (learning curve)",
   exp6: "Experiment 6 (observer early/late)",
   exp7: "Experiment 7 (one brain vs two)",
-  exp8: "Experiment 8 (information onset)",
   tests: "statistical claims",
   interpretability: "electrode/coefficient maps",
   interbrain: "inter-brain network",
@@ -19,20 +18,22 @@ const SECTION_LABELS: Record<SectionId, string> = {
   failures: "failure case gallery",
 };
 
-/** Page-level notice. Disappears automatically the moment meta.is_fixture flips to
- * false on the real-results swap -- no code change required (plans/web-app-scaffold.md
- * §5.1). */
+/** Page-level notice. Renders whenever any section is still placeholder or mixed --
+ * not gated on meta.is_fixture, since the real-results swap left is_fixture false
+ * while interpretability/interbrain/trials/failures (and the dyad fingerprint columns)
+ * are still invented. Disappears only once every section reaches "real". */
 export function ProvenanceBanner() {
-  if (!isFixture()) return null;
-
   const placeholder = getPlaceholderSections();
+  const mixed = getMixedSections();
   const real = getRealSections();
+
+  if (placeholder.length === 0 && mixed.length === 0) return null;
 
   return (
     <div className="border-b border-hairline-strong bg-paper-raised">
       <div className="mx-auto max-w-[68ch] px-6 py-3 font-sans text-[13px] leading-snug text-ink-soft sm:px-8">
         <p>
-          <span className="font-medium text-ink">This page is running on placeholder data.</span>{" "}
+          <span className="font-medium text-ink">Parts of this page are still placeholder data.</span>{" "}
           Real, computed results:{" "}
           {real.map((s, i) => (
             <span key={s}>
@@ -40,7 +41,20 @@ export function ProvenanceBanner() {
               <span className="font-mono text-[12px]">{SECTION_LABELS[s]}</span>
             </span>
           ))}
-          . Invented placeholder numbers, constrained to a plausible range but not measured:{" "}
+          .{" "}
+          {mixed.length > 0 && (
+            <>
+              Partly real, partly placeholder:{" "}
+              {mixed.map((s, i) => (
+                <span key={s}>
+                  {i > 0 && ", "}
+                  <span className="font-mono text-[12px]">{SECTION_LABELS[s]}</span>
+                </span>
+              ))}
+              .{" "}
+            </>
+          )}
+          Invented placeholder numbers, constrained to a plausible range but not measured:{" "}
           {placeholder.map((s, i) => (
             <span key={s}>
               {i > 0 && ", "}

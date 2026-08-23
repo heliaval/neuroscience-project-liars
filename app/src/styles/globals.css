@@ -18,6 +18,13 @@
   zero. Sharp, minimal radius; hairline borders instead of shadows; near-static
   motion (this is a serious negative finding, not something to animate into
   looking exciting).
+
+  One scoped exception: the click-through walkthrough at `/` (see the
+  `.walkthrough` block below and app/src/walkthrough/motion.ts) uses real
+  durations and staggered reveals, because there the motion IS the argument --
+  each screen withholds its evidence until the reader asks for it. The palette
+  is unchanged: the walkthrough uses the same monochrome ink/paper/hairline
+  tokens as everything else, and the rule above still governs /dashboard.
 */
 @theme {
   --font-serif: "Source Serif 4", Georgia, "Times New Roman", serif;
@@ -86,5 +93,29 @@
   ::selection {
     background: var(--color-signal-soft);
     color: var(--color-ink);
+  }
+}
+
+/*
+  Walkthrough motion carve-out. Scoped to `.walkthrough` so /dashboard's
+  near-static motion rule is untouched. KEEP IN SYNC with the WT object in
+  app/src/walkthrough/motion.ts -- that file is the source of truth for the
+  JS-driven values; these properties exist for the CSS-driven transitions
+  (the claim column's measure change and the footer tick fill).
+*/
+.walkthrough {
+  --wt-dur-fast: 260ms;
+  --wt-dur-base: 520ms;
+  --wt-dur-slow: 900ms;
+  --wt-stagger: 60ms;
+  --wt-ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .walkthrough {
+    --wt-dur-fast: 0ms;
+    --wt-dur-base: 0ms;
+    --wt-dur-slow: 0ms;
+    --wt-stagger: 0ms;
   }
 }

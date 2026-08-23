@@ -8,8 +8,9 @@
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview",
-    "gen:types": "json-schema-to-typescript ../results/schema/results.v1.schema.json -o src/types/results.v1.d.ts",
-    "validate:fixture": "ajv validate --spec=draft2020 -s ../results/schema/results.v1.schema.json -d ../results/fixtures/results.v1.fixture.json"
+    "gen:types": "json2ts ../results/schema/results.v1.schema.json -o src/types/results.v1.d.ts",
+    "validate:fixture": "ajv validate --spec=draft2020 -s ../results/schema/results.v1.schema.json -d ../results/fixtures/results.v1.fixture.json",
+    "validate:results": "ajv validate --spec=draft2020 -s ../results/schema/results.v1.schema.json -d ../results/results.v1.json"
   },
   "dependencies": {
     "@fontsource-variable/geist": "^5.3.0",
@@ -19,9 +20,11 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^1.33.0",
+    "motion": "^13.1.1",
     "radix-ui": "^1.6.7",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
+    "react-router-dom": "^7.18.2",
     "shadcn": "^4.19.0",
     "tailwind-merge": "^3.6.0",
     "tailwindcss": "^4.3.3",

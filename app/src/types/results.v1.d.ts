@@ -25,7 +25,6 @@ export interface ResultsV1 {
       exp5: ProvenanceEnum;
       exp6: ProvenanceEnum;
       exp7: ProvenanceEnum;
-      exp8: ProvenanceEnum;
       tests: ProvenanceEnum;
       interpretability: ProvenanceEnum;
       interbrain: ProvenanceEnum;
@@ -605,14 +604,6 @@ export interface ResultsV1 {
         "deceiver_eeg" | "observer_eeg" | "both_brains" | "interbrain" | "eeg_plus_behavioral",
         "deceiver_eeg" | "observer_eeg" | "both_brains" | "interbrain" | "eeg_plus_behavioral"
       ];
-      [k: string]: unknown;
-    };
-    exp8: {
-      /**
-       * @minItems 6
-       * @maxItems 6
-       */
-      windows: [unknown, unknown, unknown, unknown, unknown, unknown];
       [k: string]: unknown;
     };
   };

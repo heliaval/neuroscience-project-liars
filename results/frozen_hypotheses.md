@@ -308,3 +308,169 @@ flagged.
    likewise not added. `outcome` remains excluded from every model as already frozen.
 
 6. **This amendment applies to exp7 only.** exp8 stays at n = 11 pending its own analysis.
+
+**Amendment 5 — 2026-08-22, pre-results, not post-hoc.**
+
+exp8's own analysis (§18, Deception Information Onset), recorded here before
+any model is fit. Note on numbering: the plan driving this analysis
+(`plans/experiment8-information-onset.md`) instructed appending "Amendment
+4"; that number was already taken by Amendment 4 above (exp7's, landed by a
+concurrent session), so this is Amendment 5 instead — verified against this
+file's live content immediately before writing.
+
+1. **§18's literal window scheme is not constructible.** Re-measured
+   directly from `data/raw/Preprocessed/DecisionMaking/*.mat` (23 sessions,
+   one archive extent across all of them): `fs=100 t=[-500, 2990] ms
+   n_samples=350`. Four of §18's illustrative six 250 ms windows spanning
+   -1500 to 0 ms (-1500..-1250, -1250..-1000, -1000..-750, -750..-500) lie
+   entirely outside this extent; only -500..-250 and -250..0 exist at all.
+   This is the identical finding the §9 preprocessing pass already reported
+   in `data/processed/eeg_preprocessing_notes.md` ("Windows chosen": *"Section
+   9's illustrative -2000 ms window and Section 18's six 250 ms sliding
+   windows spanning -1500 to 0 ms are NOT constructible from
+   `Preprocessed.zip`"*) and in `src/preprocessing.py`'s module docstring.
+   `Raw.zip` was not downloaded to work around this then, and is not
+   downloaded now — it remains outside the approved download scope.
+
+2. **The substituted scheme.** Primary ladder: five 100 ms bins tiling the
+   entire available -500..0 ms pre-decision extent exactly once (no gaps, no
+   overlaps — verified by an automated tiling assert, see
+   `data/processed/onset_windows_notes.md` §5).
+
+   | id | nominal bin | `start_ms` (slice) | `end_ms` (slice) | samples |
+   |---|---|---|---|---|
+   | `w1` | -500 to -400 ms | -500 | -410 | 10 |
+   | `w2` | -400 to -300 ms | -400 | -310 | 10 |
+   | `w3` | -300 to -200 ms | -300 | -210 | 10 |
+   | `w4` | -200 to -100 ms | -200 | -110 | 10 |
+   | `w5` | -100 to 0 ms | -100 | 0 | 11 |
+
+   Sensitivity ladder (pre-declared EXPLORATORY, corrected within its own
+   4-cell family, never used to set an onset): two 250 ms bins.
+
+   | id | nominal bin | `start_ms` | `end_ms` | samples |
+   |---|---|---|---|---|
+   | `s1` | -500 to -250 ms | -500 | -260 | 25 |
+   | `s2` | -250 to 0 ms | -250 | 0 | 26 |
+
+   Scaling rationale, fixed before any number exists: the available extent is
+   3x shorter than §18 assumed (500 ms vs 1500 ms), so the bin width shrinks
+   2.5x (250 → 100 ms) and the bin count goes 6 → 5. 100 ms is the finest bin
+   that is a whole number of samples at 100 Hz fs and still leaves more than a
+   handful of samples per window. The full-extent `dm_pre` (-500..0 ms)
+   columns already present in `single_brain.parquet` serve as a zero-cost,
+   descriptive-only anchor, outside every correction family.
+
+3. **Band availability**, applying `src/features.py`'s own `reliability_tier`
+   rule unchanged (n_cycles = duration_s × band_low_hz; ≥3 reliable, ≥1
+   marginal, <1 unreliable):
+
+   | band | low edge | n_cycles @ 100ms | tier @ 100ms | n_cycles @ 250ms | tier @ 250ms |
+   |---|---|---|---|---|---|
+   | delta | 0.5 Hz | 0.05 | unreliable | 0.12 | unreliable |
+   | theta | 4 Hz | 0.40 | unreliable | 1.00 | marginal |
+   | alpha | 8 Hz | 0.80 | unreliable | 2.00 | marginal |
+   | beta | 13 Hz | 1.30 | marginal | 3.25 | reliable |
+   | gamma | 30 Hz | 3.00 | reliable | 7.50 | reliable |
+
+   Alpha is unavailable (unreliable) on the primary 100 ms ladder and only
+   marginal at 250 ms — a real cost of the short bins, stated as such, not
+   hidden. This is the project's own established rule (already used to
+   exclude unreliable columns in `src/models.py:151-192`), not a new standard
+   invented for exp8. The primary ladder's headline feature set is therefore
+   beta + gamma power + all six `td_*` stats: 240 columns per window per role
+   (60 power + 180 time-domain), 30 channels each — verified by direct count
+   against `data/processed/features/onset_feature_dictionary.csv`.
+
+4. **exp8 stays at n = 11. No dyad is dropped.** Amendments 1–3 dropped
+   `sub19_sub22` from exp4/exp5/exp6 for the same structural reason: its rows
+   are confined to `dyad_trial_seq` [1,484], so a late tercile is empty for
+   it. exp8 uses LODO with no within-dyad chronological block — window
+   position, not train/test boundary, is what varies — so that reason does
+   not apply and `sub19_sub22` stays in, with its one recoverable session's
+   484 intact trials. `sub01_sub02` remains excluded from exp3–exp8 as
+   already frozen (it cannot supply role-symmetric/bidirectional trials —
+   sub02 never appears as deceiver in this archive). Tested dyads:
+
+       sub03_sub06  sub04_sub05  sub07_sub08  sub09_sub10  sub11_sub12  sub13_sub14
+       sub15_sub16  sub17_sub18  sub19_sub22  sub20_sub21  sub23_sub24
+
+5. **exp8-specific gate re-check, measured before any model is fit.**
+   `gate.json`'s frozen exp8 row names `sub01_sub02` as the smallest-fold
+   dyad (`smallest_fold_total: 484, smallest_fold_minority: 220`) even though
+   that dyad is excluded from exp3–exp8 — the same defect Amendment 3 found
+   in exp6's row. Re-applying `gate.json`'s frozen `THRESHOLD_M = 60` and
+   Clause A ("smallest test-fold minority ≥ THRESHOLD_M") / Clause B ("at
+   least ⌈0.83×n⌉ of the included dyads individually clear it")
+   wording UNCHANGED, at exp8's real LODO grain (per window, per role) over
+   the 11 included dyads (worst case taken across all 5 primary windows and
+   both roles per dyad):
+
+   | analysis | test-fold grain | smallest fold | smallest minority | Clause A | Clause B | designation |
+   |----------|-----------------|---------------|-------------------|----------|----------|-------------|
+   | exp8 LODO | one dyad's role-rows, worst window | 484 (sub19_sub22) | 236 (sub19_sub22) | PASS (236 ≥ 60) | 11/11 PASS (needed 10) | CONFIRMATORY |
+
+   exp8's CONFIRMATORY designation therefore stands on its own measured
+   numbers (`sub19_sub22` is the real smallest-fold dyad at this grain, not
+   `sub01_sub02`), not on the stale row. `gate.json` is frozen and is NOT
+   edited — the correction lives here and in `results/exp8_onset.json`'s
+   `gate_recheck` block.
+
+6. **Claim hierarchy, fixed before any number exists.**
+
+   | tier | claim | correction |
+   |---|---|---|
+   | PRIMARY | `T_deceiver`, `T_observer` — earliest window with q ≤ 0.05 (§21 permutation nulls, 10-cell grid) | BH, q = 0.05, across all 10 primary cells |
+   | SECONDARY | `exp8_role_delta_by_window` — per-window §20 paired deceiver−observer AUROC delta, n = 11 | BH, q = 0.05, within the 5-window family |
+   | SECONDARY | `T_r_persistent` — persistence-rule onset (earliest qualifying window all of whose later windows also qualify) | none — a re-read of the primary q-values, no refit |
+   | DESCRIPTIVE | `lag_ms = T_deceiver − T_observer` + its dyad-bootstrap interval; the full-extent `dm_pre` anchor | none — explicitly not tests |
+   | EXPLORATORY | the 4 sensitivity-ladder cells (2 windows × 2 roles, 250 ms bins) | BH, q = 0.05, within the 4-cell family |
+
+7. **The correction.** Benjamini–Hochberg FDR, q = 0.05, applied across all
+   10 primary cells (5 windows × 2 roles) as ONE family — correcting within
+   role would make each role's onset threshold depend on which role was
+   chosen to look at, which is exactly the kind of choice that gets made
+   after seeing p-values. The sensitivity family (4 cells) is corrected
+   separately, within itself. BH was chosen over Bonferroni for three
+   reasons, decided on the merits and recorded before results: (a) BH is
+   already this project's established correction for exploratory families
+   (exp5, exp6, both at q = 0.05); (b) `results/fixtures/results.v1.fixture.json`
+   already declared exp8's correction as "Benjamini-Hochberg FDR, q = 0.05"
+   before this amendment was written, so switching to Bonferroni now would be
+   an unforced deviation from a frozen artifact; (c) with 10 tests,
+   Bonferroni's α = 0.005 against a 200-permutation null whose finest
+   attainable p-value is 1/201 ≈ 0.00498 would leave essentially no headroom
+   — the correction would be decided by the permutation count, not the data.
+
+8. **The onset definition.** For role r: `T_r` = the most negative `start_ms`
+   among windows whose BH-adjusted permutation p-value is ≤ 0.05. If no
+   window in that role qualifies, `T_r = null` and the result reads "no
+   onset detected within the available -500 to 0 ms extent." No AUROC floor
+   is attached to the rule — a floor chosen after exp1's and exp2's numbers
+   were already known would be a post-hoc threshold wearing a
+   pre-registration costume; the AUROC and its 95% CI are reported next to
+   every onset instead. Given exp1 (pooled 0.5338), exp2 (LODO 0.5131, p =
+   0.055), and the nulls returned by exp4 and exp5, a null onset for one or
+   both roles is pre-registered here, before any number exists, as a
+   legitimate, reportable result — not a failure and not something to be
+   quietly reframed after the fact. Secondary persistence rule:
+   `T_r_persistent` = the earliest qualifying window all of whose later
+   windows also qualify — a different read of the same q-values, no refit.
+
+9. **§18 reporting constraint (binding).** No output of exp8 — JSON field,
+   Markdown sentence, or code comment destined for a reader — may state or
+   imply that a temporal lag between `T_deceiver` and `T_observer` shows
+   information moving from one brain to another. A lag is consistent with
+   the two roles' signals becoming decodable at different times, and it is
+   equally consistent with the two roles simply having different
+   signal-to-noise ratios, different numbers of usable trials, or different
+   task demands at the same moment. Establishing transfer would require, at
+   minimum: a directed connectivity analysis with a tested null for the
+   direction itself; trial-level coupling between the two brains' decodable
+   signals over and above their shared dependence on the stimulus and task
+   structure; and a control ruling out that both brains are simply responding
+   to a common external cue — none of which this experiment builds. Mirrors
+   the structure of Amendment 3's §16 constraint for exp6.
+
+10. **Scope: applies to exp8 only.** exp7's designation (Amendment 4) is
+    untouched.

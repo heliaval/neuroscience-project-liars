@@ -1,20 +1,14 @@
-import { ProvenanceBanner } from "@/components/ProvenanceBanner";
-import { Opening } from "@/sections/Opening";
-import { StrangerVsFamiliar } from "@/sections/StrangerVsFamiliar";
-import { PerDyadPanel } from "@/sections/PerDyadPanel";
+import { Navigate, Route, Routes } from "react-router-dom";
+import { Dashboard } from "@/routes/Dashboard";
+import { Walkthrough } from "@/walkthrough/Walkthrough";
 
 function App() {
   return (
-    <div className="min-h-[100dvh] bg-paper">
-      <ProvenanceBanner />
-      <main>
-        <Opening />
-        <div className="mx-auto max-w-[68ch] border-t border-hairline px-6 sm:px-8" />
-        <StrangerVsFamiliar />
-        <div className="mx-auto max-w-[68ch] border-t border-hairline px-6 sm:px-8" />
-        <PerDyadPanel />
-      </main>
-    </div>
+    <Routes>
+      <Route path="/" element={<Walkthrough />} />
+      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
   );
 }
 

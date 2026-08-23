@@ -71,14 +71,13 @@
             "exp5": { "$ref": "#/$defs/ProvenanceEnum" },
             "exp6": { "$ref": "#/$defs/ProvenanceEnum" },
             "exp7": { "$ref": "#/$defs/ProvenanceEnum" },
-            "exp8": { "$ref": "#/$defs/ProvenanceEnum" },
             "tests": { "$ref": "#/$defs/ProvenanceEnum" },
             "interpretability": { "$ref": "#/$defs/ProvenanceEnum" },
             "interbrain": { "$ref": "#/$defs/ProvenanceEnum" },
             "trials": { "$ref": "#/$defs/ProvenanceEnum" },
             "failures": { "$ref": "#/$defs/ProvenanceEnum" }
           },
-          "required": ["gate", "frozen", "dyads", "exp1", "exp2", "exp3", "exp4", "exp5", "exp6", "exp7", "exp8", "tests", "interpretability", "interbrain", "trials", "failures"],
+          "required": ["gate", "frozen", "dyads", "exp1", "exp2", "exp3", "exp4", "exp5", "exp6", "exp7", "tests", "interpretability", "interbrain", "trials", "failures"],
           "additionalProperties": false
         },
         "sources": { "type": "object", "additionalProperties": true }
@@ -282,17 +281,9 @@
               "maxItems": 5
             }
           }
-        },
-        "exp8": {
-          "type": "object",
-          "additionalProperties": true,
-          "required": ["status", "provenance", "windows", "onset"],
-          "properties": {
-            "windows": { "type": "array", "minItems": 6, "maxItems": 6 }
-          }
         }
       },
-      "required": ["exp1", "exp2", "exp3", "exp4", "exp5", "exp6", "exp7", "exp8"],
+      "required": ["exp1", "exp2", "exp3", "exp4", "exp5", "exp6", "exp7"],
       "additionalProperties": false
     },
     "tests": {

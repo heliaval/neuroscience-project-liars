@@ -557,3 +557,46 @@ def default_grouped_inner(seed: int = SEED, n_splits: int = 3):
         return StratifiedGroupKFold(n_splits=n_splits, shuffle=True, random_state=seed)
     except Exception:
         return GroupKFold(n_splits=n_splits)
+
+
+# ---------------------------------------------------------------------------
+# Experiment 8 (S18) additions: Benjamini-Hochberg correction and the S20
+# sign-flip permutation test. Additive only -- nothing above this line is
+# touched. Both are 3.8-safe (no dict-union, no runtime builtin generics).
+# ---------------------------------------------------------------------------
+
+def benjamini_hochberg(pvals: list) -> list:
+    """Benjamini-Hochberg step-up adjusted p-values (q-values), in the input
+    order. Standard monotone enforcement: walking down from the largest rank,
+    each adjusted value is min(its own p*m/rank, the one above it)."""
+    m = len(pvals)
+    order = sorted(range(m), key=lambda i: pvals[i])
+    adj = [0.0] * m
+    prev = 1.0
+    for rank in range(m, 0, -1):
+        i = order[rank - 1]
+        val = min(prev, pvals[i] * m / float(rank))
+        adj[i] = val
+        prev = val
+    return adj
+
+
+def sign_flip_permutation_test(deltas: list, n_iter: int = 10000, seed: int = SEED) -> dict:
+    """Paired sign-flip permutation test on per-dyad differences, per S20.
+    Two-sided on the median. Returns observed median, p-value, n_positive,
+    n_negative, and the sign-test p-value."""
+    import math
+    d = np.asarray([x for x in deltas if not np.isnan(x)], dtype=float)
+    n = len(d)
+    obs = float(np.median(d))
+    rng = np.random.default_rng(seed)
+    signs = rng.choice([-1.0, 1.0], size=(n_iter, n))
+    null = np.median(signs * d[None, :], axis=1)
+    p_perm = float((np.sum(np.abs(null) >= abs(obs)) + 1) / (n_iter + 1))
+    n_pos = int(np.sum(d > 0)); n_neg = int(np.sum(d < 0)); n_tie = int(np.sum(d == 0))
+    k = min(n_pos, n_neg); n_eff = n_pos + n_neg
+    p_sign = min(1.0, 2.0 * sum(math.comb(n_eff, i) for i in range(k + 1)) / (2.0 ** n_eff)) \
+        if n_eff > 0 else 1.0
+    return {"n": n, "median_delta": obs, "sign_test_p": p_sign,
+            "permutation_p": p_perm, "n_positive": n_pos, "n_negative": n_neg,
+            "n_ties_excluded": n_tie, "n_iter": n_iter}
