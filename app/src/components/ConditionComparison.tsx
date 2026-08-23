@@ -31,7 +31,16 @@ const CHANCE = 0.5;
  * must read exactly as well with any of the three conditions "winning."
  * Same no-red/green discipline as PairedDotPlot.
  */
-export function ConditionComparison({ selected }: { selected: Exp4ConditionId }) {
+export function ConditionComparison({
+  selected,
+  maxHeight,
+}: {
+  selected: Exp4ConditionId;
+  /** Opt-in CSS height (e.g. "min(34vh,340px)"), for the walkthrough only -- the
+   * dashboard call site omits this, so the chart keeps scaling purely by width
+   * exactly as it always has. */
+  maxHeight?: string;
+}) {
   const width = 640;
   const anchor = getConditionScores("universal");
   const rows = anchor.map((row, i) => {
@@ -68,6 +77,7 @@ export function ConditionComparison({ selected }: { selected: Exp4ConditionId })
         role="img"
         aria-label={`AUROC by training condition for 10 dyads, fixed axis 0.40 to 0.60. ${CONDITION_LABEL[selected]} selected: median ${summary.median.toFixed(4)}, ${summary.nAboveChance} of ${summary.n} dyads above chance.`}
         className="block w-full min-w-[440px] font-mono text-[11px]"
+        style={maxHeight ? { height: maxHeight } : undefined}
       >
         <text x={marginLeft} y={16} textAnchor="middle" fill="var(--color-ink-faint)">
           0.40

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState, type MouseEvent } from "react";
+import { useCallback, useEffect, useRef, useState, type MouseEvent } from "react";
 import { CoverScreen } from "./screens/CoverScreen";
 import { Exp1Screen } from "./screens/Exp1Screen";
 import { Exp2Screen } from "./screens/Exp2Screen";
@@ -73,21 +73,28 @@ export function Walkthrough() {
     setRevealStep(0);
   }, []);
 
+  // The stage is a fixed h-[100dvh] box now (see the JSX below) -- every screen is
+  // designed to fit inside it without scrolling, so pressing Next swaps the content in
+  // place instead of the document growing/scrolling/jumping. `main` still gets
+  // overflow-y-auto as a safety net, not overflow-hidden: if some future screen or an
+  // unusually small viewport genuinely doesn't fit, a scrollbar is far better than
+  // silently clipping real evidence. mainRef lets the keyboard/reset logic below check
+  // that safety-net scroll state instead of the document's (which can no longer scroll
+  // at all, now that the stage has an explicit height rather than a min-height).
+  const mainRef = useRef<HTMLElement>(null);
+
   useEffect(() => {
-    // Tall revealed screens (long caveats, the exp7 ranked list) can exceed the
-    // viewport, so the page itself scrolls. ArrowDown/Space/ArrowUp are native
-    // scroll keys -- hijacking them unconditionally traps a reader who hasn't
-    // finished reading a screen yet. ArrowRight/Enter aren't native scroll keys
-    // on the document body, so they always navigate. Left/Right stay direct
-    // navigation in both directions -- a reader who wants to go back skips
-    // straight there rather than scrolling up first.
+    // ArrowDown/Space/ArrowUp are native scroll keys -- hijacking them unconditionally
+    // would trap a reader on the rare screen that still needs the overflow-y-auto safety
+    // net. ArrowRight/Enter aren't native scroll keys on this element, so they always
+    // navigate. Left/Right stay direct navigation in both directions.
     const atBottom = () => {
-      const el = document.scrollingElement;
+      const el = mainRef.current;
       if (!el) return true;
       return el.scrollTop + el.clientHeight >= el.scrollHeight - 1;
     };
     const atTop = () => {
-      const el = document.scrollingElement;
+      const el = mainRef.current;
       return !el || el.scrollTop <= 0;
     };
 
@@ -117,13 +124,11 @@ export function Walkthrough() {
     return () => window.removeEventListener("keydown", onKey);
   }, [advance, back]);
 
-  // Reset scroll on every screen change. Without this, a reader who scrolled down to
-  // finish a tall screen would land on the next screen already scrolled past its top --
-  // and the ArrowDown/ArrowUp scroll-boundary checks above would misread that leftover
-  // position as "already at the bottom" or block "already at the top" on a screen they
-  // haven't read yet.
+  // Reset the safety-net scroll on every screen change, for the same reason the old
+  // document-scroll reset existed: a screen that needed the safety net shouldn't hand
+  // its leftover scroll position to the next one.
   useEffect(() => {
-    window.scrollTo({ top: 0 });
+    if (mainRef.current) mainRef.current.scrollTop = 0;
   }, [screenIndex]);
 
   // A click on the stage advances, but never when it landed on a control
@@ -147,8 +152,8 @@ export function Walkthrough() {
   const advanceLabel = getAdvanceLabel(screen.id, revealStep, screen.maxStep, atLast);
 
   return (
-    <div className="walkthrough flex min-h-[100dvh] flex-col bg-paper">
-      <main className="flex flex-1 items-center" onClick={onStageClick}>
+    <div className="walkthrough flex h-[100dvh] flex-col overflow-hidden bg-paper">
+      <main ref={mainRef} className="flex flex-1 items-center overflow-y-auto" onClick={onStageClick}>
         <Screen revealStep={revealStep} />
       </main>
       <div aria-live="polite" className="sr-only">

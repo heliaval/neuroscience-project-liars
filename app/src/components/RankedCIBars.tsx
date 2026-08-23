@@ -30,7 +30,7 @@ export function RankedCIBars({ sets, reveal }: { sets: RankedInputSet[]; reveal:
         viewBox={`0 0 ${width} ${height}`}
         role="img"
         aria-label={`Five input sets ranked by median AUROC: ${sets.map((s) => `${s.label} ${s.median.toFixed(4)}`).join("; ")}`}
-        className="block w-full min-w-[480px] font-mono text-[11px]"
+        className="block h-[min(32vh,320px)] w-full min-w-[480px] font-mono text-[11px]"
       >
         <line
           x1={chanceX}

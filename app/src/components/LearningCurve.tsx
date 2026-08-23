@@ -47,7 +47,7 @@ export function LearningCurve({ points, reveal }: { points: CurvePoint[]; reveal
         viewBox={`0 0 ${width} ${height}`}
         role="img"
         aria-label={`Median AUROC against training set size, for same-dyad and other-dyad training data, at k = ${ks.join(", ")}. Descriptive only; this figure is not the statistical test.`}
-        className="block w-full min-w-[440px] font-mono text-[11px]"
+        className="block h-[min(30vh,300px)] w-full min-w-[440px] font-mono text-[11px]"
       >
         <line x1={marginLeft} y1={marginTop} x2={marginLeft} y2={marginTop + plotHeight} stroke="var(--color-hairline)" />
         <line

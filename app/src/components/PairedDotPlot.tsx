@@ -19,10 +19,15 @@ export function PairedDotPlot({
   test,
   unit = "Δ AUROC",
   reveal,
+  maxHeight,
 }: {
   test: PairedTest;
   unit?: string;
   reveal?: boolean;
+  /** Opt-in CSS height (e.g. "min(34vh,340px)"), for the walkthrough only -- every
+   * dashboard call site omits this, so the chart keeps scaling purely by width exactly
+   * as it always has. */
+  maxHeight?: string;
 }) {
   const reduced = useReducedMotion();
   const animated = reveal !== undefined;
@@ -46,6 +51,7 @@ export function PairedDotPlot({
         role="img"
         aria-label={`Per-dyad ${unit} for ${test.n} dyads, median ${test.median_delta.toFixed(4)}`}
         className="block w-full min-w-[420px] font-mono text-[11px]"
+        style={maxHeight ? { height: maxHeight } : undefined}
       >
         {/* zero line */}
         <line x1={zeroX} y1={20} x2={zeroX} y2={height - 24} stroke="var(--color-hairline-strong)" strokeWidth={1} />

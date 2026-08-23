@@ -29,17 +29,17 @@ export function WalkthroughScreen({
   const itemTransition = reduced ? { duration: 0 } : undefined;
 
   return (
-    <div className="w-full px-6 py-10 sm:px-10 lg:px-16 xl:px-20">
+    <div className="w-full px-6 py-4 sm:px-10 lg:px-16 xl:px-20">
       <p className="font-sans text-[13px] uppercase tracking-[0.08em] text-ink-soft">{eyebrow}</p>
 
       {/* Claim and evidence sit side by side on wide viewports, using the width a
           single centered text column left empty, instead of the evidence piling up
           underneath the claim. The claim keeps a fixed reading-width column; the
           evidence fills the space beside it as it mounts on reveal. */}
-      <div className="mt-5 grid grid-cols-1 items-start gap-x-16 gap-y-8 lg:grid-cols-[minmax(0,46ch)_minmax(0,1fr)]">
+      <div className="mt-3 grid grid-cols-1 items-start gap-x-16 gap-y-4 lg:grid-cols-[minmax(0,46ch)_minmax(0,1fr)]">
         <h2
           className={`font-serif font-normal leading-[1.2] text-ink ${
-            emphasis ? "text-[2.2rem] sm:text-[2.9rem]" : "text-[1.7rem] sm:text-[2.1rem]"
+            emphasis ? "text-[1.9rem] sm:text-[2.4rem]" : "text-[1.7rem] sm:text-[2.1rem]"
           }`}
         >
           {claim}
@@ -59,7 +59,7 @@ export function WalkthroughScreen({
         animate={revealed ? "shown" : "hidden"}
         custom={stagger}
         variants={stageVariants}
-        className="mt-8 max-w-[70ch]"
+        className="mt-6 max-w-[70ch]"
       >
         {revealed && (
           <motion.div variants={itemVariants} transition={itemTransition}>
@@ -73,7 +73,7 @@ export function WalkthroughScreen({
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: reduced ? 0 : WT.slow, ease: WT.ease }}
-          className="mt-12 border-t border-hairline pt-10"
+          className="mt-4 border-t border-hairline pt-4"
         >
           {secondBeat}
         </motion.div>
