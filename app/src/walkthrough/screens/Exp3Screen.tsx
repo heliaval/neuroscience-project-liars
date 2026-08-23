@@ -13,7 +13,7 @@ export function Exp3Screen({ revealStep }: { revealStep: number }) {
       eyebrow="Experiment 3 · H2, person-specific signature"
       claim={claim.plain_language}
       revealStep={revealStep}
-      evidence={<PairedDotPlot test={test} reveal={revealStep >= 1} maxHeight="min(34vh,340px)" />}
+      evidence={<PairedDotPlot test={test} reveal={revealStep >= 1} maxHeight="min(50vh,480px)" />}
       caveat={
         <>
           <Caveat>

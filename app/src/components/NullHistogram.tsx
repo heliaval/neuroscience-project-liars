@@ -63,7 +63,7 @@ export function NullHistogram({
         viewBox={`0 0 ${width} ${height}`}
         role="img"
         aria-label={`Histogram of ${nPermutations} shuffled-label AUROCs. The 5th to 95th percentile spans ${band.p5.toFixed(4)} to ${band.p95.toFixed(4)}; the observed value is ${observed.toFixed(4)}, permutation p ${pValue.toFixed(4)}.`}
-        className="block h-[min(28vh,260px)] w-full min-w-[440px] font-mono text-[11px]"
+        className="block h-[min(44vh,400px)] w-full min-w-[440px] font-mono text-[11px]"
       >
         {/* the baseline is present before the reveal -- bars grow up out of it */}
         <line

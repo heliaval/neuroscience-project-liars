@@ -1,4 +1,6 @@
 import { useCallback, useEffect, useRef, useState, type MouseEvent } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { WT } from "./motion";
 import { CoverScreen } from "./screens/CoverScreen";
 import { Exp1Screen } from "./screens/Exp1Screen";
 import { Exp2Screen } from "./screens/Exp2Screen";
@@ -150,11 +152,29 @@ export function Walkthrough() {
   const evidenceIndex = screen.maxStep > 0 ? screenIndex : null;
   const revealed = revealStep >= screen.maxStep && screen.maxStep > 0;
   const advanceLabel = getAdvanceLabel(screen.id, revealStep, screen.maxStep, atLast);
+  const reducedMotion = useReducedMotion();
 
   return (
     <div className="walkthrough flex h-[100dvh] flex-col overflow-hidden bg-paper">
       <main ref={mainRef} className="flex flex-1 items-center overflow-y-auto" onClick={onStageClick}>
-        <Screen revealStep={revealStep} />
+        {/* Screen-to-screen crossfade. Without this, swapping the fixed-height stage's
+            content on Next was an instant cut -- the reveal animations inside a screen
+            (WalkthroughScreen's stagger) only cover the claim/evidence appearing, not the
+            screen itself replacing the last one. mode="wait" fully unmounts the outgoing
+            screen before the next mounts, so two screens of very different heights never
+            overlap mid-transition inside the flex-centered stage. */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={screen.id}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: reducedMotion ? 0 : WT.fast, ease: WT.ease }}
+            className="w-full"
+          >
+            <Screen revealStep={revealStep} />
+          </motion.div>
+        </AnimatePresence>
       </main>
       <div aria-live="polite" className="sr-only">
         {revealed ? "Evidence revealed." : ""}

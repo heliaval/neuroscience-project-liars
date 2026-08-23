@@ -20,7 +20,7 @@ export function Exp4Screen({ revealStep }: { revealStep: number }) {
         // [&>figure] overrides PairedDotPlot's own my-8 (needed unmodified on /dashboard)
         // -- this screen is the one place two evidence charts share a viewport at once.
         <div className="[&>figure]:my-1!">
-          <PairedDotPlot test={test} reveal={revealStep >= 1} maxHeight="min(12vh,120px)" />
+          <PairedDotPlot test={test} reveal={revealStep >= 1} maxHeight="min(24vh,230px)" />
         </div>
       }
       caveat={
@@ -50,7 +50,7 @@ export function Exp4Screen({ revealStep }: { revealStep: number }) {
             one the hypothesis predicted would win — is the lowest of the three.
           </p>
           <div className="[&>figure]:my-1!">
-            <ConditionComparison selected="dyad_specific" maxHeight="min(12vh,120px)" />
+            <ConditionComparison selected="dyad_specific" maxHeight="min(24vh,230px)" />
           </div>
         </>
       }

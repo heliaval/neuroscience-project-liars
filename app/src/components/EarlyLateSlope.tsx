@@ -45,7 +45,7 @@ export function EarlyLateSlope({ pairs, reveal }: { pairs: EarlyLatePair[]; reve
         aria-label={`Decodability in the early versus late block for each of ${pairs.length} pairs: ${pairs
           .map((p) => `${p.pairId} early ${p.early.toFixed(4)} late ${p.late.toFixed(4)}`)
           .join("; ")}`}
-        className="block h-[min(26vh,260px)] w-full min-w-[460px] font-mono text-[11px]"
+        className="block h-[min(42vh,420px)] w-full min-w-[460px] font-mono text-[11px]"
       >
         {/* both axes present before the reveal -- the slopes draw between them */}
         <line x1={earlyX} y1={marginTop - 10} x2={earlyX} y2={height - marginBottom + 10} stroke="var(--color-hairline)" />
