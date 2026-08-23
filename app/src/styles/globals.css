@@ -109,6 +109,30 @@
   --wt-dur-slow: 900ms;
   --wt-stagger: 60ms;
   --wt-ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /*
+    Reference-line contrast carve-out. The default --color-hairline (1.36:1 vs
+    paper) and --color-hairline-strong (1.96:1 vs paper) fall well under WCAG
+    1.4.11's 3:1 floor for graphical objects -- fine for decorative dividers,
+    not for a chance line or median rule a reader has to actually see. Every
+    chart's reference/axis strokes read var(--color-hairline{,-strong}), so
+    scoping darker values to .walkthrough fixes every chart at once without
+    touching component files, and without changing /dashboard, which reuses
+    some of the same chart components (PairedDotPlot, ConditionComparison)
+    outside this class and must render exactly as it did before. Still the
+    same monochrome ink/paper family, just darker steps in it -- no new hue.
+    Verified >=3:1 against both --color-paper and --color-paper-raised, light
+    and dark.
+  */
+  --color-hairline: #8f8570;
+  --color-hairline-strong: #726852;
+}
+
+@media (prefers-color-scheme: dark) {
+  .walkthrough {
+    --color-hairline: #736c58;
+    --color-hairline-strong: #8f886f;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

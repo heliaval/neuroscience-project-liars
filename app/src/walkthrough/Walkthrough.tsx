@@ -74,15 +74,41 @@ export function Walkthrough() {
   }, []);
 
   useEffect(() => {
+    // Tall revealed screens (long caveats, the exp7 ranked list) can exceed the
+    // viewport, so the page itself scrolls. ArrowDown/Space/ArrowUp are native
+    // scroll keys -- hijacking them unconditionally traps a reader who hasn't
+    // finished reading a screen yet. ArrowRight/Enter aren't native scroll keys
+    // on the document body, so they always navigate. Left/Right stay direct
+    // navigation in both directions -- a reader who wants to go back skips
+    // straight there rather than scrolling up first.
+    const atBottom = () => {
+      const el = document.scrollingElement;
+      if (!el) return true;
+      return el.scrollTop + el.clientHeight >= el.scrollHeight - 1;
+    };
+    const atTop = () => {
+      const el = document.scrollingElement;
+      return !el || el.scrollTop <= 0;
+    };
+
     const onKey = (e: KeyboardEvent) => {
       // A focused control (Back/Next, or TechnicalDetails' disclosure button) handles
       // its own Enter/Space activation natively -- intercepting here would silently
       // override that with "advance the deck" instead of "activate the focused control".
       if ((e.target as HTMLElement)?.closest?.("button, a, input, textarea, select")) return;
-      if (["ArrowRight", "ArrowDown", " ", "Enter"].includes(e.key)) {
+
+      if (e.key === "ArrowRight" || e.key === "Enter") {
         e.preventDefault();
         advance();
-      } else if (["ArrowLeft", "ArrowUp"].includes(e.key)) {
+      } else if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        back();
+      } else if (e.key === "ArrowDown" || e.key === " ") {
+        if (!atBottom()) return; // let the browser scroll the rest of the screen into view
+        e.preventDefault();
+        advance();
+      } else if (e.key === "ArrowUp") {
+        if (!atTop()) return; // let the browser scroll back up first
         e.preventDefault();
         back();
       }
@@ -90,6 +116,15 @@ export function Walkthrough() {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [advance, back]);
+
+  // Reset scroll on every screen change. Without this, a reader who scrolled down to
+  // finish a tall screen would land on the next screen already scrolled past its top --
+  // and the ArrowDown/ArrowUp scroll-boundary checks above would misread that leftover
+  // position as "already at the bottom" or block "already at the top" on a screen they
+  // haven't read yet.
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, [screenIndex]);
 
   // A click on the stage advances, but never when it landed on a control
   // (TechnicalDetails' disclosure, the dashboard link, the footer buttons), and never
