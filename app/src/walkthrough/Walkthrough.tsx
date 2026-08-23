@@ -147,24 +147,34 @@ export function Walkthrough() {
   const advanceLabel = getAdvanceLabel(screen.id, revealStep, screen.maxStep, atLast);
 
   return (
-    <div className="walkthrough flex min-h-[100dvh] flex-col bg-paper">
-      <main className="flex flex-1 items-center" onClick={onStageClick}>
-        <Screen revealStep={revealStep} />
-      </main>
-      <div aria-live="polite" className="sr-only">
-        {revealed ? "Evidence revealed." : ""}
+    // The mat: a fixed inset around the whole document, always visible top and bottom
+    // even when a tall screen makes the page scroll -- the page reads as one framed
+    // sheet, not content bleeding to the browser's true edges. bg-paper-raised is the
+    // existing "one step off paper" token, already used for raised surfaces elsewhere,
+    // so this needs no new color.
+    <div className="walkthrough flex min-h-[100dvh] bg-paper-raised p-3 sm:p-6 lg:p-10">
+      {/* The page: a bordered flex column that grows past 100dvh with its own content
+          (min-height, not a cap) so document-level scroll -- and the keyboard
+          boundary checks above -- stay correct without a second scroll container. */}
+      <div className="mx-auto flex w-full max-w-[1400px] flex-1 flex-col rounded-[var(--radius-editorial)] border border-hairline-strong bg-paper">
+        <main className="flex flex-1 items-center" onClick={onStageClick}>
+          <Screen revealStep={revealStep} />
+        </main>
+        <div aria-live="polite" className="sr-only">
+          {revealed ? "Evidence revealed." : ""}
+        </div>
+        <WalkthroughFooter
+          screenIndex={screenIndex}
+          screenCount={SCREENS.length}
+          evidenceIndex={evidenceIndex}
+          evidenceCount={EVIDENCE_COUNT}
+          canBack={canBack}
+          canAdvance={canAdvance}
+          onBack={back}
+          onAdvance={advance}
+          advanceLabel={advanceLabel}
+        />
       </div>
-      <WalkthroughFooter
-        screenIndex={screenIndex}
-        screenCount={SCREENS.length}
-        evidenceIndex={evidenceIndex}
-        evidenceCount={EVIDENCE_COUNT}
-        canBack={canBack}
-        canAdvance={canAdvance}
-        onBack={back}
-        onAdvance={advance}
-        advanceLabel={advanceLabel}
-      />
     </div>
   );
 }
