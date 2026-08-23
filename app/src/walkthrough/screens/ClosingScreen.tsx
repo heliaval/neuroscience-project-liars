@@ -14,7 +14,7 @@ export function ClosingScreen({ revealStep }: { revealStep: number }) {
       animate="shown"
       custom={reduced ? 0 : WT.stagger}
       variants={stageVariants}
-      className="mx-auto w-full max-w-[92ch] px-6 py-12 sm:px-8"
+      className="mx-auto w-full max-w-[92ch] px-6 py-10 sm:px-10 lg:px-16 xl:px-20"
     >
       <motion.p
         variants={itemVariants}

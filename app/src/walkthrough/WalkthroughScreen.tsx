@@ -29,16 +29,14 @@ export function WalkthroughScreen({
   const itemTransition = reduced ? { duration: 0 } : undefined;
 
   return (
-    <div className="mx-auto w-full max-w-[92ch] px-6 py-12 sm:px-8">
+    <div className="w-full px-6 py-10 sm:px-10 lg:px-16 xl:px-20">
       <p className="font-sans text-[13px] uppercase tracking-[0.08em] text-ink-soft">{eyebrow}</p>
 
-      <div
-        className="mt-4 transition-[max-width] ease-[var(--wt-ease)]"
-        style={{
-          maxWidth: revealed ? "46ch" : "68ch",
-          transitionDuration: "var(--wt-dur-base)",
-        }}
-      >
+      {/* Claim and evidence sit side by side on wide viewports, using the width a
+          single centered text column left empty, instead of the evidence piling up
+          underneath the claim. The claim keeps a fixed reading-width column; the
+          evidence fills the space beside it as it mounts on reveal. */}
+      <div className="mt-5 grid grid-cols-1 items-start gap-x-16 gap-y-8 lg:grid-cols-[minmax(0,46ch)_minmax(0,1fr)]">
         <h2
           className={`font-serif font-normal leading-[1.2] text-ink ${
             emphasis ? "text-[2.2rem] sm:text-[2.9rem]" : "text-[1.7rem] sm:text-[2.1rem]"
@@ -46,6 +44,14 @@ export function WalkthroughScreen({
         >
           {claim}
         </h2>
+
+        <motion.div initial="hidden" animate={revealed ? "shown" : "hidden"} custom={stagger} variants={stageVariants}>
+          {revealed && (
+            <motion.div variants={itemVariants} transition={itemTransition}>
+              {evidence}
+            </motion.div>
+          )}
+        </motion.div>
       </div>
 
       <motion.div
@@ -53,17 +59,12 @@ export function WalkthroughScreen({
         animate={revealed ? "shown" : "hidden"}
         custom={stagger}
         variants={stageVariants}
-        className="mt-10"
+        className="mt-8 max-w-[70ch]"
       >
         {revealed && (
-          <>
-            <motion.div variants={itemVariants} transition={itemTransition}>
-              {evidence}
-            </motion.div>
-            <motion.div variants={itemVariants} transition={itemTransition} className="mt-6">
-              {caveat}
-            </motion.div>
-          </>
+          <motion.div variants={itemVariants} transition={itemTransition}>
+            {caveat}
+          </motion.div>
         )}
       </motion.div>
 
