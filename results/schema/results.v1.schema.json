@@ -71,13 +71,9 @@
             "exp5": { "$ref": "#/$defs/ProvenanceEnum" },
             "exp6": { "$ref": "#/$defs/ProvenanceEnum" },
             "exp7": { "$ref": "#/$defs/ProvenanceEnum" },
-            "tests": { "$ref": "#/$defs/ProvenanceEnum" },
-            "interpretability": { "$ref": "#/$defs/ProvenanceEnum" },
-            "interbrain": { "$ref": "#/$defs/ProvenanceEnum" },
-            "trials": { "$ref": "#/$defs/ProvenanceEnum" },
-            "failures": { "$ref": "#/$defs/ProvenanceEnum" }
+            "tests": { "$ref": "#/$defs/ProvenanceEnum" }
           },
-          "required": ["gate", "frozen", "dyads", "exp1", "exp2", "exp3", "exp4", "exp5", "exp6", "exp7", "tests", "interpretability", "interbrain", "trials", "failures"],
+          "required": ["gate", "frozen", "dyads", "exp1", "exp2", "exp3", "exp4", "exp5", "exp6", "exp7", "tests"],
           "additionalProperties": false
         },
         "sources": { "type": "object", "additionalProperties": true }
@@ -306,117 +302,9 @@
         "required": ["claim", "hypothesis", "experiment", "metric", "kind", "designation", "primary", "supported", "result", "plain_language", "technical"],
         "additionalProperties": false
       }
-    },
-    "interpretability": {
-      "type": "object",
-      "properties": {
-        "provenance": { "$ref": "#/$defs/ProvenanceEnum" },
-        "method": { "type": "string" },
-        "conditions": { "type": "array", "items": { "type": "string" } },
-        "electrodes": {
-          "type": "array",
-          "minItems": 30,
-          "maxItems": 30,
-          "items": {
-            "type": "object",
-            "properties": {
-              "name": { "type": "string" },
-              "x": { "type": "number", "minimum": 0, "maximum": 1 },
-              "y": { "type": "number", "minimum": 0, "maximum": 1 }
-            },
-            "required": ["name", "x", "y"],
-            "additionalProperties": false
-          }
-        },
-        "scalp_maps": { "type": "object", "additionalProperties": true },
-        "top_features": { "type": "object", "additionalProperties": true }
-      },
-      "required": ["provenance", "method", "conditions", "electrodes", "scalp_maps", "top_features"],
-      "additionalProperties": false
-    },
-    "interbrain": {
-      "type": "object",
-      "properties": {
-        "provenance": { "$ref": "#/$defs/ProvenanceEnum" },
-        "caveat": { "type": "string", "minLength": 1 },
-        "gate_note": { "type": "string" },
-        "metric": { "type": "string" },
-        "nodes": { "type": "array", "items": { "type": "object", "additionalProperties": true } },
-        "states": {
-          "type": "object",
-          "properties": {
-            "early_truth": { "type": "object", "additionalProperties": true },
-            "early_deception": { "type": "object", "additionalProperties": true },
-            "late_truth": { "type": "object", "additionalProperties": true },
-            "late_deception": { "type": "object", "additionalProperties": true }
-          },
-          "required": ["early_truth", "early_deception", "late_truth", "late_deception"],
-          "additionalProperties": false
-        }
-      },
-      "required": ["provenance", "caveat", "metric", "nodes", "states"],
-      "additionalProperties": false
-    },
-    "trials": {
-      "type": "array",
-      "minItems": 576,
-      "maxItems": 576,
-      "items": {
-        "type": "object",
-        "properties": {
-          "trial_uid": { "type": "string" },
-          "pair_id": { "type": "string" },
-          "participant_id": { "type": "string" },
-          "partner_id": { "type": "string" },
-          "role": { "enum": ["deceiver", "observer"] },
-          "slider_pos": { "type": "integer", "minimum": 0, "maximum": 23 },
-          "session_order": { "type": "integer" },
-          "round": { "type": "integer" },
-          "dyad_trial_seq": { "type": "integer" },
-          "condition": { "enum": ["lie", "truth"] },
-          "outcome": { "type": "string" },
-          "observer_guess": { "type": "string" },
-          "reaction_time_sec": { "type": "number" },
-          "prediction": {
-            "type": "object",
-            "properties": {
-              "model_level": { "type": "string" },
-              "p_lie": { "type": "number", "minimum": 0, "maximum": 1 },
-              "predicted": { "enum": ["lie", "truth"] },
-              "correct": { "type": "boolean" }
-            },
-            "required": ["model_level", "p_lie", "predicted", "correct"],
-            "additionalProperties": false
-          },
-          "top_features": { "type": "array", "items": { "type": "object", "additionalProperties": true } },
-          "interbrain_state_ref": { "enum": ["early_truth", "early_deception", "late_truth", "late_deception"] }
-        },
-        "required": ["trial_uid", "pair_id", "participant_id", "partner_id", "role", "slider_pos", "session_order", "round", "dyad_trial_seq", "condition", "outcome", "observer_guess", "reaction_time_sec", "prediction", "top_features", "interbrain_state_ref"],
-        "additionalProperties": false
-      }
-    },
-    "failures": {
-      "type": "array",
-      "minItems": 6,
-      "maxItems": 6,
-      "items": {
-        "type": "object",
-        "properties": {
-          "trial_uid": { "type": "string" },
-          "pair_id": { "type": "string" },
-          "actual": { "enum": ["lie", "truth"] },
-          "predicted": { "enum": ["lie", "truth"] },
-          "p_lie": { "type": "number", "minimum": 0, "maximum": 1 },
-          "kind": { "enum": ["false_positive", "false_negative"] },
-          "attribution": { "type": "array", "items": { "type": "object", "additionalProperties": true } },
-          "note": { "type": "string" }
-        },
-        "required": ["trial_uid", "pair_id", "actual", "predicted", "p_lie", "kind", "attribution", "note"],
-        "additionalProperties": false
-      }
     }
   },
   "$comment": "ProvenanceEnum is referenced via $ref below but defined inline here since $defs must be flat-referenced.",
-  "required": ["meta", "gate", "frozen", "dyads", "experiments", "tests", "interpretability", "interbrain", "trials", "failures"],
+  "required": ["meta", "gate", "frozen", "dyads", "experiments", "tests"],
   "additionalProperties": false
 }

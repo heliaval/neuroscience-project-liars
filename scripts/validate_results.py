@@ -48,9 +48,10 @@ def _path_str(error: "jsonschema.exceptions.ValidationError") -> str:
 #
 # Experiment 8 is gone from the contract entirely (its run was halted before
 # writing results); it no longer appears here or anywhere else in the schema.
-PLACEHOLDER_PATH_PREFIXES = (
-    "$.interpretability", "$.interbrain", "$.trials", "$.failures",
-)
+# interpretability/interbrain/trials/failures are also gone entirely (dropped
+# once real replacements existed but nothing in the app ever rendered them --
+# see PROGRESS.md) -- no placeholder sections remain in the contract.
+PLACEHOLDER_PATH_PREFIXES = ()
 
 
 def _in_placeholder_section(path: str) -> bool:

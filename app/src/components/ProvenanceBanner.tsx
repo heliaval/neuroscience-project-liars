@@ -12,16 +12,15 @@ const SECTION_LABELS: Record<SectionId, string> = {
   exp6: "Experiment 6 (observer early/late)",
   exp7: "Experiment 7 (one brain vs two)",
   tests: "statistical claims",
-  interpretability: "electrode/coefficient maps",
-  interbrain: "inter-brain network",
-  trials: "individual trial browser",
-  failures: "failure case gallery",
 };
 
 /** Page-level notice. Renders whenever any section is still placeholder or mixed --
  * not gated on meta.is_fixture, since the real-results swap left is_fixture false
- * while interpretability/interbrain/trials/failures (and the dyad fingerprint columns)
- * are still invented. Disappears only once every section reaches "real". */
+ * while the dyad fingerprint columns are still invented. interpretability,
+ * interbrain, trials, and failures (the four sections that used to be invented
+ * here) were dropped from the contract entirely rather than fixed, since nothing
+ * in the app ever rendered them -- see PROGRESS.md. Disappears once the only
+ * remaining placeholder (dyad fingerprints) reaches "real" too. */
 export function ProvenanceBanner() {
   const placeholder = getPlaceholderSections();
   const mixed = getMixedSections();
@@ -54,14 +53,18 @@ export function ProvenanceBanner() {
               .{" "}
             </>
           )}
-          Invented placeholder numbers, constrained to a plausible range but not measured:{" "}
-          {placeholder.map((s, i) => (
-            <span key={s}>
-              {i > 0 && ", "}
-              <span className="font-mono text-[12px]">{SECTION_LABELS[s]}</span>
-            </span>
-          ))}
-          .
+          {placeholder.length > 0 && (
+            <>
+              Invented placeholder numbers, constrained to a plausible range but not measured:{" "}
+              {placeholder.map((s, i) => (
+                <span key={s}>
+                  {i > 0 && ", "}
+                  <span className="font-mono text-[12px]">{SECTION_LABELS[s]}</span>
+                </span>
+              ))}
+              .
+            </>
+          )}
         </p>
       </div>
     </div>

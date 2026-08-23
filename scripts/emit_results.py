@@ -9,14 +9,18 @@ verbatim copy of a real result, a verbatim copy of an already-validated
 placeholder section from the fixture, or a formatted string built from real
 values.
 
-experiments.exp1, exp3, exp4 (and gate, frozen, dyads, and the four still-invented
-sections: interpretability, interbrain, trials, failures) are lifted from the
-fixture rather than re-derived from their own source files. scripts/build_fixture.py
-already transcribes those four blocks from the real files with hard assertions and
-the result already validates -- copying the already-validated blocks out of the
-fixture is strictly safer than duplicating that transcription here, and the four
-still-invented sections have no other possible source. This makes the fixture an
-input to this real file; that is deliberate and recorded in meta.sources below.
+experiments.exp1, exp3, exp4 (and gate, frozen, dyads) are lifted from the
+fixture rather than re-derived from their own source files -- those blocks are
+already validated real transcriptions and copying them is strictly safer than
+duplicating that transcription here.
+
+interpretability, interbrain, trials, and failures -- the fixture's four
+invented placeholder sections -- are dropped from the contract entirely (not
+emitted at all), rather than emitted with real or placeholder data. Nothing in
+the app ever rendered them (verified: no component references them outside
+ProvenanceBanner's disclosure copy), so continuing to carry invented numbers
+for sections nobody displays served no purpose once noticed. See PROGRESS.md
+for the investigation.
 
 Experiment 8 is deliberately absent. Its run was halted before writing any
 results (an explicit user decision, not a bug or an oversight) -- there is no
@@ -96,8 +100,7 @@ meta = {
         "gate": "real", "frozen": "real", "dyads": "mixed",
         "exp1": "real", "exp2": "real", "exp3": "real", "exp4": "real",
         "exp5": "real", "exp6": "real", "exp7": "real",
-        "tests": "real", "interpretability": "placeholder",
-        "interbrain": "placeholder", "trials": "placeholder", "failures": "placeholder",
+        "tests": "real",
     },
     "sources": {
         "exp1": fixture["meta"]["sources"]["exp1"],
@@ -109,22 +112,19 @@ meta = {
         "exp7": {"file": "results/exp7_input_sets.json", "generated_at": None, "seed": 0},
         "placeholder_sections": {
             "file": "results/fixtures/results.v1.fixture.json",
-            "sections": ["interpretability", "interbrain", "trials", "failures", "dyads[].fingerprint"],
+            "sections": ["dyads[].fingerprint"],
         },
     },
 }
 
 # ---------------------------------------------------------------------------
-# gate, frozen, dyads, and the four still-invented sections -- verbatim from
-# the fixture, unchanged by this plan
+# gate, frozen, dyads -- verbatim from the fixture, unchanged by this plan.
+# interpretability/interbrain/trials/failures are intentionally NOT lifted --
+# see the module docstring.
 # ---------------------------------------------------------------------------
 gate = fixture["gate"]
 frozen = fixture["frozen"]
 dyads = fixture["dyads"]
-interpretability = fixture["interpretability"]
-interbrain = fixture["interbrain"]
-trials = fixture["trials"]
-failures = fixture["failures"]
 
 # ---------------------------------------------------------------------------
 # experiments.exp1, exp3, exp4 -- verbatim from the fixture, already real
@@ -342,15 +342,12 @@ assert tests["exp7_observer_vs_deceiver"]["supported"] is False
 results = {
     "meta": meta, "gate": gate, "frozen": frozen, "dyads": dyads,
     "experiments": experiments, "tests": tests,
-    "interpretability": interpretability, "interbrain": interbrain,
-    "trials": trials, "failures": failures,
 }
 
 # ---------------------------------------------------------------------------
 # Assert the contract before writing (Task 4's final checkboxes)
 # ---------------------------------------------------------------------------
-SCHEMA_TOP_KEYS = {"meta", "gate", "frozen", "dyads", "experiments", "tests",
-                    "interpretability", "interbrain", "trials", "failures"}
+SCHEMA_TOP_KEYS = {"meta", "gate", "frozen", "dyads", "experiments", "tests"}
 assert set(results.keys()) == SCHEMA_TOP_KEYS
 assert "exp8" not in results["experiments"]
 assert "exp8" not in results["meta"]["provenance"]
