@@ -23,7 +23,7 @@ export function CoverScreen({ revealStep }: { revealStep: number }) {
       animate="shown"
       custom={reduced ? 0 : WT.stagger}
       variants={stageVariants}
-      className="mx-auto w-full max-w-[92ch] px-6 py-4 sm:px-10 lg:px-16 xl:px-20"
+      className="mx-auto w-full max-w-[92ch] px-8 py-6 sm:px-12 lg:px-16 xl:px-20"
     >
       <motion.p
         variants={itemVariants}
