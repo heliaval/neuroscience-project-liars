@@ -50,8 +50,8 @@ export function PairedDotPlot({
         viewBox={`0 0 ${width} ${height}`}
         role="img"
         aria-label={`Per-dyad ${unit} for ${test.n} dyads, median ${test.median_delta.toFixed(4)}`}
-        className="block w-full min-w-[420px] font-mono text-[11px]"
-        style={maxHeight ? { height: maxHeight } : undefined}
+        className={`block min-w-[420px] font-mono text-[11px] ${maxHeight ? "max-w-full" : "w-full"}`}
+        style={maxHeight ? { aspectRatio: `${width} / ${height}`, maxHeight } : undefined}
       >
         {/* zero line */}
         <line x1={zeroX} y1={20} x2={zeroX} y2={height - 24} stroke="var(--color-hairline-strong)" strokeWidth={1} />

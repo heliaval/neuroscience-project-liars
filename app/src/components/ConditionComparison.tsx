@@ -76,8 +76,8 @@ export function ConditionComparison({
         viewBox={`0 0 ${width} ${height}`}
         role="img"
         aria-label={`AUROC by training condition for 10 dyads, fixed axis 0.40 to 0.60. ${CONDITION_LABEL[selected]} selected: median ${summary.median.toFixed(4)}, ${summary.nAboveChance} of ${summary.n} dyads above chance.`}
-        className="block w-full min-w-[440px] font-mono text-[11px]"
-        style={maxHeight ? { height: maxHeight } : undefined}
+        className={`block min-w-[440px] font-mono text-[11px] ${maxHeight ? "max-w-full" : "w-full"}`}
+        style={maxHeight ? { aspectRatio: `${width} / ${height}`, maxHeight } : undefined}
       >
         <text x={marginLeft} y={16} textAnchor="middle" fill="var(--color-ink-faint)">
           0.40
