@@ -12,8 +12,9 @@ We analyzed simultaneous EEG from 12 interacting pairs to test whether deception
 
 ## Live walkthrough
 
-<!-- TODO: paste the deployed URL here -->
-The app is not deployed at a stable URL yet. Run it locally instead:
+**[nsp-liars.albert14059.workers.dev](https://nsp-liars.albert14059.workers.dev/)**
+
+To run it locally instead:
 
 ```bash
 cd app
