@@ -1,23 +1,22 @@
 /** exp4 is the only screen whose advance label already reads as a full sentence
  * ("See the same result in levels"); the others are short enough to fold into
- * the "click to ..." hint pill directly. */
+ * the "tab/click to ..." hint pill directly. */
 function pillLabel(advanceLabel: string): string {
   switch (advanceLabel) {
     case "Show the evidence":
-      return "click to reveal";
+      return "tab/click to reveal";
     case "Next":
-      return "click to continue";
+      return "tab/click to continue";
     case "End":
-      return "click to finish";
+      return "tab/click to finish";
     default:
-      return `click to ${advanceLabel.toLowerCase()}`;
+      return `tab/click to ${advanceLabel.toLowerCase()}`;
   }
 }
 
 /** Both progress affordances, together, kept deliberately small: a short row of
- * ticks plus Back at the bottom-left, a single "click to ..." hint pill at the
- * bottom-right (same idea as a "press key to ..." corner hint, just naming the
- * click interaction this deck actually uses instead of a keypress). No bar
+ * ticks plus Back at the bottom-left, a single "tab/click to ..." hint pill at the
+ * bottom-right, naming the two interactions that actually advance this deck. No bar
  * chrome -- no border, no background -- so it reads as a light corner marking,
  * not a UI bar competing with the evidence above it. */
 export function WalkthroughFooter({

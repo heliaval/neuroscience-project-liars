@@ -89,7 +89,9 @@ export function Walkthrough() {
     // ArrowDown/Space/ArrowUp are native scroll keys -- hijacking them unconditionally
     // would trap a reader on the rare screen that still needs the overflow-y-auto safety
     // net. ArrowRight/Enter aren't native scroll keys on this element, so they always
-    // navigate. Left/Right stay direct navigation in both directions.
+    // navigate. Left/Right stay direct navigation in both directions. Tab is conditional
+    // for the same reason the scroll keys are, just against focus instead of scroll: see
+    // the Tab branch below.
     const atBottom = () => {
       const el = mainRef.current;
       if (!el) return true;
@@ -106,7 +108,17 @@ export function Walkthrough() {
       // override that with "advance the deck" instead of "activate the focused control".
       if ((e.target as HTMLElement)?.closest?.("button, a, input, textarea, select")) return;
 
-      if (e.key === "ArrowRight" || e.key === "Enter") {
+      if (e.key === "Tab") {
+        // Tab advances, but only a bare forward Tab pressed while nothing interactive is
+        // focused. Shift+Tab is deliberately never intercepted: from document.body it
+        // cycles backwards onto the last focusable element (the footer advance button),
+        // which is a keyboard-only reader's way *into* Back/Next and TechnicalDetails.
+        // Without that escape hatch, preventing every Tab would trap them on a deck that
+        // only moves forward. Modifier combinations stay with the browser too.
+        if (e.shiftKey || e.ctrlKey || e.altKey || e.metaKey) return;
+        e.preventDefault();
+        advance();
+      } else if (e.key === "ArrowRight" || e.key === "Enter") {
         e.preventDefault();
         advance();
       } else if (e.key === "ArrowLeft") {
