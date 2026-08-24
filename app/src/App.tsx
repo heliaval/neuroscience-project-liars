@@ -1,8 +1,12 @@
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { SpotlightCursor } from "@/components/ui/spotlight-cursor";
-import { Dashboard } from "@/routes/Dashboard";
 import { Walkthrough } from "@/walkthrough/Walkthrough";
+
+// The dashboard is a secondary route -- most visits land on / (the walkthrough)
+// and never touch it, so it's a separate chunk instead of weighing down the
+// initial load every visitor pays for.
+const Dashboard = lazy(() => import("@/routes/Dashboard").then((m) => ({ default: m.Dashboard })));
 
 const GITHUB_REPO = "https://github.com/heliaval/neuroscience-project-liars";
 const REPORT_DOC =
@@ -65,7 +69,14 @@ function App() {
       <SpotlightCursor config={{ radius: 260, brightness: 0.05, color: "#ffffff" }} />
       <Routes>
         <Route path="/" element={<Walkthrough />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route
+          path="/dashboard"
+          element={
+            <Suspense fallback={null}>
+              <Dashboard />
+            </Suspense>
+          }
+        />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </>

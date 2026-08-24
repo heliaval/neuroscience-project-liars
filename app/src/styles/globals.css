@@ -95,11 +95,10 @@
     background-color: var(--color-paper);
     background-image:
       linear-gradient(rgba(var(--color-paper-rgb) / 0.86), rgba(var(--color-paper-rgb) / 0.86)),
-      url("/textures/paper.jpg");
+      url("/textures/paper.webp");
     background-repeat: no-repeat, no-repeat;
     background-size: cover, cover;
     background-position: center, center;
-    background-attachment: fixed, fixed;
     color: var(--color-ink);
     font-synthesis: none;
     -webkit-font-smoothing: antialiased;
