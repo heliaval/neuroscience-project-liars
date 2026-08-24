@@ -46,7 +46,7 @@ function getAdvanceLabel(screenId: string, revealStep: number, maxStep: number, 
     if (screenId === "exp4" && revealStep === 1) return "See the same result in levels";
     return "Show the evidence";
   }
-  return atLast ? "End" : "Next";
+  return atLast ? "Restart" : "Next";
 }
 
 export function Walkthrough() {
@@ -55,7 +55,10 @@ export function Walkthrough() {
 
   const screen = SCREENS[screenIndex];
   const atLast = screenIndex === SCREENS.length - 1;
-  const canAdvance = revealStep < screen.maxStep || !atLast;
+  // Advancing always does something now -- either the normal step/screen move, or
+  // (from the last screen, fully revealed) a loop back to the cover -- so the
+  // control is never disabled here the way Back is at the very start.
+  const canAdvance = true;
   const canBack = screenIndex > 0;
 
   const advance = useCallback(() => {
@@ -65,7 +68,10 @@ export function Walkthrough() {
         setScreenIndex(screenIndex + 1);
         return 0;
       }
-      return step;
+      // The last screen's advance loops back to the very beginning instead of
+      // dead-ending, so the deck reads as a loop, not a wall.
+      setScreenIndex(0);
+      return 0;
     });
   }, [screenIndex]);
 
