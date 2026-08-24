@@ -72,7 +72,7 @@ export function PerDyadAurocPlot({
 
         {scores.map((s, i) => {
           const rowY = marginTop + 8 + i * rowGap;
-          const barHeight = 10;
+          const barHeight = 6;
           const xEnd = x(s.auroc);
           const barX = Math.min(chanceX, xEnd);
           const barWidth = Math.max(1, Math.abs(xEnd - chanceX));
@@ -81,6 +81,18 @@ export function PerDyadAurocPlot({
               <text x={marginLeft - 12} y={rowY + 4} textAnchor="end" fill="var(--color-ink-soft)">
                 {s.pairId.replace(/_/g, " / ")}
               </text>
+              {/* a faint full-width rail so the label reads as connected to the row
+                  even when the bar itself starts at the chance line, well right of
+                  where the label sits -- without it the gap reads as a mistake. */}
+              <line
+                x1={marginLeft}
+                y1={rowY}
+                x2={width - marginRight}
+                y2={rowY}
+                stroke="var(--color-hairline)"
+                strokeWidth={1}
+                opacity={0.4}
+              />
               {/* a solid bar from the chance line to the score, not just a thin
                   connecting stroke -- grows from the chance line via scaleX so the
                   static width/x stay the true final geometry motion can rely on. */}
@@ -89,6 +101,7 @@ export function PerDyadAurocPlot({
                 y={rowY - barHeight / 2}
                 width={barWidth}
                 height={barHeight}
+                rx={barHeight / 2}
                 fill="var(--color-signal-soft)"
                 style={{ transformOrigin: `${chanceX}px ${rowY}px` }}
                 initial={{ scaleX: 0 }}
@@ -97,7 +110,7 @@ export function PerDyadAurocPlot({
               />
               <motion.circle
                 cy={rowY}
-                r={5}
+                r={4.5}
                 fill={s.auroc >= 0.5 ? "var(--color-ink)" : "var(--color-paper)"}
                 stroke="var(--color-ink)"
                 strokeWidth={1.5}

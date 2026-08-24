@@ -105,6 +105,17 @@ export function LearningCurve({ points, reveal }: { points: CurvePoint[]; reveal
           transition={{ duration: dur, ease: WT.ease }}
         />
 
+        {/* a backing plate behind the legend -- it sits right where the confidence
+            bands are tallest, and without one the text reads directly against the
+            shaded fill underneath it. */}
+        <rect
+          x={width - marginRight - 158}
+          y={marginTop - 8}
+          width={158}
+          height={30}
+          fill="var(--color-paper)"
+          opacity={0.82}
+        />
         <text x={width - marginRight} y={marginTop + 4} textAnchor="end" fill="var(--color-ink)">
           same pair's history
         </text>
