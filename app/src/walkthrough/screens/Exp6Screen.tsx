@@ -43,11 +43,11 @@ export function Exp6Screen({ revealStep }: { revealStep: number }) {
               .
             </span>
           </Caveat>
-          <div className="mt-3 border border-hairline-strong bg-paper-raised p-3">
+          <div className="mt-2 border border-hairline-strong bg-paper-raised p-2">
             <p className="font-sans text-[11px] uppercase tracking-[0.08em] text-ink-faint">
               Binding reporting constraint (S16)
             </p>
-            <p className="mt-1.5 font-mono text-[11px] leading-snug text-ink-soft">
+            <p className="mt-1 font-mono text-[11px] leading-snug text-ink-soft">
               {getExp6ReportingConstraint()}
             </p>
           </div>

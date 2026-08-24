@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { WT } from "@/walkthrough/motion";
+import { chartBox } from "./chartBox";
 
 /**
  * The permutation null as it actually came out: one bar per bin over all
@@ -58,13 +59,14 @@ export function NullHistogram({
   const dur = reduced ? 0 : WT.base;
 
   return (
-    <figure className="max-w-full overflow-x-auto">
+    <figure className="flex max-w-full flex-col lg:min-h-0 lg:flex-1">
+      <div className="min-h-0 overflow-x-auto lg:flex-1 lg:[container-type:size]">
       <svg
         viewBox={`0 0 ${width} ${height}`}
         role="img"
         aria-label={`Histogram of ${nPermutations} shuffled-label AUROCs. The 5th to 95th percentile spans ${band.p5.toFixed(4)} to ${band.p95.toFixed(4)}; the observed value is ${observed.toFixed(4)}, permutation p ${pValue.toFixed(4)}.`}
-        className="block max-w-full min-w-[440px] font-mono text-[11px]"
-        style={{ aspectRatio: `${width} / ${height}`, maxHeight: "min(44vh,400px)" }}
+        className="block w-full min-w-[440px] font-mono text-[11px] lg:w-[var(--chart-fit-w)]"
+        style={chartBox(width, height, true)}
       >
         {/* the baseline is present before the reveal -- bars grow up out of it */}
         <line
@@ -153,8 +155,9 @@ export function NullHistogram({
           </text>
         </motion.g>
       </svg>
+      </div>
 
-      <figcaption className="mt-3 font-mono text-[12px] text-ink-soft">
+      <figcaption className="mt-3 shrink-0 font-mono text-[12px] text-ink-soft">
         {nPermutations} label shuffles, every one of them plotted. 5th-95th percentile{" "}
         {band.p5.toFixed(4)}-{band.p95.toFixed(4)}, median {band.p50.toFixed(4)}. Permutation p{" "}
         {pValue.toFixed(4)}.

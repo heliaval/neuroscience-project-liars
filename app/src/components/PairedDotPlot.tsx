@@ -1,6 +1,7 @@
 import type { PairedTest } from "@/types/results.v1";
 import { motion, useReducedMotion } from "motion/react";
 import { WT } from "@/walkthrough/motion";
+import { chartBox } from "./chartBox";
 
 /**
  * General renderer for the project's one inferential procedure (§20): a
@@ -19,20 +20,18 @@ export function PairedDotPlot({
   test,
   unit = "Δ AUROC",
   reveal,
-  maxHeight,
+  fit,
 }: {
   test: PairedTest;
   unit?: string;
   reveal?: boolean;
-  /** Opt-in CSS height (e.g. "min(34vh,340px)"), for the walkthrough only -- every
-   * dashboard call site omits this, so the chart keeps scaling purely by width exactly
-   * as it always has. */
-  maxHeight?: string;
+  /** Opt-in, walkthrough only; every dashboard call site omits this. */
+  fit?: boolean;
 }) {
   const reduced = useReducedMotion();
   const animated = reveal !== undefined;
   const shown = !animated || reveal === true;
-  const width = 640;
+  const width = 880;
   const height = 96 + test.n * 30;
   const marginLeft = 96;
   const marginRight = 32;
@@ -44,15 +43,14 @@ export function PairedDotPlot({
 
   const rows = test.dyad_ids.map((id, i) => ({ id, delta: test.deltas[i], y: 40 + i * 30 }));
 
-  return (
-    <figure className="my-8 max-w-full overflow-x-auto">
-      <svg
-        viewBox={`0 0 ${width} ${height}`}
-        role="img"
-        aria-label={`Per-dyad ${unit} for ${test.n} dyads, median ${test.median_delta.toFixed(4)}`}
-        className={`block min-w-[420px] font-mono text-[11px] ${maxHeight ? "max-w-full" : "w-full"}`}
-        style={maxHeight ? { aspectRatio: `${width} / ${height}`, maxHeight } : undefined}
-      >
+  const svg = (
+    <svg
+      viewBox={`0 0 ${width} ${height}`}
+      role="img"
+      aria-label={`Per-dyad ${unit} for ${test.n} dyads, median ${test.median_delta.toFixed(4)}`}
+      className={`block w-full min-w-[420px] font-mono text-[11px]${fit ? " lg:w-[var(--chart-fit-w)]" : ""}`}
+      style={chartBox(width, height, fit)}
+    >
         {/* zero line */}
         <line x1={zeroX} y1={20} x2={zeroX} y2={height - 24} stroke="var(--color-hairline-strong)" strokeWidth={1} />
         <text x={zeroX} y={14} textAnchor="middle" fill="var(--color-ink-faint)">
@@ -109,9 +107,14 @@ export function PairedDotPlot({
         <text x={width - marginRight} y={height - 6} textAnchor="end" fill="var(--color-ink-faint)">
           {unit}
         </text>
-      </svg>
+    </svg>
+  );
 
-      <figcaption className="mt-4 grid grid-cols-2 gap-x-6 gap-y-1 font-mono text-[12px] text-ink-soft sm:grid-cols-4">
+  return (
+    <figure className={fit ? "flex max-w-full flex-col lg:min-h-0 lg:flex-1" : "my-8 max-w-full overflow-x-auto"}>
+      {fit ? <div className="min-h-0 overflow-x-auto lg:flex-1 lg:[container-type:size]">{svg}</div> : svg}
+
+      <figcaption className="mt-4 grid shrink-0 grid-cols-2 gap-x-6 gap-y-1 font-mono text-[12px] text-ink-soft sm:grid-cols-4">
         <span>median {test.median_delta.toFixed(4)}</span>
         <span>
           {test.n_positive} of {test.n} above zero

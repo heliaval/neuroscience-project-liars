@@ -29,14 +29,14 @@ export function WalkthroughScreen({
   const itemTransition = reduced ? { duration: 0 } : undefined;
 
   return (
-    <div className="w-full px-8 py-8 sm:px-12 lg:px-16 xl:px-20">
-      <p className="font-sans text-[13px] uppercase tracking-[0.08em] text-ink-soft">{eyebrow}</p>
+    <div className="mx-auto flex min-h-0 w-full max-w-[1440px] flex-1 flex-col px-8 py-6 sm:px-12 lg:px-16 xl:px-20">
+      <p className="shrink-0 font-sans text-[13px] uppercase tracking-[0.08em] text-ink-soft">{eyebrow}</p>
 
       {/* Claim and evidence sit side by side on wide viewports, using the width a
           single centered text column left empty, instead of the evidence piling up
           underneath the claim. The claim keeps a fixed reading-width column; the
           evidence fills the space beside it as it mounts on reveal. */}
-      <div className="mt-6 grid grid-cols-1 items-center gap-x-12 gap-y-6 lg:grid-cols-[minmax(0,46ch)_minmax(0,1fr)]">
+      <div className="mt-4 grid grid-cols-1 items-center gap-x-12 gap-y-6 lg:min-h-0 lg:flex-1 lg:grid-cols-[minmax(0,46ch)_minmax(0,1fr)]">
         <h2
           className={`font-serif font-normal leading-[1.2] text-ink ${
             emphasis ? "text-[1.9rem] sm:text-[2.4rem]" : "text-[1.7rem] sm:text-[2.1rem]"
@@ -45,10 +45,31 @@ export function WalkthroughScreen({
           {claim}
         </h2>
 
-        <motion.div initial="hidden" animate={revealed ? "shown" : "hidden"} custom={stagger} variants={stageVariants}>
+        <motion.div
+          initial="hidden"
+          animate={revealed ? "shown" : "hidden"}
+          custom={stagger}
+          variants={stageVariants}
+          className="flex flex-col justify-center lg:h-full lg:min-h-0"
+        >
           {revealed && (
-            <motion.div variants={itemVariants} transition={itemTransition}>
+            <motion.div
+              variants={itemVariants}
+              transition={itemTransition}
+              className="flex flex-col justify-center lg:min-h-0 lg:flex-1"
+            >
               {evidence}
+            </motion.div>
+          )}
+
+          {secondBeat && revealStep >= 2 && (
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: reduced ? 0 : WT.slow, ease: WT.ease }}
+              className="mt-3 flex flex-col border-t border-hairline pt-3 lg:min-h-0 lg:flex-1"
+            >
+              {secondBeat}
             </motion.div>
           )}
         </motion.div>
@@ -59,7 +80,7 @@ export function WalkthroughScreen({
         animate={revealed ? "shown" : "hidden"}
         custom={stagger}
         variants={stageVariants}
-        className="mt-8 max-w-[70ch]"
+        className="mt-4 max-w-[70ch] shrink-0"
       >
         {revealed && (
           <motion.div variants={itemVariants} transition={itemTransition}>
@@ -67,17 +88,6 @@ export function WalkthroughScreen({
           </motion.div>
         )}
       </motion.div>
-
-      {secondBeat && revealStep >= 2 && (
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: reduced ? 0 : WT.slow, ease: WT.ease }}
-          className="mt-4 border-t border-hairline pt-4"
-        >
-          {secondBeat}
-        </motion.div>
-      )}
     </div>
   );
 }

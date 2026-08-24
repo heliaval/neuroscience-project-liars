@@ -1,6 +1,7 @@
 import { motion, useReducedMotion } from "motion/react";
 import { WT } from "@/walkthrough/motion";
 import type { EarlyLatePair } from "@/data/selectors";
+import { chartBox } from "./chartBox";
 
 /**
  * exp6's per-dyad Early -> Late comparison: two real measured points per pair, joined.
@@ -46,9 +47,15 @@ function declutterY(
   return new Map(sorted.map((s) => [s.id, s.y]));
 }
 
-export function EarlyLateSlope({ pairs, reveal }: { pairs: EarlyLatePair[]; reveal: boolean }) {
+export function EarlyLateSlope({
+  pairs,
+  reveal,
+}: {
+  pairs: EarlyLatePair[];
+  reveal: boolean;
+}) {
   const reduced = useReducedMotion();
-  const width = 640;
+  const width = 900;
   const height = 460;
   const marginLeft = 116;
   const marginRight = 116;
@@ -77,15 +84,16 @@ export function EarlyLateSlope({ pairs, reveal }: { pairs: EarlyLatePair[]; reve
   const spring = reduced ? { duration: 0 } : WT.spring;
 
   return (
-    <figure className="max-w-full overflow-x-auto">
+    <figure className="flex max-w-full flex-col lg:min-h-0 lg:flex-1">
+      <div className="min-h-0 overflow-x-auto lg:flex-1 lg:[container-type:size]">
       <svg
         viewBox={`0 0 ${width} ${height}`}
         role="img"
         aria-label={`Decodability in the early versus late block for each of ${pairs.length} pairs: ${pairs
           .map((p) => `${p.pairId} early ${p.early.toFixed(4)} late ${p.late.toFixed(4)}`)
           .join("; ")}`}
-        className="block max-w-full min-w-[460px] font-mono text-[11px]"
-        style={{ aspectRatio: `${width} / ${height}`, maxHeight: "min(47vh,480px)" }}
+        className="block w-full min-w-[460px] font-mono text-[11px] lg:w-[var(--chart-fit-w)]"
+        style={chartBox(width, height, true)}
       >
         {/* both axes present before the reveal -- the slopes draw between them */}
         <line x1={earlyX} y1={marginTop - 10} x2={earlyX} y2={height - marginBottom + 10} stroke="var(--color-hairline)" />
@@ -201,6 +209,7 @@ export function EarlyLateSlope({ pairs, reveal }: { pairs: EarlyLatePair[]; reve
           decodability (AUROC) · one line per pair · labels name the observing participant in each block
         </text>
       </svg>
+      </div>
     </figure>
   );
 }

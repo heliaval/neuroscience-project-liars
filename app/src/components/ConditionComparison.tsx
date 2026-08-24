@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { EXP4_CONDITIONS, getConditionScores, getConditionSummary, type Exp4ConditionId } from "@/data/selectors";
+import { chartBox } from "./chartBox";
 
 const CONDITION_LABEL: Record<Exp4ConditionId, string> = {
   universal: "STRANGER",
@@ -33,13 +34,11 @@ const CHANCE = 0.5;
  */
 export function ConditionComparison({
   selected,
-  maxHeight,
+  fit,
 }: {
   selected: Exp4ConditionId;
-  /** Opt-in CSS height (e.g. "min(34vh,340px)"), for the walkthrough only -- the
-   * dashboard call site omits this, so the chart keeps scaling purely by width
-   * exactly as it always has. */
-  maxHeight?: string;
+  /** Opt-in, walkthrough only; the dashboard call site omits this. */
+  fit?: boolean;
 }) {
   const width = 640;
   const anchor = getConditionScores("universal");
@@ -70,15 +69,14 @@ export function ConditionComparison({
     return () => mq.removeEventListener("change", onChange);
   }, []);
 
-  return (
-    <figure className="my-8 max-w-full overflow-x-auto">
-      <svg
-        viewBox={`0 0 ${width} ${height}`}
-        role="img"
-        aria-label={`AUROC by training condition for 10 dyads, fixed axis 0.40 to 0.60. ${CONDITION_LABEL[selected]} selected: median ${summary.median.toFixed(4)}, ${summary.nAboveChance} of ${summary.n} dyads above chance.`}
-        className={`block min-w-[440px] font-mono text-[11px] ${maxHeight ? "max-w-full" : "w-full"}`}
-        style={maxHeight ? { aspectRatio: `${width} / ${height}`, maxHeight } : undefined}
-      >
+  const svg = (
+    <svg
+      viewBox={`0 0 ${width} ${height}`}
+      role="img"
+      aria-label={`AUROC by training condition for 10 dyads, fixed axis 0.40 to 0.60. ${CONDITION_LABEL[selected]} selected: median ${summary.median.toFixed(4)}, ${summary.nAboveChance} of ${summary.n} dyads above chance.`}
+      className={`block w-full min-w-[220px] font-mono text-[11px]${fit ? " lg:w-[var(--chart-fit-w)]" : ""}`}
+      style={chartBox(width, height, fit)}
+    >
         <text x={marginLeft} y={16} textAnchor="middle" fill="var(--color-ink-faint)">
           0.40
         </text>
@@ -149,9 +147,14 @@ export function ConditionComparison({
         <text x={width - marginRight} y={height - 8} textAnchor="end" fill="var(--color-ink-faint)">
           AUROC
         </text>
-      </svg>
+    </svg>
+  );
 
-      <figcaption className="mt-4 font-mono text-[12px] text-ink-soft">
+  return (
+    <figure className={fit ? "flex max-w-full flex-col lg:min-h-0 lg:flex-1" : "my-8 max-w-full overflow-x-auto"}>
+      {fit ? <div className="min-h-0 overflow-x-auto lg:flex-1 lg:[container-type:size]">{svg}</div> : svg}
+
+      <figcaption className="mt-4 shrink-0 font-mono text-[12px] text-ink-soft">
         {CONDITION_LABEL[selected]} selected: median {summary.median.toFixed(4)}, {summary.nAboveChance} of{" "}
         {summary.n} dyads above chance. The 0.50 chance line is the majority-class baseline, measured for every
         dyad -- not a drawing convention.

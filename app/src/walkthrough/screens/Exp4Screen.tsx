@@ -19,8 +19,8 @@ export function Exp4Screen({ revealStep }: { revealStep: number }) {
       evidence={
         // [&>figure] overrides PairedDotPlot's own my-8 (needed unmodified on /dashboard)
         // -- this screen is the one place two evidence charts share a viewport at once.
-        <div className="[&>figure]:my-1!">
-          <PairedDotPlot test={test} reveal={revealStep >= 1} maxHeight="min(13vh,130px)" />
+        <div className="flex min-h-0 flex-1 flex-col [&>figure]:my-1!">
+          <PairedDotPlot test={test} reveal={revealStep >= 1} fit />
         </div>
       }
       caveat={
@@ -49,8 +49,8 @@ export function Exp4Screen({ revealStep }: { revealStep: number }) {
             Three models fit identically and tested on the same held-out rows. The dyad-specific model, the
             one the hypothesis predicted would win, is the lowest of the three.
           </p>
-          <div className="[&>figure]:my-1!">
-            <ConditionComparison selected="dyad_specific" maxHeight="min(13vh,130px)" />
+          <div className="flex min-h-0 flex-1 flex-col [&>figure]:my-1!">
+            <ConditionComparison selected="dyad_specific" fit />
           </div>
         </>
       }

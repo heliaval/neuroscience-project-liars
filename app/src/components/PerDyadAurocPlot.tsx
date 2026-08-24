@@ -1,6 +1,7 @@
 import { motion, useReducedMotion } from "motion/react";
 import { WT } from "@/walkthrough/motion";
 import type { DyadScore } from "@/data/selectors";
+import { chartBox } from "./chartBox";
 
 /**
  * One dot per held-out dyad, absolute AUROC against the 0.50 chance line, with the
@@ -38,13 +39,14 @@ export function PerDyadAurocPlot({
   const dur = reduced ? 0 : WT.base;
 
   return (
-    <figure className="max-w-full overflow-x-auto">
+    <figure className="flex max-w-full flex-col lg:min-h-0 lg:flex-1">
+      <div className="min-h-0 overflow-x-auto lg:flex-1 lg:[container-type:size]">
       <svg
         viewBox={`0 0 ${width} ${height}`}
         role="img"
         aria-label={`AUROC for each of ${scores.length} held-out dyads against a 0.50 chance line, with the pooled value ${reference.toFixed(4)} marked.`}
-        className="block max-w-full min-w-[440px] font-mono text-[11px]"
-        style={{ aspectRatio: `${width} / ${height}`, maxHeight: "min(47vh,440px)" }}
+        className="block w-full min-w-[440px] font-mono text-[11px] lg:w-[var(--chart-fit-w)]"
+        style={chartBox(width, height, true)}
       >
         <line
           x1={chanceX}
@@ -103,6 +105,7 @@ export function PerDyadAurocPlot({
           AUROC · dashed rule = {referenceLabel} {reference.toFixed(4)}
         </text>
       </svg>
+      </div>
     </figure>
   );
 }

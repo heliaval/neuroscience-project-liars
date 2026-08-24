@@ -1,6 +1,7 @@
 import { motion, useReducedMotion } from "motion/react";
 import { WT } from "@/walkthrough/motion";
 import type { CurvePoint } from "@/data/selectors";
+import { chartBox } from "./chartBox";
 
 /**
  * exp5's descriptive curve: median AUROC against training-set size k, for models trained
@@ -42,13 +43,14 @@ export function LearningCurve({ points, reveal }: { points: CurvePoint[]; reveal
     ].join(" ");
 
   return (
-    <figure className="max-w-full overflow-x-auto">
+    <figure className="flex max-w-full flex-col lg:min-h-0 lg:flex-1">
+      <div className="min-h-0 overflow-x-auto lg:flex-1 lg:[container-type:size]">
       <svg
         viewBox={`0 0 ${width} ${height}`}
         role="img"
         aria-label={`Median AUROC against training set size, for same-dyad and other-dyad training data, at k = ${ks.join(", ")}. Descriptive only; this figure is not the statistical test.`}
-        className="block max-w-full min-w-[440px] font-mono text-[11px]"
-        style={{ aspectRatio: `${width} / ${height}`, maxHeight: "min(46vh,440px)" }}
+        className="block w-full min-w-[440px] font-mono text-[11px] lg:w-[var(--chart-fit-w)]"
+        style={chartBox(width, height, true)}
       >
         <line x1={marginLeft} y1={marginTop} x2={marginLeft} y2={marginTop + plotHeight} stroke="var(--color-hairline)" />
         <line
@@ -110,6 +112,7 @@ export function LearningCurve({ points, reveal }: { points: CurvePoint[]; reveal
           other pairs' history
         </text>
       </svg>
+      </div>
     </figure>
   );
 }

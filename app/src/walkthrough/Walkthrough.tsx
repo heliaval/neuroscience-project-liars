@@ -156,7 +156,7 @@ export function Walkthrough() {
 
   return (
     <div className="walkthrough flex h-[100dvh] flex-col overflow-hidden bg-paper">
-      <main ref={mainRef} className="flex flex-1 items-center overflow-y-auto" onClick={onStageClick}>
+      <main ref={mainRef} className="flex flex-1 flex-col overflow-y-auto" onClick={onStageClick}>
         {/* Screen-to-screen crossfade. Without this, swapping the fixed-height stage's
             content on Next was an instant cut -- the reveal animations inside a screen
             (WalkthroughScreen's stagger) only cover the claim/evidence appearing, not the
@@ -170,7 +170,7 @@ export function Walkthrough() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: reducedMotion ? 0 : WT.fast, ease: WT.ease }}
-            className="w-full"
+            className="flex min-h-0 w-full flex-1 flex-col"
           >
             <Screen revealStep={revealStep} />
           </motion.div>
