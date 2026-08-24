@@ -112,7 +112,7 @@ None of this is in the repo. `.gitignore` excludes everything under `data/` exce
 ## How the results were produced
 
 ```mermaid
-flowchart LR
+flowchart TD
     A[figshare archives] --> B[src/timeline.py<br/>trial table]
     B --> C[src/gate.py<br/>trial-count gate]
     C --> D[freeze<br/>frozen_hypotheses.md]
