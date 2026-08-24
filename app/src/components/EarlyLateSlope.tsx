@@ -60,7 +60,7 @@ export function EarlyLateSlope({
   reveal: boolean;
 }) {
   const reduced = useReducedMotion();
-  const width = 900;
+  const width = 1080;
   const height = 460;
   const marginLeft = 116;
   const marginRight = 116;

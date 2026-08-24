@@ -24,7 +24,7 @@ export function PerDyadAurocPlot({
   reveal: boolean;
 }) {
   const reduced = useReducedMotion();
-  const width = 640;
+  const width = 920;
   const rowGap = 26;
   const marginLeft = 104;
   const marginRight = 28;
@@ -72,19 +72,27 @@ export function PerDyadAurocPlot({
 
         {scores.map((s, i) => {
           const rowY = marginTop + 8 + i * rowGap;
+          const barHeight = 10;
+          const xEnd = x(s.auroc);
+          const barX = Math.min(chanceX, xEnd);
+          const barWidth = Math.max(1, Math.abs(xEnd - chanceX));
           return (
             <g key={s.pairId}>
               <text x={marginLeft - 12} y={rowY + 4} textAnchor="end" fill="var(--color-ink-soft)">
                 {s.pairId.replace(/_/g, " / ")}
               </text>
-              <motion.line
-                y1={rowY}
-                y2={rowY}
-                x1={chanceX}
-                stroke="var(--color-hairline)"
-                strokeWidth={1}
-                initial={{ x2: chanceX }}
-                animate={{ x2: reveal ? x(s.auroc) : chanceX }}
+              {/* a solid bar from the chance line to the score, not just a thin
+                  connecting stroke -- grows from the chance line via scaleX so the
+                  static width/x stay the true final geometry motion can rely on. */}
+              <motion.rect
+                x={barX}
+                y={rowY - barHeight / 2}
+                width={barWidth}
+                height={barHeight}
+                fill="var(--color-signal-soft)"
+                style={{ transformOrigin: `${chanceX}px ${rowY}px` }}
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: reveal ? 1 : 0 }}
                 transition={{ duration: dur, ease: WT.ease, delay: reduced ? 0 : i * WT.stagger }}
               />
               <motion.circle
@@ -94,7 +102,7 @@ export function PerDyadAurocPlot({
                 stroke="var(--color-ink)"
                 strokeWidth={1.5}
                 initial={{ cx: chanceX, opacity: 0 }}
-                animate={{ cx: reveal ? x(s.auroc) : chanceX, opacity: reveal ? 1 : 0 }}
+                animate={{ cx: reveal ? xEnd : chanceX, opacity: reveal ? 1 : 0 }}
                 transition={{ duration: dur, ease: WT.ease, delay: reduced ? 0 : i * WT.stagger }}
               />
             </g>

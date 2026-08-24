@@ -14,7 +14,7 @@ import { chartBox } from "./chartBox";
 export function LearningCurve({ points, reveal }: { points: CurvePoint[]; reveal: boolean }) {
   const reduced = useReducedMotion();
   const width = 640;
-  const height = 450;
+  const height = 300;
   const marginLeft = 52;
   const marginRight = 24;
   const marginTop = 24;
