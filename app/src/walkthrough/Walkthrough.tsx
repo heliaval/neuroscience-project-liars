@@ -27,7 +27,7 @@ const SCREENS = [
 const EVIDENCE_COUNT = SCREENS.filter((s) => s.maxStep > 0).length; // 7
 
 const SCREEN_TITLE: Record<(typeof SCREENS)[number]["id"], string> = {
-  cover: "Overview",
+  cover: "",
   exp1: "Experiment 1",
   exp2: "Experiment 2",
   exp3: "Experiment 3",
@@ -163,7 +163,8 @@ export function Walkthrough() {
   };
 
   useEffect(() => {
-    document.title = `${SCREEN_TITLE[screen.id]} · Can Your Brain Learn a Liar?`;
+    const title = SCREEN_TITLE[screen.id];
+    document.title = title ? `${title} · Can Your Brain Learn a Liar?` : "Can Your Brain Learn a Liar?";
   }, [screen.id]);
 
   const Screen = screen.render;

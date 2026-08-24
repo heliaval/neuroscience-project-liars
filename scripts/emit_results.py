@@ -296,7 +296,7 @@ tests = {
         **{k: fixture_tests["exp5_learning_curve"][k] for k in ("claim", "hypothesis", "experiment", "metric", "kind", "designation", "primary")},
         "supported": bool(exp5_median > 0 and exp5_perm_p < 0.05),
         "result": hg,
-        "plain_language": "Training on more of a pair's own history nudged things up a little, but not reliably.",
+        "plain_language": "Training on more of a pair's own history exhibited a slight increase, but not a reliable one.",
         "technical": (
             f"Median ΔAUROC (k=646 vs k=322, same-dyad) = {exp5_median:.4f}; "
             f"8 of 10 dyads positive; sign test p = {exp5_sign_p:.4f}; "

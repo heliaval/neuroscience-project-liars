@@ -1,7 +1,7 @@
 {
   "meta": {
     "schema_version": "results.v1",
-    "generated_at": "2026-08-24T04:04:34.354689+00:00",
+    "generated_at": "2026-08-24T16:07:45.043187+00:00",
     "pipeline_git_describe": null,
     "dataset_checksum": null,
     "is_fixture": false,
@@ -13143,7 +13143,7 @@
           "sd": 0.05313975915222246
         }
       },
-      "plain_language": "Personalizing the model to someone's own prior trials nudged things up a little, but not reliably.",
+      "plain_language": "Personalizing the model to someone's own prior trials exhibited a slight increase, but not a reliable one.",
       "technical": "Median \u0394AUROC = 0.0320 (95% CI -0.0038 to 0.0676); sign test p = 0.2266; permutation p = 0.1233, n = 11 dyads."
     },
     "h3_dyad_gain": {
@@ -13300,7 +13300,7 @@
           "sd": 0.0433499433405791
         }
       },
-      "plain_language": "Training on more of a pair's own history nudged things up a little, but not reliably.",
+      "plain_language": "Training on more of a pair's own history exhibited a slight increase, but not a reliable one.",
       "technical": "Median \u0394AUROC (k=646 vs k=322, same-dyad) = 0.0136; 8 of 10 dyads positive; sign test p = 0.1094; permutation p = 0.1718, n = 10 dyads."
     },
     "exp6_observer_early_late": {
