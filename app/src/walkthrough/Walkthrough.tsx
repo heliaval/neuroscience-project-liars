@@ -163,7 +163,7 @@ export function Walkthrough() {
   };
 
   useEffect(() => {
-    document.title = `${SCREEN_TITLE[screen.id]} · Can your brain learn a liar`;
+    document.title = `${SCREEN_TITLE[screen.id]} · Can Your Brain Learn a Liar?`;
   }, [screen.id]);
 
   const Screen = screen.render;
