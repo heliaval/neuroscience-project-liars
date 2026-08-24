@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { motion, useReducedMotion } from "motion/react";
 import { WT, itemVariants, stageVariants } from "../motion";
 
@@ -13,51 +12,43 @@ export function ClosingScreen({ revealStep }: { revealStep: number }) {
       animate="shown"
       custom={reduced ? 0 : WT.stagger}
       variants={stageVariants}
-      className="flex h-full min-h-0 w-full flex-1 flex-col items-center justify-center bg-[#10141a] px-8 py-10 text-center sm:px-12"
+      className="mx-auto flex h-full min-h-0 w-full max-w-[1440px] flex-1 flex-col px-8 py-10 sm:px-12 lg:px-16 xl:px-20"
     >
       <motion.p
         variants={itemVariants}
         transition={itemTransition}
-        className="font-sans text-[13px] uppercase tracking-[0.14em] text-[#7fa0bd]"
+        className="font-sans text-[1.8rem] font-medium uppercase tracking-tight text-ink sm:text-[2.4rem]"
       >
-        Seven experiments later
+        Conclusion
       </motion.p>
 
       <motion.h2
         variants={itemVariants}
         transition={itemTransition}
-        className="mt-6 max-w-[24ch] font-serif text-[2.4rem] font-normal leading-[1.15] text-white sm:text-[3.4rem]"
+        className="mt-4 max-w-[36ch] font-serif text-[2.6rem] font-normal leading-[1.15] text-ink sm:text-[4.2rem]"
       >
-        The relationship-specific signature we built this project to find never showed up.
+        According to the EEG data, we can't detect deception.
       </motion.h2>
 
       <motion.p
         variants={itemVariants}
         transition={itemTransition}
-        className="mt-8 max-w-[52ch] font-serif text-[1.15rem] leading-[1.6] text-white/75"
+        className="mt-8 max-w-[70ch] font-serif text-[1.15rem] leading-[1.6] text-ink-soft"
       >
-        Nothing generalized to a pair the model hadn't already seen, and the one comparison that did reach
-        significance pointed the wrong way.
+        We started with a simple question: does lying leave a mark on the brain that a model can pick up. A
+        model trained across everyone did just barely better than a coin flip. It didn't hold up on a pair it
+        had never seen before. Personalizing the model to one person didn't help, and neither did learning a
+        specific relationship, which was the whole idea behind this project. More training data didn't change
+        the picture, the observer's brain didn't get any sharper over the course of a session, and no
+        combination of inputs told a different story.
       </motion.p>
 
       <motion.p
         variants={itemVariants}
         transition={itemTransition}
-        className="mt-14 font-serif text-[1.6rem] font-normal text-[#8fb4d6] sm:text-[2rem]"
+        className="mt-auto self-end font-serif text-[1.4rem] font-normal text-ink sm:text-[1.7rem]"
       >
-        Thank you for following all seven through to the end.
-      </motion.p>
-
-      <motion.p
-        variants={itemVariants}
-        transition={itemTransition}
-        className="mt-10 font-sans text-[12px] text-white/45"
-      >
-        Per-dyad detail, condition comparisons, and technical notes are on the{" "}
-        <Link to="/dashboard" className="text-[#7fa0bd] underline decoration-[#7fa0bd]/50 underline-offset-4 hover:decoration-[#7fa0bd]">
-          full dashboard
-        </Link>
-        .
+        Thanks.
       </motion.p>
     </motion.div>
   );
