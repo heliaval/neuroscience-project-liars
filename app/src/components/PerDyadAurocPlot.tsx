@@ -40,7 +40,7 @@ export function PerDyadAurocPlot({
 
   return (
     <figure className="flex max-w-full flex-col lg:min-h-0 lg:flex-1">
-      <div className="min-h-0 overflow-x-auto lg:flex-1 lg:[container-type:size]">
+      <div className="min-h-0 overflow-x-auto overflow-y-hidden lg:flex-1 lg:[container-type:size]">
       <svg
         viewBox={`0 0 ${width} ${height}`}
         role="img"

@@ -12,7 +12,7 @@ import { chartBox } from "./chartBox";
 export function RankedCIBars({ sets, reveal }: { sets: RankedInputSet[]; reveal: boolean }) {
   const reduced = useReducedMotion();
   const width = 640;
-  const rowGap = 42;
+  const rowGap = 66;
   const marginLeft = 208;
   const marginRight = 24;
   const marginTop = 28;
@@ -27,7 +27,7 @@ export function RankedCIBars({ sets, reveal }: { sets: RankedInputSet[]; reveal:
 
   return (
     <figure className="flex max-w-full flex-col lg:min-h-0 lg:flex-1">
-      <div className="min-h-0 overflow-x-auto lg:flex-1 lg:[container-type:size]">
+      <div className="min-h-0 overflow-x-auto overflow-y-hidden lg:flex-1 lg:[container-type:size]">
       <svg
         viewBox={`0 0 ${width} ${height}`}
         role="img"

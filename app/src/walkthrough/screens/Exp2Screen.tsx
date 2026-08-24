@@ -26,7 +26,7 @@ export function Exp2Screen({ revealStep }: { revealStep: number }) {
       claim={claim.plain_language}
       revealStep={revealStep}
       evidence={
-        <div className="flex flex-col gap-8 lg:min-h-0 lg:flex-1">
+        <div className="flex flex-col gap-4 lg:min-h-0 lg:flex-1">
           <TypographicNumberReveal
             value={headline.value}
             lower={headline.lower}

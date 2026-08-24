@@ -29,17 +29,17 @@ export function WalkthroughScreen({
   const itemTransition = reduced ? { duration: 0 } : undefined;
 
   return (
-    <div className="mx-auto flex min-h-0 w-full max-w-[1440px] flex-1 flex-col px-8 py-6 sm:px-12 lg:px-16 xl:px-20">
+    <div className="mx-auto flex min-h-0 w-full max-w-[1440px] flex-1 flex-col px-8 py-4 sm:px-12 lg:px-16 xl:px-20">
       <p className="shrink-0 font-sans text-[13px] uppercase tracking-[0.08em] text-ink-soft">{eyebrow}</p>
 
       {/* Claim and evidence sit side by side on wide viewports, using the width a
           single centered text column left empty, instead of the evidence piling up
           underneath the claim. The claim keeps a fixed reading-width column; the
           evidence fills the space beside it as it mounts on reveal. */}
-      <div className="mt-4 grid grid-cols-1 items-center gap-x-12 gap-y-6 lg:min-h-0 lg:flex-1 lg:grid-cols-[minmax(0,46ch)_minmax(0,1fr)]">
+      <div className="mt-3 grid grid-cols-1 items-center gap-x-10 gap-y-4 lg:min-h-0 lg:flex-1 lg:grid-cols-[minmax(0,36ch)_minmax(0,1fr)]">
         <h2
-          className={`font-serif font-normal leading-[1.2] text-ink ${
-            emphasis ? "text-[1.9rem] sm:text-[2.4rem]" : "text-[1.7rem] sm:text-[2.1rem]"
+          className={`font-serif font-normal leading-[1.2] text-ink lg:self-start ${
+            emphasis ? "text-[1.5rem] sm:text-[1.9rem]" : "text-[1.35rem] sm:text-[1.65rem]"
           }`}
         >
           {claim}
@@ -80,7 +80,7 @@ export function WalkthroughScreen({
         animate={revealed ? "shown" : "hidden"}
         custom={stagger}
         variants={stageVariants}
-        className="mt-4 max-w-[70ch] shrink-0"
+        className="mt-3 max-w-[64ch] shrink-0"
       >
         {revealed && (
           <motion.div variants={itemVariants} transition={itemTransition}>
@@ -96,7 +96,7 @@ export function WalkthroughScreen({
  * TechnicalDetails, one level louder because these are load-bearing. */
 export function Caveat({ children }: { children: ReactNode }) {
   return (
-    <div className="border-l-2 border-hairline-strong pl-4 font-serif text-[1rem] leading-[1.6] text-ink-soft">
+    <div className="border-l-2 border-hairline-strong pl-4 font-serif text-[0.8rem] leading-[1.4] text-ink-soft">
       {children}
     </div>
   );

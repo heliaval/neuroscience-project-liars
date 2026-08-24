@@ -3,7 +3,7 @@ import { useState } from "react";
 export function TechnicalDetails({ text }: { text: string }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className="mt-3">
+    <div className="mt-2">
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}

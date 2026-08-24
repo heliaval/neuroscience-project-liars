@@ -47,6 +47,11 @@ function declutterY(
   return new Map(sorted.map((s) => [s.id, s.y]));
 }
 
+/** Presentational only: the `sub` prefix repeats on all 20 marks and discriminates
+ * nothing. The aria-label and the caption keep the full IDs, so nothing an assistive
+ * technology reads is abbreviated. */
+const shortId = (s: string) => s.replace(/^sub/, "");
+
 export function EarlyLateSlope({
   pairs,
   reveal,
@@ -85,7 +90,7 @@ export function EarlyLateSlope({
 
   return (
     <figure className="flex max-w-full flex-col lg:min-h-0 lg:flex-1">
-      <div className="min-h-0 overflow-x-auto lg:flex-1 lg:[container-type:size]">
+      <div className="min-h-0 overflow-x-auto overflow-y-hidden lg:flex-1 lg:[container-type:size]">
       <svg
         viewBox={`0 0 ${width} ${height}`}
         role="img"
@@ -113,7 +118,7 @@ export function EarlyLateSlope({
           stroke="var(--color-hairline-strong)"
           strokeWidth={2}
         />
-        <text x={earlyX - 10} y={chanceY + 4} textAnchor="end" fill="var(--color-ink-faint)">
+        <text x={earlyX + 8} y={chanceY - 6} textAnchor="start" fill="var(--color-ink-faint)">
           0.50
         </text>
 
@@ -159,7 +164,7 @@ export function EarlyLateSlope({
               />
               {(() => {
                 const labelY0 = earlyLabelY.get(p.pairId)!;
-                return labelY0 !== y0 ? (
+                return Math.abs(labelY0 - y0) > 2.5 ? (
                   <motion.line
                     x1={earlyX - 6} y1={y0} x2={earlyX - 6} y2={labelY0}
                     stroke="var(--color-hairline)" strokeWidth={1}
@@ -172,16 +177,17 @@ export function EarlyLateSlope({
                 x={earlyX - 10}
                 y={earlyLabelY.get(p.pairId)! + 4}
                 textAnchor="end"
+                fontSize={9}
                 fill="var(--color-ink-soft)"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: reveal ? 1 : 0 }}
                 transition={{ duration: dur, ease: WT.ease, delay }}
               >
-                {p.earlyObserver}
+                {shortId(p.earlyObserver)}
               </motion.text>
               {(() => {
                 const labelY1 = lateLabelY.get(p.pairId)!;
-                return labelY1 !== y1 ? (
+                return Math.abs(labelY1 - y1) > 2.5 ? (
                   <motion.line
                     x1={lateX + 6} y1={y1} x2={lateX + 6} y2={labelY1}
                     stroke="var(--color-hairline)" strokeWidth={1}
@@ -194,19 +200,20 @@ export function EarlyLateSlope({
                 x={lateX + 10}
                 y={lateLabelY.get(p.pairId)! + 4}
                 textAnchor="start"
+                fontSize={9}
                 fill="var(--color-ink-soft)"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: reveal ? 1 : 0 }}
                 transition={{ duration: dur, ease: WT.ease, delay: delay + (reduced ? 0 : WT.base) }}
               >
-                {p.lateObserver}
+                {shortId(p.lateObserver)}
               </motion.text>
             </g>
           );
         })}
 
         <text x={width / 2} y={height - 10} textAnchor="middle" fill="var(--color-ink-faint)">
-          decodability (AUROC) · one line per pair · labels name the observing participant in each block
+          decodability (AUROC) · one line per pair · labels are the observing participant (sub·) in each block
         </text>
       </svg>
       </div>

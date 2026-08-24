@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { motion, useReducedMotion } from "motion/react";
-import { ProvenanceBanner } from "@/components/ProvenanceBanner";
 import { WT, itemVariants, stageVariants } from "../motion";
 
 export function ClosingScreen({ revealStep }: { revealStep: number }) {
@@ -14,40 +13,48 @@ export function ClosingScreen({ revealStep }: { revealStep: number }) {
       animate="shown"
       custom={reduced ? 0 : WT.stagger}
       variants={stageVariants}
-      className="mx-auto w-full max-w-[92ch] px-8 py-6 sm:px-12 lg:px-16 xl:px-20"
+      className="flex h-full min-h-0 w-full flex-1 flex-col items-center justify-center bg-[#10141a] px-8 py-10 text-center sm:px-12"
     >
       <motion.p
         variants={itemVariants}
         transition={itemTransition}
-        className="font-sans text-[13px] uppercase tracking-[0.08em] text-ink-soft"
+        className="font-sans text-[13px] uppercase tracking-[0.14em] text-[#7fa0bd]"
       >
-        What the seven experiments came to
+        Seven experiments later
       </motion.p>
 
       <motion.h2
         variants={itemVariants}
         transition={itemTransition}
-        className="mt-5 max-w-[46ch] font-serif text-[1.9rem] font-normal leading-[1.25] text-ink sm:text-[2.4rem]"
+        className="mt-6 max-w-[24ch] font-serif text-[2.4rem] font-normal leading-[1.15] text-white sm:text-[3.4rem]"
       >
-        Nothing generalized to unseen pairs. The relationship-specific hypothesis, the one this project was
-        built around, went the wrong way. The single comparison that reached significance was a negative one.
+        The relationship-specific signature we built this project to find never showed up.
       </motion.h2>
-
-      <motion.div variants={itemVariants} transition={itemTransition} className="mt-10 border border-hairline">
-        <ProvenanceBanner />
-      </motion.div>
 
       <motion.p
         variants={itemVariants}
         transition={itemTransition}
-        className="mt-10 font-serif text-[1.05rem] leading-[1.6] text-ink-soft"
+        className="mt-8 max-w-[52ch] font-serif text-[1.15rem] leading-[1.6] text-white/75"
       >
-        The per-dyad detail, the condition comparison in levels, and the sections still running on placeholder
-        data are all on the{" "}
-        <Link
-          to="/dashboard"
-          className="text-signal underline decoration-signal-soft decoration-2 underline-offset-4 hover:decoration-signal"
-        >
+        Nothing generalized to a pair the model hadn't already seen, and the one comparison that did reach
+        significance pointed the wrong way.
+      </motion.p>
+
+      <motion.p
+        variants={itemVariants}
+        transition={itemTransition}
+        className="mt-14 font-serif text-[1.6rem] font-normal text-[#8fb4d6] sm:text-[2rem]"
+      >
+        Thank you for following all seven through to the end.
+      </motion.p>
+
+      <motion.p
+        variants={itemVariants}
+        transition={itemTransition}
+        className="mt-10 font-sans text-[12px] text-white/45"
+      >
+        Per-dyad detail, condition comparisons, and technical notes are on the{" "}
+        <Link to="/dashboard" className="text-[#7fa0bd] underline decoration-[#7fa0bd]/50 underline-offset-4 hover:decoration-[#7fa0bd]">
           full dashboard
         </Link>
         .

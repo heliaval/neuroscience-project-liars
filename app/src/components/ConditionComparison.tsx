@@ -152,7 +152,7 @@ export function ConditionComparison({
 
   return (
     <figure className={fit ? "flex max-w-full flex-col lg:min-h-0 lg:flex-1" : "my-8 max-w-full overflow-x-auto"}>
-      {fit ? <div className="min-h-0 overflow-x-auto lg:flex-1 lg:[container-type:size]">{svg}</div> : svg}
+      {fit ? <div className="min-h-0 overflow-x-auto overflow-y-hidden lg:flex-1 lg:[container-type:size]">{svg}</div> : svg}
 
       <figcaption className="mt-4 shrink-0 font-mono text-[12px] text-ink-soft">
         {CONDITION_LABEL[selected]} selected: median {summary.median.toFixed(4)}, {summary.nAboveChance} of{" "}

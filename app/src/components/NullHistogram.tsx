@@ -34,7 +34,7 @@ export function NullHistogram({
 }) {
   const reduced = useReducedMotion();
   const width = 640;
-  const height = 240;
+  const height = 320;
   const marginLeft = 28;
   const marginRight = 28;
   const marginTop = 40;
@@ -60,7 +60,7 @@ export function NullHistogram({
 
   return (
     <figure className="flex max-w-full flex-col lg:min-h-0 lg:flex-1">
-      <div className="min-h-0 overflow-x-auto lg:flex-1 lg:[container-type:size]">
+      <div className="min-h-0 overflow-x-auto overflow-y-hidden lg:flex-1 lg:[container-type:size]">
       <svg
         viewBox={`0 0 ${width} ${height}`}
         role="img"

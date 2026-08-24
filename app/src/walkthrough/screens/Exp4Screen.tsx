@@ -26,16 +26,14 @@ export function Exp4Screen({ revealStep }: { revealStep: number }) {
       caveat={
         <>
           <Caveat>
-            <span className="block text-[0.9em] leading-[1.45]">
-              <span className="font-mono text-[0.95em] text-ink">{verdict}</span>. Two of this screen's numbers
-              point different directions and both are reported as they fell: the 95% CI is [
-              {test.ci95.lower?.toFixed(4)}, {test.ci95.upper?.toFixed(4)}], which excludes zero on the
-              negative side, while the sign test over the same {test.n} pairs gives p{" "}
-              {test.sign_test_p.toFixed(4)}, which does not reach significance. The permutation p is{" "}
-              {test.permutation_p.toFixed(4)}. A combined relationship-plus-population model does not fix it
-              either: the net familiarity index has a median of {nfi.median_delta.toFixed(4)} with{" "}
-              {nfi.n_positive} of {nfi.n} pairs positive.
-            </span>
+            <span className="font-mono text-[0.95em] text-ink">{verdict}</span>. Two of this screen's numbers
+            point different directions and both are reported as they fell: the 95% CI is [
+            {test.ci95.lower?.toFixed(4)}, {test.ci95.upper?.toFixed(4)}], which excludes zero on the
+            negative side, while the sign test over the same {test.n} pairs gives p{" "}
+            {test.sign_test_p.toFixed(4)}, which does not reach significance. The permutation p is{" "}
+            {test.permutation_p.toFixed(4)}. A combined relationship-plus-population model does not fix it
+            either: the net familiarity index has a median of {nfi.median_delta.toFixed(4)} with{" "}
+            {nfi.n_positive} of {nfi.n} pairs positive.
           </Caveat>
           <TechnicalDetails text={claim.technical} />
         </>
