@@ -5,6 +5,8 @@ import { Dashboard } from "@/routes/Dashboard";
 import { Walkthrough } from "@/walkthrough/Walkthrough";
 
 const GITHUB_REPO = "https://github.com/heliaval/neuroscience-project-liars";
+const REPORT_DOC =
+  "https://docs.google.com/document/d/14t2w2o-QyleDXb70hNdBxirVAnMybyngbeu_M6R5uuY/edit?tab=t.lr8mw0r8nie#heading=h.dplnxm61n8l7";
 
 /** A small centered utility row at the top of the viewport, plain words with no
  * background or border -- matches the floating nav text on motion.dev's site,
@@ -43,7 +45,7 @@ function TopNav() {
 
   return (
     <nav className="fixed top-4 left-1/2 z-50 flex -translate-x-1/2 gap-6 font-sans text-[11px] uppercase tracking-[0.1em] text-ink-faint">
-      <a href={`${GITHUB_REPO}/issues`} target="_blank" rel="noreferrer" className="hover:text-ink">
+      <a href={REPORT_DOC} target="_blank" rel="noreferrer" className="hover:text-ink">
         Report
       </a>
       <a href={GITHUB_REPO} target="_blank" rel="noreferrer" className="hover:text-ink">
