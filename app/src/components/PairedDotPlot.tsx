@@ -112,7 +112,7 @@ export function PairedDotPlot({
 
   return (
     <figure className={fit ? "flex max-w-full flex-col lg:min-h-0 lg:flex-1" : "my-8 max-w-full overflow-x-auto"}>
-      {fit ? <div className="min-h-0 overflow-x-auto overflow-y-hidden lg:flex-1 lg:[container-type:size]">{svg}</div> : svg}
+      {fit ? <div className="min-h-0 overflow-x-auto overflow-y-hidden lg:flex lg:flex-1 lg:flex-col lg:justify-end lg:[container-type:size]">{svg}</div> : svg}
 
       <figcaption className="mt-4 grid shrink-0 grid-cols-2 gap-x-6 gap-y-1 font-mono text-[12px] text-ink-soft sm:grid-cols-4">
         <span>median {test.median_delta.toFixed(4)}</span>

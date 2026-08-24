@@ -60,7 +60,7 @@ export function NullHistogram({
 
   return (
     <figure className="flex max-w-full flex-col lg:min-h-0 lg:flex-1">
-      <div className="min-h-0 overflow-x-auto overflow-y-hidden lg:flex-1 lg:[container-type:size]">
+      <div className="min-h-0 overflow-x-auto overflow-y-hidden lg:flex lg:flex-1 lg:flex-col lg:justify-end lg:[container-type:size]">
       <svg
         viewBox={`0 0 ${width} ${height}`}
         role="img"
@@ -95,8 +95,6 @@ export function NullHistogram({
               width={Math.max(1, binWidth - 1)}
               height={h}
               fill="var(--color-signal-soft)"
-              stroke="var(--color-hairline)"
-              strokeWidth={0.5}
               /* motion's initial/animate on SVG `height`+`y` together left the attribute
                * unset ("Expected length, undefined" console error) on the installed motion
                * version -- height/y are set as static final-geometry props instead, and the
