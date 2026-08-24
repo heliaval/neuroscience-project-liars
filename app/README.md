@@ -1,32 +1,21 @@
-# React + TypeScript + Vite
+# Walkthrough app
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+This is the judge-facing walkthrough for [Can Your Brain Learn a Liar?](../README.md). It presents experiments 1 through 7 as a guided sequence, one screen per experiment plus an opening and a closing screen.
 
-Currently, two official plugins are available:
+The app performs no inference. It reads `results/results.v1.json` through `src/data/source.ts`, the app's single point of contact with the results file, and renders precomputed numbers. There is no model running client-side, and no live computation of any kind.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Where the numbers come from
 
-## React Compiler
+`src/data/source.ts` imports `results/results.v1.json` directly and casts it to the `ResultsV1` type. That type lives at `src/types/results.v1.d.ts` and is generated from `results/schema/results.v1.schema.json`, not written by hand. If the schema changes, regenerate the type with `npm run gen:types` before touching any component that reads new fields.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Scripts
 
-## Expanding the Oxlint configuration
+- `npm run dev` starts the Vite dev server.
+- `npm run build` type-checks with `tsc -b` and produces a production build in `dist/`.
+- `npm run lint` runs oxlint.
+- `npm run preview` serves the production build locally.
+- `npm run gen:types` regenerates `src/types/results.v1.d.ts` from `results/schema/results.v1.schema.json`.
+- `npm run validate:fixture` checks `results/fixtures/results.v1.fixture.json` against the schema.
+- `npm run validate:results` checks the real `results/results.v1.json` against the schema. This is the same check `scripts/validate_results.py` runs from the Python side.
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
-```
-
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+For how the results file itself gets produced, see the root [README](../README.md#how-the-results-were-produced).
