@@ -27,7 +27,7 @@ export function ClosingScreen({ revealStep }: { revealStep: number }) {
         transition={itemTransition}
         className="mt-4 max-w-[36ch] font-serif text-[2.6rem] font-normal leading-[1.15] text-ink sm:text-[4.2rem]"
       >
-        According to the EEG data, we can't detect deception.
+        According to the EEG data, we achieved a null result.
       </motion.h2>
 
       <motion.p
