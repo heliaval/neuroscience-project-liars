@@ -5570,16 +5570,47 @@
         "lag_ms": -200,
         "deceiver_persistent_ms": null,
         "observer_persistent_ms": null,
-        "lag_ci95": [-500, 400],
+        "lag_ci95": [
+          -500,
+          400
+        ],
         "note": "Onset lag is descriptive; no causal interpretation is claimed (\u00a718). A lag between deceiver and observer onsets describes a difference in when each role's signal becomes decodable and is not evidence that information transferred between the two brains."
       },
       "sensitivity": {
         "window_scheme": "sensitivity_250ms_x2",
         "cells": [
-          { "window": "s1", "role": "deceiver", "auroc": 0.5011, "permutation_p": 0.47, "p_corrected": 1.0, "exceeds_null": false },
-          { "window": "s2", "role": "deceiver", "auroc": 0.4977, "permutation_p": 0.52, "p_corrected": 1.0, "exceeds_null": false },
-          { "window": "s1", "role": "observer", "auroc": 0.5033, "permutation_p": 0.41, "p_corrected": 1.0, "exceeds_null": false },
-          { "window": "s2", "role": "observer", "auroc": 0.4988, "permutation_p": 0.5, "p_corrected": 1.0, "exceeds_null": false }
+          {
+            "window": "s1",
+            "role": "deceiver",
+            "auroc": 0.5011,
+            "permutation_p": 0.47,
+            "p_corrected": 1.0,
+            "exceeds_null": false
+          },
+          {
+            "window": "s2",
+            "role": "deceiver",
+            "auroc": 0.4977,
+            "permutation_p": 0.52,
+            "p_corrected": 1.0,
+            "exceeds_null": false
+          },
+          {
+            "window": "s1",
+            "role": "observer",
+            "auroc": 0.5033,
+            "permutation_p": 0.41,
+            "p_corrected": 1.0,
+            "exceeds_null": false
+          },
+          {
+            "window": "s2",
+            "role": "observer",
+            "auroc": 0.4988,
+            "permutation_p": 0.5,
+            "p_corrected": 1.0,
+            "exceeds_null": false
+          }
         ]
       },
       "full_extent_anchor": {
@@ -5614,7 +5645,7 @@
         },
         "p_value": 0.004975124378109453
       },
-      "plain_language": "Pooled across all dyads, the model predicted deception better than random guessing, but only slightly.",
+      "plain_language": "Pooled across all dyads, the model beat chance at predicting deception, but not by much.",
       "technical": "Observed AUROC = 0.5338 vs permutation null mean 0.4998 (sd 0.0076); p = 0.0050."
     },
     "h1_lodo_generalization": {
@@ -5722,7 +5753,7 @@
           "sd": 0.04624909165000854
         }
       },
-      "plain_language": "Knowing the person's own prior trials did not reliably improve prediction over a general model. Results were split evenly, 5 pairs better and 5 worse.",
+      "plain_language": "Knowing someone's own prior trials didn't reliably beat a general model. It came out split down the middle, 5 pairs better, 5 worse.",
       "technical": "Median \u0394AUROC = 0.0035; sign test p = 1.0000; permutation p = 0.8665, n = 10 dyads."
     },
     "exp3_personalized_vs_population": {
@@ -5776,7 +5807,7 @@
           "sd": 0.05313975915222246
         }
       },
-      "plain_language": "Personalizing the model to an individual's own prior trials showed a small positive trend, but it was not statistically reliable.",
+      "plain_language": "Personalizing the model to someone's own prior trials nudged things up a little, but not reliably.",
       "technical": "Median \u0394AUROC = 0.0320 (95% CI -0.0038 to 0.0676); sign test p = 0.2266; permutation p = 0.1233, n = 11 dyads."
     },
     "h3_dyad_gain": {
@@ -5828,7 +5859,7 @@
           "sd": 0.01931557024982775
         }
       },
-      "plain_language": "Knowing the specific pair did not make deception easier to predict. In 8 of 10 pairs it made prediction slightly worse.",
+      "plain_language": "Knowing the specific pair didn't make deception any easier to predict. If anything it made things slightly worse, in 8 of 10 pairs.",
       "technical": "Median \u0394AUROC = -0.0185 (95% CI -0.0304 to -0.0028); sign test p = 0.1094; permutation p = 0.0518, n = 10 dyads."
     },
     "nfi_distribution": {
@@ -5881,7 +5912,7 @@
         },
         "median": -0.0162903160554283
       },
-      "plain_language": "Combining relationship-specific and general information did not consistently beat the general model alone. Only 3 of 10 pairs showed a positive combined benefit.",
+      "plain_language": "Combining relationship-specific and general information didn't consistently beat the general model on its own. Only 3 of 10 pairs came out ahead.",
       "technical": "Median NFI = -0.0163; sign test p = 0.3438; n = 10 dyads."
     },
     "exp5_learning_curve": {
@@ -6109,7 +6140,10 @@
           "lag_ms": -200,
           "deceiver_persistent_ms": null,
           "observer_persistent_ms": null,
-          "lag_ci95": [-500, 400],
+          "lag_ci95": [
+            -500,
+            400
+          ],
           "note": "Onset lag is descriptive; no causal interpretation is claimed (\u00a718). A lag between deceiver and observer onsets describes a difference in when each role's signal becomes decodable and is not evidence that information transferred between the two brains."
         }
       },
@@ -6131,11 +6165,31 @@
             "window": "w1",
             "n": 11,
             "dyad_ids": [
-              "sub03_sub06", "sub04_sub05", "sub07_sub08", "sub09_sub10",
-              "sub11_sub12", "sub13_sub14", "sub15_sub16", "sub17_sub18",
-              "sub19_sub22", "sub20_sub21", "sub23_sub24"
+              "sub03_sub06",
+              "sub04_sub05",
+              "sub07_sub08",
+              "sub09_sub10",
+              "sub11_sub12",
+              "sub13_sub14",
+              "sub15_sub16",
+              "sub17_sub18",
+              "sub19_sub22",
+              "sub20_sub21",
+              "sub23_sub24"
             ],
-            "deltas": [0.01, -0.02, 0.03, -0.01, 0.02, 0.0, -0.03, 0.01, -0.02, 0.02, -0.01],
+            "deltas": [
+              0.01,
+              -0.02,
+              0.03,
+              -0.01,
+              0.02,
+              0.0,
+              -0.03,
+              0.01,
+              -0.02,
+              0.02,
+              -0.01
+            ],
             "median_delta": 0.0,
             "n_positive": 5,
             "n_negative": 5,
@@ -6149,11 +6203,31 @@
             "window": "w2",
             "n": 11,
             "dyad_ids": [
-              "sub03_sub06", "sub04_sub05", "sub07_sub08", "sub09_sub10",
-              "sub11_sub12", "sub13_sub14", "sub15_sub16", "sub17_sub18",
-              "sub19_sub22", "sub20_sub21", "sub23_sub24"
+              "sub03_sub06",
+              "sub04_sub05",
+              "sub07_sub08",
+              "sub09_sub10",
+              "sub11_sub12",
+              "sub13_sub14",
+              "sub15_sub16",
+              "sub17_sub18",
+              "sub19_sub22",
+              "sub20_sub21",
+              "sub23_sub24"
             ],
-            "deltas": [0.0, 0.01, -0.01, 0.02, -0.02, 0.01, 0.0, -0.01, 0.02, -0.01, 0.01],
+            "deltas": [
+              0.0,
+              0.01,
+              -0.01,
+              0.02,
+              -0.02,
+              0.01,
+              0.0,
+              -0.01,
+              0.02,
+              -0.01,
+              0.01
+            ],
             "median_delta": 0.0,
             "n_positive": 5,
             "n_negative": 4,
@@ -6167,11 +6241,31 @@
             "window": "w3",
             "n": 11,
             "dyad_ids": [
-              "sub03_sub06", "sub04_sub05", "sub07_sub08", "sub09_sub10",
-              "sub11_sub12", "sub13_sub14", "sub15_sub16", "sub17_sub18",
-              "sub19_sub22", "sub20_sub21", "sub23_sub24"
+              "sub03_sub06",
+              "sub04_sub05",
+              "sub07_sub08",
+              "sub09_sub10",
+              "sub11_sub12",
+              "sub13_sub14",
+              "sub15_sub16",
+              "sub17_sub18",
+              "sub19_sub22",
+              "sub20_sub21",
+              "sub23_sub24"
             ],
-            "deltas": [0.02, -0.01, 0.0, 0.01, -0.02, 0.03, -0.01, 0.02, -0.01, 0.0, 0.01],
+            "deltas": [
+              0.02,
+              -0.01,
+              0.0,
+              0.01,
+              -0.02,
+              0.03,
+              -0.01,
+              0.02,
+              -0.01,
+              0.0,
+              0.01
+            ],
             "median_delta": 0.0,
             "n_positive": 5,
             "n_negative": 4,
@@ -6185,11 +6279,31 @@
             "window": "w4",
             "n": 11,
             "dyad_ids": [
-              "sub03_sub06", "sub04_sub05", "sub07_sub08", "sub09_sub10",
-              "sub11_sub12", "sub13_sub14", "sub15_sub16", "sub17_sub18",
-              "sub19_sub22", "sub20_sub21", "sub23_sub24"
+              "sub03_sub06",
+              "sub04_sub05",
+              "sub07_sub08",
+              "sub09_sub10",
+              "sub11_sub12",
+              "sub13_sub14",
+              "sub15_sub16",
+              "sub17_sub18",
+              "sub19_sub22",
+              "sub20_sub21",
+              "sub23_sub24"
             ],
-            "deltas": [-0.01, 0.02, 0.01, -0.02, 0.0, 0.01, -0.01, 0.02, -0.02, 0.01, 0.0],
+            "deltas": [
+              -0.01,
+              0.02,
+              0.01,
+              -0.02,
+              0.0,
+              0.01,
+              -0.01,
+              0.02,
+              -0.02,
+              0.01,
+              0.0
+            ],
             "median_delta": 0.0,
             "n_positive": 5,
             "n_negative": 4,
@@ -6203,11 +6317,31 @@
             "window": "w5",
             "n": 11,
             "dyad_ids": [
-              "sub03_sub06", "sub04_sub05", "sub07_sub08", "sub09_sub10",
-              "sub11_sub12", "sub13_sub14", "sub15_sub16", "sub17_sub18",
-              "sub19_sub22", "sub20_sub21", "sub23_sub24"
+              "sub03_sub06",
+              "sub04_sub05",
+              "sub07_sub08",
+              "sub09_sub10",
+              "sub11_sub12",
+              "sub13_sub14",
+              "sub15_sub16",
+              "sub17_sub18",
+              "sub19_sub22",
+              "sub20_sub21",
+              "sub23_sub24"
             ],
-            "deltas": [0.01, 0.0, -0.02, 0.03, -0.01, 0.02, 0.0, -0.01, 0.01, -0.02, 0.01],
+            "deltas": [
+              0.01,
+              0.0,
+              -0.02,
+              0.03,
+              -0.01,
+              0.02,
+              0.0,
+              -0.01,
+              0.01,
+              -0.02,
+              0.01
+            ],
             "median_delta": 0.0,
             "n_positive": 5,
             "n_negative": 4,

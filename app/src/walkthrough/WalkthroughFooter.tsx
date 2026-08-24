@@ -46,6 +46,7 @@ export function WalkthroughFooter({
       <div className="flex items-center gap-2.5">
         <button
           type="button"
+          id="wt-back-button"
           onClick={onBack}
           disabled={!canBack}
           className="font-sans text-[10px] leading-none text-signal underline decoration-signal-soft decoration-2 underline-offset-2 hover:decoration-signal disabled:cursor-default disabled:text-ink-faint disabled:no-underline"

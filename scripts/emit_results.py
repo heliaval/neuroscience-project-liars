@@ -280,7 +280,7 @@ tests = {
         "designation": "confirmatory",
         "supported": False,
         "result": e2["permutation_null"],
-        "plain_language": "A model trained on eleven pairs did not reliably predict deception in the twelfth, unseen pair.",
+        "plain_language": "A model trained on eleven pairs didn't reliably predict deception in the twelfth pair, the one it had never seen.",
         "technical": (
             f"LODO mean AUROC = {lr['mean']['auroc']:.4f} across 12 held-out dyads, "
             f"{lr['n_dyads_above_0.5_auroc']} above 0.5; within-dyad label-permutation "
@@ -296,7 +296,7 @@ tests = {
         **{k: fixture_tests["exp5_learning_curve"][k] for k in ("claim", "hypothesis", "experiment", "metric", "kind", "designation", "primary")},
         "supported": bool(exp5_median > 0 and exp5_perm_p < 0.05),
         "result": hg,
-        "plain_language": "Training on more of a pair's own history produced a small positive shift that was not statistically reliable.",
+        "plain_language": "Training on more of a pair's own history nudged things up a little, but not reliably.",
         "technical": (
             f"Median ΔAUROC (k=646 vs k=322, same-dyad) = {exp5_median:.4f}; "
             f"8 of 10 dyads positive; sign test p = {exp5_sign_p:.4f}; "
@@ -318,7 +318,7 @@ tests = {
         **{k: fixture_tests["exp7_observer_vs_deceiver"][k] for k in ("claim", "hypothesis", "experiment", "metric", "kind", "designation", "primary")},
         "supported": bbvd["supported"],
         "result": bbvd["result"],
-        "plain_language": "Adding the observer's brain to the deceiver's improved prediction in 7 of 11 pairs, but the improvement was not statistically reliable.",
+        "plain_language": "Adding the observer's brain to the deceiver's own boosted prediction in 7 of 11 pairs, but not reliably enough to trust.",
         "technical": (
             f"Median ΔAUROC (both brains minus deceiver only) = {exp7_median:.4f}; "
             f"sign test p = {exp7_sign_p:.4f}; permutation p = {exp7_perm_p:.4f}, n = 11 dyads. "

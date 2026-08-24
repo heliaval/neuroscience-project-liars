@@ -38,7 +38,7 @@ export function NullHistogram({
   const marginLeft = 28;
   const marginRight = 28;
   const marginTop = 40;
-  const baselineY = height - 52;
+  const baselineY = height - 24;
   const plotWidth = width - marginLeft - marginRight;
   const plotHeight = baselineY - marginTop;
 

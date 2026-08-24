@@ -155,7 +155,7 @@ export function Walkthrough() {
   const reducedMotion = useReducedMotion();
 
   return (
-    <div className="walkthrough flex h-[100dvh] flex-col overflow-hidden bg-paper">
+    <div className="walkthrough flex h-[100dvh] flex-col overflow-hidden">
       <main ref={mainRef} className="flex flex-1 flex-col overflow-y-auto" onClick={onStageClick}>
         {/* Screen-to-screen crossfade. Without this, swapping the fixed-height stage's
             content on Next was an instant cut -- the reveal animations inside a screen

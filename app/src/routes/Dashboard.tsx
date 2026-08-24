@@ -9,7 +9,7 @@ import { PerDyadPanel } from "@/sections/PerDyadPanel";
  * always rendered and must keep rendering. */
 export function Dashboard() {
   return (
-    <div className="min-h-[100dvh] bg-paper">
+    <div className="min-h-[100dvh]">
       <ProvenanceBanner />
       <main>
         <Opening />

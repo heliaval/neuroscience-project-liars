@@ -1,7 +1,7 @@
 {
   "meta": {
     "schema_version": "results.v1",
-    "generated_at": "2026-08-23T22:54:30.033885+00:00",
+    "generated_at": "2026-08-24T04:04:34.354689+00:00",
     "pipeline_git_describe": null,
     "dataset_checksum": null,
     "is_fixture": false,
@@ -13009,7 +13009,7 @@
         },
         "p_value": 0.004975124378109453
       },
-      "plain_language": "Pooled across all dyads, the model predicted deception better than random guessing, but only slightly.",
+      "plain_language": "Pooled across all dyads, the model beat chance at predicting deception, but not by much.",
       "technical": "Observed AUROC = 0.5338 vs permutation null mean 0.4998 (sd 0.0076); p = 0.0050."
     },
     "h1_lodo_generalization": {
@@ -13037,7 +13037,7 @@
         },
         "p_value": 0.05472636815920398
       },
-      "plain_language": "A model trained on eleven pairs did not reliably predict deception in the twelfth, unseen pair.",
+      "plain_language": "A model trained on eleven pairs didn't reliably predict deception in the twelfth pair, the one it had never seen.",
       "technical": "LODO mean AUROC = 0.5131 across 12 held-out dyads, 9 above 0.5; within-dyad label-permutation p = 0.0547 (200 permutations). exp1's pooled 0.5338 is an optimistically biased upper bound, not a matched comparison."
     },
     "h2_person_gain": {
@@ -13089,7 +13089,7 @@
           "sd": 0.04624909165000854
         }
       },
-      "plain_language": "Knowing the person's own prior trials did not reliably improve prediction over a general model. Results were split evenly, 5 pairs better and 5 worse.",
+      "plain_language": "Knowing someone's own prior trials didn't reliably beat a general model. It came out split down the middle, 5 pairs better, 5 worse.",
       "technical": "Median \u0394AUROC = 0.0035; sign test p = 1.0000; permutation p = 0.8665, n = 10 dyads."
     },
     "exp3_personalized_vs_population": {
@@ -13143,7 +13143,7 @@
           "sd": 0.05313975915222246
         }
       },
-      "plain_language": "Personalizing the model to an individual's own prior trials showed a small positive trend, but it was not statistically reliable.",
+      "plain_language": "Personalizing the model to someone's own prior trials nudged things up a little, but not reliably.",
       "technical": "Median \u0394AUROC = 0.0320 (95% CI -0.0038 to 0.0676); sign test p = 0.2266; permutation p = 0.1233, n = 11 dyads."
     },
     "h3_dyad_gain": {
@@ -13195,7 +13195,7 @@
           "sd": 0.01931557024982775
         }
       },
-      "plain_language": "Knowing the specific pair did not make deception easier to predict. In 8 of 10 pairs it made prediction slightly worse.",
+      "plain_language": "Knowing the specific pair didn't make deception any easier to predict. If anything it made things slightly worse, in 8 of 10 pairs.",
       "technical": "Median \u0394AUROC = -0.0185 (95% CI -0.0304 to -0.0028); sign test p = 0.1094; permutation p = 0.0518, n = 10 dyads."
     },
     "nfi_distribution": {
@@ -13248,7 +13248,7 @@
         },
         "median": -0.0162903160554283
       },
-      "plain_language": "Combining relationship-specific and general information did not consistently beat the general model alone. Only 3 of 10 pairs showed a positive combined benefit.",
+      "plain_language": "Combining relationship-specific and general information didn't consistently beat the general model on its own. Only 3 of 10 pairs came out ahead.",
       "technical": "Median NFI = -0.0163; sign test p = 0.3438; n = 10 dyads."
     },
     "exp5_learning_curve": {
@@ -13300,7 +13300,7 @@
           "sd": 0.0433499433405791
         }
       },
-      "plain_language": "Training on more of a pair's own history produced a small positive shift that was not statistically reliable.",
+      "plain_language": "Training on more of a pair's own history nudged things up a little, but not reliably.",
       "technical": "Median \u0394AUROC (k=646 vs k=322, same-dyad) = 0.0136; 8 of 10 dyads positive; sign test p = 0.1094; permutation p = 0.1718, n = 10 dyads."
     },
     "exp6_observer_early_late": {
@@ -13406,7 +13406,7 @@
           "sd": 0.02280742511266872
         }
       },
-      "plain_language": "Adding the observer's brain to the deceiver's improved prediction in 7 of 11 pairs, but the improvement was not statistically reliable.",
+      "plain_language": "Adding the observer's brain to the deceiver's own boosted prediction in 7 of 11 pairs, but not reliably enough to trust.",
       "technical": "Median \u0394AUROC (both brains minus deceiver only) = 0.0073; sign test p = 0.5488; permutation p = 0.2887, n = 11 dyads. Median AUROC by input set: deceiver 0.5145, observer 0.5166, both 0.5274, inter-brain 0.4880, EEG+behavioral 0.5142."
     }
   }

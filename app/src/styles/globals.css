@@ -32,7 +32,8 @@
   --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
 
   /* Paper / ink -- warm, not pure white/black */
-  --color-paper: #f7f5f0;
+  --color-paper-rgb: 240 237 229;
+  --color-paper: #f0ede5;
   --color-paper-raised: #efece3;
   --color-ink: #17140f;
   --color-ink-soft: #4a463d;
@@ -45,7 +46,8 @@
   --color-signal-soft: #cdd8de;
 
   /* Dark mode counterparts */
-  --color-paper-dark: #161512;
+  --color-paper-dark-rgb: 14 13 11;
+  --color-paper-dark: #0e0d0b;
   --color-paper-raised-dark: #201f1a;
   --color-ink-dark: #ede9de;
   --color-ink-soft-dark: #b8b3a4;
@@ -64,6 +66,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
+    --color-paper-rgb: var(--color-paper-dark-rgb);
     --color-paper: var(--color-paper-dark);
     --color-paper-raised: var(--color-paper-raised-dark);
     --color-ink: var(--color-ink-dark);
@@ -84,7 +87,19 @@
     font-family: var(--font-serif);
   }
   body {
-    background: var(--color-paper);
+    /* A translucent paper-color wash sits over the grain image so only a
+       little of it shows through -- controlled by the wash's own alpha, not
+       by blend-mode math against the base color. That keeps the grain
+       equally visible in both themes: a multiply blend on its own barely
+       shows a light-grey texture against a near-black dark-mode background. */
+    background-color: var(--color-paper);
+    background-image:
+      linear-gradient(rgba(var(--color-paper-rgb) / 0.86), rgba(var(--color-paper-rgb) / 0.86)),
+      url("/textures/paper.jpg");
+    background-repeat: no-repeat, no-repeat;
+    background-size: cover, cover;
+    background-position: center, center;
+    background-attachment: fixed, fixed;
     color: var(--color-ink);
     font-synthesis: none;
     -webkit-font-smoothing: antialiased;
